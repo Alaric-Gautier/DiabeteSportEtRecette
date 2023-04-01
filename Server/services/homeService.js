@@ -1,5 +1,5 @@
 const homeService = {
-    displayHome: (req, res) => {
+    async displayHome(req, res) {
         res.send("This is the home page.");
     }
 }
