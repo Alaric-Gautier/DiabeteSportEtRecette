@@ -9,10 +9,19 @@
   },
   "author": "Yannick&Alaric",
   "license": "ISC",
+  "eslintConfig": {
+    "extends": [
+      "./.config/.eslintrc.js"
+    ]
+  },
+  "prettier": "./.config/.prettierrc.js",
   "devDependencies": {
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
     "prisma": "^4.12.0"
+    "prettier": "^2.8.7"
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
