@@ -1,41 +1,54 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
-
-//! Doute que data.confirmPassword fonctionne, à tester
-//! Peut-être faire const {data, confirmPassword} = req.body; pour que ça fonctionne
+const moment = require("moment");
 
 const userService = {
     register: async (req, res) => {
         try {
-            const data = req.body;
-            // check if all fields are filled
-            if (!data) {
-                throw new Error("Please fill all fields");
+            const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword } =
+                req.body;
+            // check if all required fields are filled
+            if (!firstName || !lastName || !email || !birthDate || !is_diabetic || !password || !confirmPassword) {
+                throw new Error("All required fields are not filled");
             }
             // if email is already use, throw an error
-            if (await prisma.account.findUnique({ where: { email: data.email } })) {
+            if (await prisma.account.findUnique({ where: { email: email } })) {
                 throw new Error("Email already exists");
             }
             // check if email is valid
             const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-            if (!emailRegex.test(data.email)) {
-                throw new Error("Email is not valid");
+            if (!emailRegex.test(email)) {
+                throw new Error("Email format is not valid");
             }
             // check if password has at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-            if (!passwordRegex.test(data.password)) {
-                // TODO : add a message to explain why the password is not valid
-                throw new Error("Password is not valid");
-            }
+            // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            // if (!passwordRegex.test(password)) {
+            // TODO : add a message to explain why the password is not valid
+            //     throw new Error("Password is not valid");
+            // }
             // check if passwords match
-            if (data.password !== data.confirmPassword) {
+            if (password !== confirmPassword) {
                 throw new Error("Passwords do not match");
             }
+            // check if birthDate format is valid
+            if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
+                throw new Error("Birth date format is not valid, please use DD/MM/YYYY");
+            }
             // hash password
-            const hashedPassword = await bcrypt.hash(data.password, 10);
-
-            const user = await prisma.account.create({ data });
+            const hashedPassword = await bcrypt.hash(password, 10);
+            // create user
+            const user = await prisma.account.create({
+                data: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    birthDate: birthDate,
+                    is_diabetic: is_diabetic,
+                    diabetes_type: diabetes_type,
+                    password: hashedPassword,
+                },
+            });
             res.status(201).json(user);
         } catch (err) {
             res.status(400).json({ error: err.message });
@@ -43,15 +56,15 @@ const userService = {
     },
 
     getUserById: async (req, res) => {
-        const user = await prisma.account.findUniqueOrThrow({
+        const user = await prisma.account.findUnique({
             where: {
-                id: req.params.id,
+                id: parseInt(req.params.id),
             },
             include: {
                 roles: true,
-                sport_exercices: true,
+                sport_exercises: true,
                 recipes: true,
-                Reviews: true,
+                reviews: true,
             },
         });
         res.json(user);
