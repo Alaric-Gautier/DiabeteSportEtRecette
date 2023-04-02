@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 //! Peut-être faire const {data, confirmPassword} = req.body; pour que ça fonctionne
 
 const userService = {
-    async register(req, res) {
+    register: async (req, res) => {
         try {
             const data = req.body;
             // check if all fields are filled
@@ -14,7 +14,7 @@ const userService = {
                 throw new Error('Please fill all fields');
             }
             // if email is already use, throw an error
-            if (await prisma.account.findUnique({where: {email: data.email}})) {
+            if (await prisma.account.findUnique({ where: { email: data.email } })) {
                 throw new Error('Email already exists');
             }
             // check if email is valid
@@ -35,28 +35,27 @@ const userService = {
             // hash password
             const hashedPassword = await bcrypt.hash(data.password, 10);
 
-            const user = await prisma.account.create({data});
+            const user = await prisma.account.create({ data });
             res.status(201).json(user);
-        }
-        catch (err) {
-            res.status(400).json({error: err.message});
+        } catch (err) {
+            res.status(400).json({ error: err.message });
         }
     },
 
-    async getUserById(req, res) {
+    getUserById: async (req, res) => {
         const user = await prisma.account.findUniqueOrThrow({
             where: {
-                id: req.params.id
+                id: req.params.id,
             },
             include: {
                 roles: true,
-                sport_exercices: true, 
+                sport_exercices: true,
                 recipes: true,
                 Reviews: true,
-            }
+            },
         });
         res.json(user);
-    }
-}
+    },
+};
 
 module.exports = userService;
