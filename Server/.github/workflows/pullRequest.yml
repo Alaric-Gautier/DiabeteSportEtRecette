@@ -1,0 +1,14 @@
+name: pullRequest
+run-name: ${{ github.actor }} has made a pull request.
+
+on:
+  pull_request:
+    branches:[ main ]
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+    - name:
+      run:
+    
