@@ -2,27 +2,35 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const verif = require("../utils/tools");
+const { validateEmail, validatePassword, isEmpty } = require("../utils/tools");
 
 const userService = {
     register: async (req, res) => {
         try {
-            const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword } =
-                req.body;
+            const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword } = req.body;
             // check if all required fields are filled with isEmpty function
-            if (verif.isEmpty(firstName) || verif.isEmpty(lastName) || verif.isEmpty(email) || verif.isEmpty(birthDate) || verif.isEmpty(is_diabetic) || verif.isEmpty(password) || verif.isEmpty(confirmPassword)) {
+            if (
+                isEmpty(firstName) ||
+                isEmpty(lastName) ||
+                isEmpty(email) ||
+                isEmpty(birthDate) ||
+                isEmpty(is_diabetic) ||
+                isEmpty(password) ||
+                isEmpty(confirmPassword)
+            ) {
                 throw new Error("All required fields must be filled");
             }
+
             // if email is already use, throw an error
             if (await prisma.account.findUnique({ where: { email: email } })) {
                 throw new Error("Email already exists");
             }
 
             // check if email is valid
-            verif.validateEmail(email);
+            validateEmail(email);
 
             // check if password has at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character
-            verif.validatePassword(password);
+            validatePassword(password);
 
             // check if passwords match
             if (password !== confirmPassword) {
@@ -36,6 +44,7 @@ const userService = {
             if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
                 throw new Error("Birth date format is not valid, please use DD/MM/YYYY");
             }
+
             // create user
             const user = await prisma.account.create({
                 data: {
