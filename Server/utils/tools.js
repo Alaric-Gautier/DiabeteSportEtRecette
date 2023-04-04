@@ -41,6 +41,12 @@ const verif = {
             };
         }
     },
+    isEmpty: value => {
+        if (value === null || value === undefined) {
+            return true;
+        }
+        return false;
+    }
 };
 
 module.exports = verif;
