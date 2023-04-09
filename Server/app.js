@@ -1,4 +1,7 @@
 const express = require("express");
+const home = require("./routes/homeRoute");
+const user = require("./routes/userRoute");
+const recipe = require("./routes/recipeRoute");
 const cookieParser = require("cookie-parser");
 const app = express();
 const logger = require("morgan");
@@ -18,6 +21,7 @@ app.use(express.json());
 
 app.use(home);
 app.use(user);
+app.use(recipe);
 app.use(connect);
 
 module.exports = app;
