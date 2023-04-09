@@ -1,6 +1,7 @@
 const express = require("express");
 const home = require("./routes/homeRoute");
 const user = require("./routes/userRoute");
+const recipe = require("./routes/recipeRoute");
 const app = express();
 const logger = require("morgan");
 require("dotenv").config();
@@ -13,5 +14,6 @@ app.use(express.json());
 
 app.use(home);
 app.use(user);
+app.use(recipe);
 
 module.exports = app;

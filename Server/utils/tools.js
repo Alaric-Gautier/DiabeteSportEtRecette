@@ -2,7 +2,7 @@ const verif = {
     validateEmail: email => {
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         if (!emailRegex.test(email)) {
-            throw new Error("Email format is not valid");
+            throw new Error("Le format de l'adresse email est invalide");
         }
     },
     validatePassword: password => {
@@ -42,18 +42,36 @@ const verif = {
         //If the password doesn't fill the requirements, throw an error with codes
         if (errorCodes.length > 0) {
             throw {
-                message: "The password is not valid",
+                message: "Le mot de passe ne respecte pas les critères de sécurité",
                 errorCodes,
             };
         }
     },
-    isEmpty: value => {
-        // check the emptyness of the value
-        if (value === null || value === undefined) {
+    isEmpty: (...values) => {
+        for (const value of values) {
+            // check the emptyness of all values
+            if (value === null || value === undefined || value === "") {
+                throw new Error("Tous les champs requis doivent être remplis");
+            }
+        }
+    },
+    isString: value => {
+        // check if the value is a string with only letters
+        const stringRegex = /^[a-zA-Z'àâäéèêëîïôöùûüÿÇç', -]+$/;
+        if (stringRegex.test(value)) {
+            return true;
+        }
+        return false;  
+    },
+    isNumber: value => {
+        // check if the value is a number or empty
+        const numberRegex = /^[0-9]*$/;
+        if (numberRegex.test(value) || value === null || value === undefined) {
             return true;
         }
         return false;
     },
+
 };
 
 module.exports = verif;

@@ -9,17 +9,7 @@ const userService = {
         try {
             const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword } = req.body;
             // check if all required fields are filled with isEmpty function
-            if (
-                isEmpty(firstName) ||
-                isEmpty(lastName) ||
-                isEmpty(email) ||
-                isEmpty(birthDate) ||
-                isEmpty(is_diabetic) ||
-                isEmpty(password) ||
-                isEmpty(confirmPassword)
-            ) {
-                throw new Error("All required fields must be filled");
-            }
+            isEmpty(firstName, lastName, email, birthDate, is_diabetic, password, confirmPassword);
 
             // if email is already use, throw an error
             if (await prisma.account.findUnique({ where: { email: email } })) {
