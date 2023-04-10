@@ -8,10 +8,7 @@ const connectController = {
 
             // If the email is associated to an account, check the password and return the two tokens
             const { accessToken, refreshToken } = await connectService.login(email, password);
-            console.log("===============Controller===============");
-            console.log("accessToken ===", accessToken);
-            console.log("refreshToken ===", refreshToken);
-            console.log("========================================");
+
             // Create cookies with both tokens and send a message
             createCookie("accessToken", accessToken, 600, res);
             createCookie("refreshToken", refreshToken, 3600, res);
