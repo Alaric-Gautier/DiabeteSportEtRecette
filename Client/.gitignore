@@ -1,8 +1,0 @@
-# Node.js config
-node_modules
-
-# Vscode config
-.vscode
-
-# Environment variables
-.env
