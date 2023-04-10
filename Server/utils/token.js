@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const BlacklistToken = require("../models/BlacklistToken");
 
 // Create an access token
 createAccessToken = user => {
@@ -23,8 +24,23 @@ createCookie = (name, token, duration, res) => {
     res.cookie(name, token, cookieOptions);
 };
 
+addToBlacklist = async (token, expirationDate) => {
+    const blacklistedToken = new BlacklistToken({
+        token,
+        expirationDate,
+    });
+    await blacklistedToken.save();
+};
+
+isTokenBlacklisted = async token => {
+    const blacklistedToken = await BlacklistToken.findOne({ token });
+    return blacklistedToken !== null;
+};
+
 module.exports = {
     createAccessToken,
     createRefreshToken,
     createCookie,
+    addToBlacklist,
+    isTokenBlacklisted,
 };
