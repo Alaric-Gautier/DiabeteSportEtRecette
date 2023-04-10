@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 const { isEmpty, isString, isNumber } = require("../utils/tools");
 
 const recipeService = {
-    create: async ({ title, description, tag, glycemic_charge, duration, difficulty, images }) => {
+    create: async ({ title, description, tag, glycemic_charge, duration, difficulty, images, userId }) => {
         // check if all required fields are filled
         isEmpty(title, description, tag, glycemic_charge);
 
@@ -30,8 +30,7 @@ const recipeService = {
                 difficulty: difficulty,
                 author: {
                     connect: {
-                        // recupérer l'id de l'utilisateur connecté
-                        id: 2,
+                        id: parseInt(userId),
                     },
                 },
                 images: {

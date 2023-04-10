@@ -1,7 +1,4 @@
 const express = require("express");
-const home = require("./routes/homeRoute");
-const user = require("./routes/userRoute");
-const recipe = require("./routes/recipeRoute");
 const cookieParser = require("cookie-parser");
 const app = express();
 const logger = require("morgan");
@@ -11,6 +8,7 @@ require("dotenv").config();
 const home = require("./routes/homeRoute");
 const user = require("./routes/userRoute");
 const connect = require("./routes/connectRoute");
+const recipe = require("./routes/recipeRoute");
 
 // Configure the app
 app.use(logger("dev"));

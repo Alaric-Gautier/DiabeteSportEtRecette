@@ -8,7 +8,8 @@ const recipeController = {
             const { title, description, tag, glycemic_charge, duration, difficulty, images } = req.body;
 
             // Call the service to create a recipe
-            const recipe = await recipeService.create({ title, description, tag, glycemic_charge, duration, difficulty, images });
+            const userId = req.user.id;
+            const recipe = await recipeService.create({ title, description, tag, glycemic_charge, duration, difficulty, images, userId });
 
             res.status(201).json(recipe);
         } catch (err) {
