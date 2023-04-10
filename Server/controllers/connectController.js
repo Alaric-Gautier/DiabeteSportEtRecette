@@ -1,4 +1,5 @@
 const connectService = require("../services/connectService");
+const userService = require("../services/userService");
 
 const connectController = {
     login: async (req, res) => {
@@ -17,7 +18,18 @@ const connectController = {
             res.status(500).json({ message: "An unexpected error has occured" });
         }
     },
-    logout: () => {
+    logout: async (req, res) => {
+        try {
+            // TODO 1-Récupérer les tokens des cookies
+
+            // This will add the tokens to the blacklist in DataBase
+            const disconnected = await connectService.logout(accessToken, refreshToken);
+
+            // TODO 2-Supprimer les cookies
+            res.status(200).send(disconnected);
+        } catch (err) {
+            res.sendStatus(500);
+        }
         connectService.logout(req, res);
     },
 };
