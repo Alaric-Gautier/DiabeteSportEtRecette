@@ -37,6 +37,15 @@ const connectService = {
         }
     },
     logout: (req, res) => {
+        const accessToken = req.cookies.accessToken;
+        const refreshToken = req.cookies.refreshToken;
+
+        // Fonction pour ajouter les tokens en base de données...
+
+        // Delete the cookies
+        res.clearCookie("accessToken");
+        res.clearCookie("refreshToken");
+
         res.send({ message: "You have been successfully disconnected" });
     },
 };

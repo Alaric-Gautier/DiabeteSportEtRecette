@@ -20,7 +20,7 @@ createCookie = (name, token, duration, res) => {
         expires: new Date(Date.now() + duration * 1000), // Expires in 1h
         sameSite: "strict",
     };
-    res.cookie(`${name}`, token, cookieOptions);
+    res.cookie(name, token, cookieOptions);
 };
 
 module.exports = {

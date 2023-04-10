@@ -1,5 +1,11 @@
 const jwt = require("jsonwebtoken");
 const { createAccessToken, createCookie } = require("../utils/token");
+const BlacklistToken = require("../models/BlacklistToken");
+
+const isTokenBlacklisted = async token => {
+    const blacklistedToken = await BlacklistToken.findOne({ token });
+    return blacklistedToken !== null;
+};
 
 // Verify the access token
 const verifyAccessToken = (req, res, next) => {
