@@ -1,0 +1,11 @@
+# Node.js config
+node_modules
+
+# Environment variables
+.env
+
+# Vscode config
+.vscode
+
+# Schema Prisma db file
+prisma
