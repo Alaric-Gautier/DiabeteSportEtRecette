@@ -3,14 +3,13 @@ const { createAccessToken, createCookie, isTokenBlacklisted } = require("../util
 
 // Verify the access token
 const verifyAccessToken = async (req, res, next) => {
-    console.log("verify ?");
-    const token = req.cookies.accessToken;
-    console.log("token = ", token);
-    const isBlacklisted = await isTokenBlacklisted(token);
+    const accessToken = req.cookies.accessToken;
+    console.log("accessToken === ", accessToken);
+    const isBlacklisted = await isTokenBlacklisted(accessToken);
 
-    if (!token || isBlacklisted) return res.sendStatus(401);
+    if (!accessToken || isBlacklisted) return res.sendStatus(401);
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             return verifyRefreshToken(req, res, next);
         }
@@ -22,6 +21,7 @@ const verifyAccessToken = async (req, res, next) => {
 // Verify the refresh Token
 const verifyRefreshToken = async (req, res, next) => {
     const refreshToken = req.cookies.refreshToken;
+    console.log("refreshToken === ", refreshToken);
 
     const isBlacklisted = await isTokenBlacklisted(refreshToken);
 
@@ -31,7 +31,7 @@ const verifyRefreshToken = async (req, res, next) => {
         if (err) return res.redirect(301, "/login"); // TODO Je ne suis pas sûr du fonctionnement de la redirection... A vérifier...
         const newAccessToken = createAccessToken(user);
         req.user = user;
-        createCookie("accessToken", newAccessToken, 600, res);
+        createCookie("accessToken", newAccessToken, res);
         next();
     });
 };

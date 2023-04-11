@@ -109,6 +109,34 @@ const userService = {
             throw new Error("Une erreur s'est produite");
         }
     },
+    updateProfile: async (id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type) => {
+        if (email) {
+            const existingEmail = await prisma.account.findUnique({ where: { email } });
+
+            if (existingEmail) {
+                throw new Error("Un compte existe déjà avec cette adresse email");
+            }
+        }
+
+        const updatedUser = await prisma.account.update({
+            where: {
+                id,
+            },
+            data: {
+                firstName,
+                lastName,
+                email,
+                birthDate,
+                is_diabetic,
+                diabetes_type,
+            },
+        });
+        if (updatedUser) {
+            return updatedUser;
+        } else {
+            throw new Error("Une erreur s'est produite pendant la mise à jour");
+        }
+    },
 };
 
 module.exports = userService;

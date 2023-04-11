@@ -8,7 +8,7 @@ userRouter.post("/register", register);
 
 //protected
 userRouter.get("/user", verifyAccessToken, getUserById);
-userRouter.post("/user/changePassword", verifyAccessToken, changePassword); //? Est-ce qu'il est vraiment utile de garder "/user" ?
+userRouter.post("/user/changePassword", verifyAccessToken, changePassword);
 userRouter.put("/user/updateProfil", verifyAccessToken, updateProfile);
 
 module.exports = userRouter;

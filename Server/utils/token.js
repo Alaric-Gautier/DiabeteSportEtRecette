@@ -15,10 +15,10 @@ createRefreshToken = user => {
     });
 };
 
-createCookie = (name, token, duration, res) => {
+createCookie = (name, token, res) => {
     const cookieOptions = {
         httpOnly: true,
-        expires: new Date(Date.now() + duration * 1000), // Expires in 1h
+        expires: new Date(Date.now() + 3600 * 1000), // Expires in 1h
         sameSite: "strict",
     };
     res.cookie(name, token, cookieOptions);

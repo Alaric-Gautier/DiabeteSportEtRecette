@@ -24,7 +24,20 @@ const userController = {
             res.status(500).json({ message: error.message });
         }
     },
-    updateProfile: async (req, res) => {},
+    updateProfile: async (req, res) => {
+        try {
+            const { id } = req.user;
+            const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type } = req.body;
+
+            // Update user
+
+            const updatedUser = await userService.updateProfile(id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type);
+            res.status(200).json({ message: "Information correctement mises à jour", data: updatedUser });
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).json({ message: "Une erreur s'est produite. Veuillez réessayer" });
+        }
+    },
     getUserById: async (req, res) => {
         try {
             const userId = req.user.id;

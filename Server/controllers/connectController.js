@@ -1,5 +1,6 @@
 const connectService = require("../services/connectService");
 const { isEmpty } = require("../utils/tools");
+const { createCookie } = require("../utils/token");
 
 const connectController = {
     login: async (req, res) => {
@@ -10,8 +11,8 @@ const connectController = {
             const { accessToken, refreshToken } = await connectService.login(email, password);
 
             // Create cookies with both tokens and send a message
-            createCookie("accessToken", accessToken, 600, res);
-            createCookie("refreshToken", refreshToken, 3600, res);
+            createCookie("accessToken", accessToken, res);
+            createCookie("refreshToken", refreshToken, res);
             res.json({ message: "Successfully logged in" });
         } catch (err) {
             if ((err.message = "AccountError")) {
