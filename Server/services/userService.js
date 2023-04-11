@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const { validateEmail, validatePassword, isEmpty } = require("../utils/tools");
+const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/tools");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password }) => {
@@ -71,6 +71,43 @@ const userService = {
         });
 
         return user;
+    },
+    changePassword: async (id, oldPassword, newPassword, confirmPassword, lost) => {
+        // Input verifications
+        isEmpty(oldPassword, newPassword, confirmPassword);
+        passwordMatch(newPassword, confirmPassword);
+
+        if (!lost) {
+            // If it's not a forgotten password
+            const user = await prisma.account.findUnique({ where: { id } });
+            // Check if the oldPassword is correct
+            const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+            if (!isOldPasswordValid) {
+                throw new Error("Mot de passe incorrect");
+            }
+
+            if (newPassword === oldPassword) {
+                throw new Error("Vous ne pouvez pas utiliser le même mot de passe ");
+            }
+        }
+
+        validatePassword(newPassword);
+
+        // hash password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        const passwordChanged = await prisma.account.update({
+            where: {
+                id: id,
+            },
+            data: {
+                password: hashedPassword,
+            },
+        });
+
+        if (!passwordChanged) {
+            throw new Error("Une erreur s'est produite");
+        }
     },
 };
 

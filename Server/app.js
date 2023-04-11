@@ -20,9 +20,9 @@ app.use(express.json());
 
 // Configure the route
 
+app.use(connect);
 app.use(home);
 app.use(user);
 app.use(recipe);
-app.use(connect);
 
 module.exports = app;

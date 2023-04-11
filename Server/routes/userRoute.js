@@ -1,12 +1,14 @@
 const express = require("express");
-const router = express.Router();
-const user = require("../controllers/userController");
+const userRouter = express.Router();
+const { register, getUserById, changePassword, updateProfile } = require("../controllers/userController");
 const { verifyAccessToken } = require("../middlewares/authenticate");
 
 //public
-router.post("/register", user.register);
+userRouter.post("/register", register);
 
 //protected
-router.get("/user", verifyAccessToken, user.getUserById);
+userRouter.get("/user", verifyAccessToken, getUserById);
+userRouter.post("/user/changePassword", verifyAccessToken, changePassword); //? Est-ce qu'il est vraiment utile de garder "/user" ?
+userRouter.put("/user/updateProfil", verifyAccessToken, updateProfile);
 
-module.exports = router;
+module.exports = userRouter;

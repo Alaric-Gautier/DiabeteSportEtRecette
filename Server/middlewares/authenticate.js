@@ -3,8 +3,9 @@ const { createAccessToken, createCookie, isTokenBlacklisted } = require("../util
 
 // Verify the access token
 const verifyAccessToken = async (req, res, next) => {
-    const token = req.cookies.refreshToken;
-
+    console.log("verify ?");
+    const token = req.cookies.accessToken;
+    console.log("token = ", token);
     const isBlacklisted = await isTokenBlacklisted(token);
 
     if (!token || isBlacklisted) return res.sendStatus(401);

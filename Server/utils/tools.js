@@ -47,6 +47,12 @@ const verif = {
             };
         }
     },
+    passwordMatch: (password, confirmPassword) => {
+        console.log(typeof password, password, " = ", typeof confirmPassword, confirmPassword, " ? ", password === confirmPassword);
+        if (password !== confirmPassword) {
+            throw new Error("Les mots de passe ne correspondent pas");
+        }
+    },
     isEmpty: (...values) => {
         for (const value of values) {
             // check the emptyness of all values
@@ -61,7 +67,7 @@ const verif = {
         if (stringRegex.test(value)) {
             return true;
         }
-        return false;  
+        return false;
     },
     isNumber: value => {
         // check if the value is a number or empty
@@ -71,7 +77,6 @@ const verif = {
         }
         return false;
     },
-
 };
 
 module.exports = verif;
