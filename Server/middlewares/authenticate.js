@@ -1,18 +1,13 @@
 const jwt = require("jsonwebtoken");
-const { createAccessToken, createCookie } = require("../utils/token");
+const { createAccessToken, createCookie, isTokenBlacklisted } = require("../utils/token");
 
 // Verify the access token
-const verifyAccessToken = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    let token = authHeader && authHeader.split(" ")[1];
-    const newToken = req.cookies.accessToken;
+const verifyAccessToken = async (req, res, next) => {
+    const token = req.cookies.refreshToken;
 
-    if (newToken) {
-        token = newToken;
-    }
+    const isBlacklisted = await isTokenBlacklisted(token);
 
-    if (!token) return res.sendStatus(401);
-    console.log(token);
+    if (!token || isBlacklisted) return res.sendStatus(401);
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
@@ -24,10 +19,12 @@ const verifyAccessToken = (req, res, next) => {
 };
 
 // Verify the refresh Token
-const verifyRefreshToken = (req, res, next) => {
+const verifyRefreshToken = async (req, res, next) => {
     const refreshToken = req.cookies.refreshToken;
 
-    if (!refreshToken) return res.sendStatus(401);
+    const isBlacklisted = await isTokenBlacklisted(refreshToken);
+
+    if (!refreshToken || isBlacklisted) return res.sendStatus(401);
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) return res.redirect(301, "/login"); // TODO Je ne suis pas sûr du fonctionnement de la redirection... A vérifier...
