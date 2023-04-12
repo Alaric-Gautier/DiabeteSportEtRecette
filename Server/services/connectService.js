@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
 const { validateEmail } = require("../utils/tools");
+const { createError } = require("../utils/error");
 
 const connectService = {
     login: async (email, password) => {
@@ -14,16 +15,15 @@ const connectService = {
 
         // If no user has been found, throw an error
         if (!user) {
-            throw new Error("AccountError");
+            createError("Accountrror");
         }
 
         //Check if the password is correct
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         // If the password is not correct, throw an error
-        // TODO tester si mot de passe erronné, le compare fonctionne
         if (!isPasswordValid) {
-            throw new Error("AccountError");
+            createError("AccountError");
         }
 
         const accessToken = createAccessToken(user);
@@ -41,8 +41,7 @@ const connectService = {
 
             return true;
         } catch (err) {
-            console.error(err);
-            throw new Error("An unexpected Error has occured");
+            createError("logoutError");
         }
     },
 };
