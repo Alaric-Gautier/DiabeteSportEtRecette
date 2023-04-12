@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/tools");
+const { createError } = require("../utils/error");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password }) => {
@@ -11,7 +12,7 @@ const userService = {
 
         // if email is already use, throw an error
         if (await prisma.account.findUnique({ where: { email: email } })) {
-            throw new Error("Email already exists");
+            createError("ResourceConflictError", "Impossible de créer un compte car cet email est déjà utilisé");
         }
 
         // check if email is valid
@@ -25,7 +26,7 @@ const userService = {
 
         // check if birthDate format is valid
         if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
-            throw new Error("Birth date format is not valid, please use DD/MM/YYYY");
+            createError("ValidationError", "Le format de la date de naissance n'est pas valide. Veuillez utiliser JJ/MM/AAAA");
         }
 
         // create user
@@ -45,7 +46,6 @@ const userService = {
                 // }
             },
         });
-
         return user;
     },
     getUserById: async userId => {
@@ -60,9 +60,7 @@ const userService = {
                 reviews: true,
             },
         });
-
         return user;
-        // res.json(user);
     },
     getUserByMail: async email => {
         //Search the user from the DataBase
@@ -83,11 +81,11 @@ const userService = {
             // Check if the oldPassword is correct
             const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
             if (!isOldPasswordValid) {
-                throw new Error("Mot de passe incorrect");
+                createError("AccountError", "Le mot de passe actuel est erroné");
             }
 
             if (newPassword === oldPassword) {
-                throw new Error("Vous ne pouvez pas utiliser le même mot de passe ");
+                createError("ValidationError", "Vous ne pouvez pas réutiliser votre mot de passe actuel");
             }
         }
 
@@ -106,7 +104,7 @@ const userService = {
         });
 
         if (!passwordChanged) {
-            throw new Error("Une erreur s'est produite");
+            createError("updateError");
         }
     },
     updateProfile: async (id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type) => {
@@ -114,7 +112,7 @@ const userService = {
             const existingEmail = await prisma.account.findUnique({ where: { email } });
 
             if (existingEmail) {
-                throw new Error("Un compte existe déjà avec cette adresse email");
+                createError("ResourceConflictError", "Un compte existe déjà avec cette adresse email");
             }
         }
 
@@ -134,7 +132,7 @@ const userService = {
         if (updatedUser) {
             return updatedUser;
         } else {
-            throw new Error("Une erreur s'est produite pendant la mise à jour");
+            createError("updateError");
         }
     },
 };

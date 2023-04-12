@@ -1,8 +1,10 @@
+const { createError } = require("./error");
+
 const verif = {
     validateEmail: email => {
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         if (!emailRegex.test(email)) {
-            throw new Error("Le format de l'adresse email est invalide");
+            createError("ValidationError", "Le format de l'adresse email est invalide");
         }
     },
     validatePassword: password => {
@@ -41,23 +43,20 @@ const verif = {
 
         //If the password doesn't fill the requirements, throw an error with codes
         if (errorCodes.length > 0) {
-            throw {
-                message: "Le mot de passe ne respecte pas les critères de sécurité",
-                errorCodes,
-            };
+            createError("ValidationError", "Le mot de passe ne respecte pas les critères de sécurité", errorCodes);
         }
     },
     passwordMatch: (password, confirmPassword) => {
         console.log(typeof password, password, " = ", typeof confirmPassword, confirmPassword, " ? ", password === confirmPassword);
         if (password !== confirmPassword) {
-            throw new Error("Les mots de passe ne correspondent pas");
+            createError("ValidationError", "Les mots de passe ne correspondent pas");
         }
     },
     isEmpty: (...values) => {
         for (const value of values) {
             // check the emptyness of all values
             if (value === null || value === undefined || value === "") {
-                throw new Error("Tous les champs requis doivent être remplis");
+                createError("ValidationError", "Tous les champs requis doivent être remplis");
             }
         }
     },
