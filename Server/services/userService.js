@@ -2,8 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const { validateEmail, validatePassword, isEmpty } = require("../utils/tools");
-const { createError } = require("../utils/error");
+const { validateEmail, validatePassword, isEmpty } = require("../utils/validators");
+const { createError } = require("../utils/tools");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password }) => {

@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { isEmpty, isString, isNumber } = require("../utils/tools");
+const { isEmpty, isString, isNumber } = require("../utils/validators");
 
 const recipeService = {
     create: async ({ title, description, tag, glycemic_charge, duration, difficulty, images }) => {

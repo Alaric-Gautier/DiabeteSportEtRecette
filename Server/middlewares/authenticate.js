@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { createAccessToken, createCookie, isTokenBlacklisted } = require("../utils/token");
-const { createError } = require("../utils/error");
+const { createError } = require("../utils/tools");
 
 // Verify the access token
 const verifyAccessToken = async (req, res, next) => {
