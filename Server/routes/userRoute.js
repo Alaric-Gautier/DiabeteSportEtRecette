@@ -7,6 +7,6 @@ const { verifyAccessToken } = require("../middlewares/authenticate");
 router.post("/register", user.register);
 
 //protected
-router.get("/user/:id", verifyAccessToken, user.getUserById);
+router.get("/user", verifyAccessToken, user.getUserById);
 
 module.exports = router;

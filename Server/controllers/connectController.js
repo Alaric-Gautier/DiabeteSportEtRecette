@@ -1,8 +1,8 @@
 const connectService = require("../services/connectService");
-const userService = require("../services/userService");
+const { isEmpty } = require("../utils/tools");
 
 const connectController = {
-    login: async (req, res) => {
+    login: async (req, res, next) => {
         try {
             const { email, password } = req.body;
 
@@ -14,23 +14,29 @@ const connectController = {
             createCookie("refreshToken", refreshToken, 3600, res);
             res.json({ message: "Successfully logged in" });
         } catch (err) {
-            console.log(err);
-            res.status(500).json({ message: "An unexpected error has occured" });
+            next(err);
         }
     },
-    logout: async (req, res) => {
+    logout: async (req, res, next) => {
         try {
-            // TODO 1-Récupérer les tokens des cookies
+            const accessToken = req.cookies.accessToken;
+            const refreshToken = req.cookies.refreshToken;
 
             // This will add the tokens to the blacklist in DataBase
             const disconnected = await connectService.logout(accessToken, refreshToken);
 
-            // TODO 2-Supprimer les cookies
-            res.status(200).send(disconnected);
+            if (disconnected) {
+                // Delete the cookies
+                res.clearCookie("accessToken");
+                res.clearCookie("refreshToken");
+
+                res.status(200).send({ message: "You have been successfully disconnected" });
+            } else {
+                res.sendStatus(500);
+            }
         } catch (err) {
-            res.sendStatus(500);
+            next(err);
         }
-        connectService.logout(req, res);
     },
 };
 

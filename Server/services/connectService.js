@@ -1,10 +1,13 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
-const { createAccessToken, createRefreshToken, createCookie } = require("../utils/token");
+const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
+const { validateEmail } = require("../utils/tools");
+const { createError } = require("../utils/error");
 
 const connectService = {
     login: async (email, password) => {
+        validateEmail(email);
         //Search the user from the DataBase
         const user = await prisma.account.findUnique({
             where: { email },
@@ -12,7 +15,7 @@ const connectService = {
 
         // If no user has been found, throw an error
         if (!user) {
-            throw new Error("Wrong mail or password");
+            createError("Accountrror");
         }
 
         //Check if the password is correct
@@ -20,7 +23,7 @@ const connectService = {
 
         // If the password is not correct, throw an error
         if (!isPasswordValid) {
-            throw new Error("Wrong mail or password");
+            createError("AccountError");
         }
 
         const accessToken = createAccessToken(user);
@@ -28,8 +31,18 @@ const connectService = {
         return { accessToken, refreshToken };
     },
     logout: async (accessToken, refreshToken) => {
-        // 1- Ajouter les tokens actifs en base de données
-        return "You have been successfully disconnected";
+        try {
+            accessTokenExpiration = new Date(Date.now() + 600 * 1000);
+            refreshTokenExpiration = new Date(Date.now() + 3600 * 1000);
+
+            // Fonction pour ajouter les tokens en base de données...
+            await addToBlacklist(accessToken, accessTokenExpiration);
+            await addToBlacklist(refreshToken, refreshTokenExpiration);
+
+            return true;
+        } catch (err) {
+            createError("logoutError");
+        }
     },
 };
 
