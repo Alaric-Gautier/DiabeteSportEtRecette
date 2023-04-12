@@ -12,7 +12,7 @@ const userController = {
             next(err);
         }
     },
-    changePassword: async (req, res) => {
+    changePassword: async (req, res, next) => {
         try {
             const { oldPassword, newPassword, confirmPassword } = req.body;
             const { id } = req.user;
@@ -20,11 +20,14 @@ const userController = {
             // change password
             await userService.changePassword(id, oldPassword, newPassword, confirmPassword, false);
             res.status(200).json({ message: "Mot de passe correctement modifié" });
-        } catch (error) {
-            res.status(500).json({ message: error.message });
+        } catch (err) {
+            next(err);
         }
     },
-    updateProfile: async (req, res) => {
+    forgotPassword: (req, res, next) => {
+        const { email } = req.body;
+    },
+    updateProfile: async (req, res, next) => {
         try {
             const { id } = req.user;
             const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type } = req.body;
@@ -34,11 +37,9 @@ const userController = {
             const updatedUser = await userService.updateProfile(id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type);
             res.status(200).json({ message: "Information correctement mises à jour", data: updatedUser });
         } catch (error) {
-            console.error(error.message);
-            res.status(500).json({ message: "Une erreur s'est produite. Veuillez réessayer" });
+            next(err);
         }
     },
-    getUserById: async (req, res) => {
     getUserById: async (req, res, next) => {
         try {
             const userId = req.user.id;
