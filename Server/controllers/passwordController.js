@@ -1,5 +1,5 @@
 const { Module } = require("module");
-const { forgotPassword } = require("../services/passwordService");
+const { forgotPassword, resetPassword } = require("../services/passwordService");
 
 const passwordController = {
     forgotPassword: async (req, res, next) => {
@@ -16,7 +16,7 @@ const passwordController = {
         const { password, confirmPassword } = req.body;
 
         try {
-            await this.resetPassword(token, password, confirmPassword);
+            await resetPassword(token, password, confirmPassword);
             return res.status(200).json({ message: "Le mot de passe a correctement été réinitialisé" });
         } catch (err) {
             next(err);

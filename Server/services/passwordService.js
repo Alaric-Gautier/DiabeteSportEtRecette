@@ -21,31 +21,40 @@ const forgotPassword = async email => {
         `Cliquez sur le lien suivant ou collez-le dans votre navigateur pour terminer le processus :\n\n` +
         `${resetLink}` +
         `Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer ce message et votre mot de passe ne sera pas modifié.\n`;
+    try {
+        await prisma.account.update({
+            where: { email },
+            data: {
+                resetPasswordToken,
+                resetPasswordExpires,
+            },
+        });
 
-    await prisma.account.update({
-        where: { email },
-        data: {
-            resetPasswordToken,
-            resetPasswordExpires,
-        },
-    });
-
-    // Send password reset email with the link
-    await sendMail(email, subject, text);
+        // Send password reset email with the link
+        await sendMail(email, subject, text);
+    } catch (err) {
+        console.error(err);
+        createError("Error");
+    }
 };
 
 const resetPassword = async (token, password, confirmPassword) => {
     passwordMatch(password, confirmPassword);
 
     // Get user with the matching reset token until it expires
-    const user = await prisma.account.findUnique({
-        where: {
-            resetPasswordToken: token,
-            resetPasswordExpires: {
-                gte: new Date(),
+    try {
+        const user = await prisma.account.findUnique({
+            where: {
+                resetPasswordToken: token,
+                resetPasswordExpires: {
+                    gte: new Date(),
+                },
             },
-        },
-    });
+        });
+    } catch (err) {
+        console.error(err);
+        createError("Error");
+    }
 
     if (!user) {
         createError("notFound", "Le token n'est pas valide ou il a expiré. Veuillez renouveler votre demande");
