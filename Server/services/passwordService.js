@@ -59,7 +59,6 @@ const resetPassword = async (token, password, confirmPassword) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        console.log("user === ", user[0]);
         // Update user's password and reset token in DB
         await prisma.account.update({
             where: { email: user.email },
