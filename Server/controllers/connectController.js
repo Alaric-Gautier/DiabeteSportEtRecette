@@ -34,7 +34,7 @@ const connectController = {
         try {
             // If the user's account is already confirmed, no mail will be send
             if (!(await connectService.sendNewLink(email))) {
-                return res.status(204).json({ message: "Vous avez déjà confirmé votre compte. Veuillez vous connecter." });
+                return res.status(200).json({ message: "Vous avez déjà confirmé votre compte. Veuillez vous connecter." });
             }
             res.status(201).json({ message: "un mail de confirmation vous a été envoyé à l'adresse indiquée" });
         } catch (err) {

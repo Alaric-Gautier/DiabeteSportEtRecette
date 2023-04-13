@@ -149,6 +149,9 @@ const userService = {
             createError("updateError");
         }
     },
+    deleteAccount: async id => {
+        await prisma.account.delete({ where: { id } });
+    },
 };
 
 module.exports = userService;

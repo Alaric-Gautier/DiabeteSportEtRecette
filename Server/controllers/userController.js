@@ -1,4 +1,5 @@
 const userService = require("../services/userService");
+const { createError } = require("../utils/tools");
 
 const userController = {
     register: async (req, res, next) => {
@@ -51,6 +52,21 @@ const userController = {
             res.status(200).json(user);
         } catch (err) {
             next(err);
+        }
+    },
+    deleteAccount: async (req, res, next) => {
+        const { id } = req.user;
+        try {
+            // delete the user account
+            await userService.deleteAccount(id);
+
+            // Delete the cookies
+            res.clearCookie("accessToken");
+            res.clearCookie("refreshToken");
+            return res.sendStatus(204);
+        } catch (err) {
+            console.error(err);
+            createError("error", "Impossible de supprimer le compte. Une erreur interne s'est produite.");
         }
     },
 };
