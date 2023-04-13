@@ -43,7 +43,7 @@ const resetPassword = async (token, password, confirmPassword) => {
 
     // Get user with the matching reset token until it expires
     try {
-        const user = await prisma.account.findUnique({
+        const user = await prisma.account.findFirst({
             where: {
                 resetPasswordToken: token,
                 resetPasswordExpires: {
@@ -51,27 +51,28 @@ const resetPassword = async (token, password, confirmPassword) => {
                 },
             },
         });
+
+        if (!user) {
+            createError("notFound", "Le token n'est pas valide ou il a expiré. Veuillez renouveler votre demande");
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        console.log("user === ", user[0]);
+        // Update user's password and reset token in DB
+        await prisma.account.update({
+            where: { email: user.email },
+            data: {
+                password: hashedPassword,
+                resetPasswordToken: null,
+                resetPasswordExpires: null,
+            },
+        });
     } catch (err) {
         console.error(err);
         createError("Error");
     }
-
-    if (!user) {
-        createError("notFound", "Le token n'est pas valide ou il a expiré. Veuillez renouveler votre demande");
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Update user's password and reset token in DB
-    await prisma.account.update({
-        where: { email: user.email },
-        data: {
-            password: hashedPassword,
-            resetPasswordToken: null,
-            resetPasswordExpires: null,
-        },
-    });
 };
 
 module.exports = { forgotPassword, resetPassword };
