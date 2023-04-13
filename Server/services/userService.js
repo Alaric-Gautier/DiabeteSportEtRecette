@@ -3,8 +3,8 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 
-const { validateEmail, validatePassword, isEmpty } = require("../utils/tools");
-const { createError } = require("../utils/error");
+const { validateEmail, validatePassword, isEmpty } = require("../utils/validators");
+const { createError } = require("../utils/tools");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password }) => {
@@ -26,8 +26,8 @@ const userService = {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // check if birthDate format is valid
-        if (!moment(birthDate, "DD-MM-YYYY", true).isValid()) {
-            createError("ValidationError", "Le format de la date de naissance est invalide");
+        if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
+            createError("ValidationError", "Le format de la date de naissance est invalide, veuillez respecter le format DD/MM/YYYY");
         }
         
        

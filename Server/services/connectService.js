@@ -2,8 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
-const { validateEmail } = require("../utils/tools");
-const { createError } = require("../utils/error");
+const { validateEmail } = require("../utils/validators");
+const { createError } = require("../utils/tools");
 
 const connectService = {
     login: async (email, password) => {
@@ -15,7 +15,7 @@ const connectService = {
 
         // If no user has been found, throw an error
         if (!user) {
-            createError("Accountrror");
+            createError("AccountError");
         }
 
         //Check if the password is correct

@@ -7,5 +7,7 @@ const { verifyAccessToken } = require("../middlewares/authenticate");
 
 //protected
 router.post("/recipe/create", verifyAccessToken, recipe.create);
+router.put("/recipe/update/:id", verifyAccessToken, recipe.update);
+router.delete("/recipe/delete", verifyAccessToken, recipe.delete);
 
 module.exports = router;
