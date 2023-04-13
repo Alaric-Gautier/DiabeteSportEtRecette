@@ -2,13 +2,14 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const { validateEmail, validatePassword, isEmpty } = require("../utils/validators");
+const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/validators");
 const { createError } = require("../utils/tools");
 
 const userService = {
-    createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password }) => {
+    createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword }) => {
+        console.log(firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword);
         // check if all required fields are filled with isEmpty function
-        isEmpty(firstName, lastName, email, birthDate, is_diabetic, password);
+        isEmpty(firstName, lastName, email, birthDate, is_diabetic, password, confirmPassword);
 
         // if email is already use, throw an error
         if (await prisma.account.findUnique({ where: { email: email } })) {
@@ -17,6 +18,9 @@ const userService = {
 
         // check if email is valid
         validateEmail(email);
+
+        // confirm the password
+        passwordMatch(password, confirmPassword);
 
         // check if password has at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character
         validatePassword(password);

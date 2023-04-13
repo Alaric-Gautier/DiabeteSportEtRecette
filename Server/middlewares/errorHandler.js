@@ -1,4 +1,5 @@
 const errorHandler = (err, req, res, next) => {
+    const data = err.data;
     console.error(err.stack);
     switch (err.name) {
         case "AccountError":
@@ -14,7 +15,7 @@ const errorHandler = (err, req, res, next) => {
             res.status(401).json({ message: err.message || "Vous n'avez pas l'autorisation d'accéder à cette ressource" });
             break;
         case "ValidationError":
-            res.status(422).json({ message: err.message || "La saisie n'est pas valide." });
+            res.status(422).json({ message: err.message || "La saisie n'est pas valide.", data });
             break;
         default:
             res.status(500).json({ message: err.message || "Erreur serveur" });

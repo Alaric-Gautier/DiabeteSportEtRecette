@@ -3,10 +3,19 @@ const userService = require("../services/userService");
 const userController = {
     register: async (req, res, next) => {
         try {
-            const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password } = req.body;
+            const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword } = req.body;
 
             // create user
-            const user = await userService.createUser({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password });
+            const user = await userService.createUser({
+                firstName,
+                lastName,
+                email,
+                birthDate,
+                is_diabetic,
+                diabetes_type,
+                password,
+                confirmPassword,
+            });
             res.status(201).json(user);
         } catch (err) {
             next(err);
