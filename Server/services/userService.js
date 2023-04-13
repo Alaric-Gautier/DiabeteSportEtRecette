@@ -2,8 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/tools");
-const { createError } = require("../utils/error");
+const { validateEmail, validatePassword, isEmpty } = require("../utils/validators");
+const { createError } = require("../utils/tools");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password }) => {
@@ -60,6 +60,10 @@ const userService = {
                 reviews: true,
             },
         });
+
+        if (!user) {
+            createError("notFound", "Aucune information n'a été trouvée");
+        }
         return user;
     },
     getUserByMail: async email => {
@@ -68,25 +72,27 @@ const userService = {
             where: { email },
         });
 
+        if (!user) {
+            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+        }
+
         return user;
     },
-    changePassword: async (id, oldPassword, newPassword, confirmPassword, lost) => {
+    changePassword: async (id, oldPassword, newPassword, confirmPassword) => {
         // Input verifications
         isEmpty(oldPassword, newPassword, confirmPassword);
         passwordMatch(newPassword, confirmPassword);
 
-        if (!lost) {
-            // If it's not a forgotten password
-            const user = await prisma.account.findUnique({ where: { id } });
-            // Check if the oldPassword is correct
-            const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
-            if (!isOldPasswordValid) {
-                createError("AccountError", "Le mot de passe actuel est erroné");
-            }
+        // If it's not a forgotten password
+        const user = await prisma.account.findUnique({ where: { id } });
+        // Check if the oldPassword is correct
+        const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+        if (!isOldPasswordValid) {
+            createError("AccountError", "Le mot de passe actuel est erroné");
+        }
 
-            if (newPassword === oldPassword) {
-                createError("ValidationError", "Vous ne pouvez pas réutiliser votre mot de passe actuel");
-            }
+        if (newPassword === oldPassword) {
+            createError("ValidationError", "Vous ne pouvez pas réutiliser votre mot de passe actuel");
         }
 
         validatePassword(newPassword);

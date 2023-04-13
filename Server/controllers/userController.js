@@ -18,14 +18,11 @@ const userController = {
             const { id } = req.user;
 
             // change password
-            await userService.changePassword(id, oldPassword, newPassword, confirmPassword, false);
+            await userService.changePassword(id, oldPassword, newPassword, confirmPassword);
             res.status(200).json({ message: "Mot de passe correctement modifié" });
         } catch (err) {
             next(err);
         }
-    },
-    forgotPassword: (req, res, next) => {
-        const { email } = req.body;
     },
     updateProfile: async (req, res, next) => {
         try {

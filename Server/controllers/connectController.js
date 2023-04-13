@@ -1,6 +1,4 @@
 const connectService = require("../services/connectService");
-const { isEmpty } = require("../utils/tools");
-const { createCookie } = require("../utils/token");
 
 const connectController = {
     login: async (req, res, next) => {
