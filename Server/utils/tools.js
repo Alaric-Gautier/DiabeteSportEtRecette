@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const { createConfirmationCode } = require("./token");
 
 const createError = (name, message = "", data = null) => {
     const error = new Error(message);
@@ -32,4 +33,16 @@ const sendMail = async (to, subject, text) => {
     }
 };
 
-module.exports = { createError, sendMail };
+const sendConfirmationLink = async email => {
+    // Prepare the token and link to send to the user to confirm his account
+    const confirmationCode = createConfirmationCode(email);
+    const confirmationLink = `http://localhost:8000/confirmUser/${confirmationCode}`;
+
+    // Sending the mail
+    const subject = "Confirmation de votre compte";
+    const text = `Bienvenue sur Diabete Sport & Recettes.\n Cliquez sur le lien suivant pour confirmer votre compte : ${confirmationLink}. \nCe lien est valable 10min.`;
+
+    await sendMail(email, subject, text);
+};
+
+module.exports = { createError, sendMail, sendConfirmationLink };

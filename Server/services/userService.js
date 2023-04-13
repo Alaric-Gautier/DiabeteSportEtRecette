@@ -3,7 +3,8 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/validators");
-const { createError } = require("../utils/tools");
+const { createError, sendMail, sendConfirmationLink } = require("../utils/tools");
+const { createConfirmationCode } = require("../utils/token");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword }) => {
@@ -32,6 +33,9 @@ const userService = {
         if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
             createError("ValidationError", "Le format de la date de naissance n'est pas valide. Veuillez utiliser JJ/MM/AAAA");
         }
+
+        // create a token and send it to the user mail
+        await sendConfirmationLink(email);
 
         // create user
         const user = await prisma.account.create({
@@ -66,7 +70,7 @@ const userService = {
         });
 
         if (!user) {
-            createError("notFound", "Aucune information n'a été trouvée");
+            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
         return user;
     },

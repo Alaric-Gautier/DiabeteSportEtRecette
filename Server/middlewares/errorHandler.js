@@ -17,6 +17,9 @@ const errorHandler = (err, req, res, next) => {
         case "ValidationError":
             res.status(422).json({ message: err.message || "La saisie n'est pas valide.", data });
             break;
+        case "ReferenceError":
+            res.status(500).json({ message: "Erreur serveur" });
+            break;
         default:
             res.status(500).json({ message: err.message || "Erreur serveur" });
             break;

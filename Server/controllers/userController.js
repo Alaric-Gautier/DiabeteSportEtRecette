@@ -16,16 +16,15 @@ const userController = {
                 password,
                 confirmPassword,
             });
-            res.status(201).json(user);
+            res.status(201).json({ message: "un mail de confirmation vous a été envoyé à l'adresse indiquée", user });
         } catch (err) {
             next(err);
         }
     },
     changePassword: async (req, res, next) => {
+        const { oldPassword, newPassword, confirmPassword } = req.body;
+        const { id } = req.user;
         try {
-            const { oldPassword, newPassword, confirmPassword } = req.body;
-            const { id } = req.user;
-
             // change password
             await userService.changePassword(id, oldPassword, newPassword, confirmPassword);
             res.status(200).json({ message: "Mot de passe correctement modifié" });
@@ -34,10 +33,9 @@ const userController = {
         }
     },
     updateProfile: async (req, res, next) => {
+        const { id } = req.user;
+        const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type } = req.body;
         try {
-            const { id } = req.user;
-            const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type } = req.body;
-
             // Update user
 
             const updatedUser = await userService.updateProfile(id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type);
@@ -47,8 +45,8 @@ const userController = {
         }
     },
     getUserById: async (req, res, next) => {
+        const userId = req.user.id;
         try {
-            const userId = req.user.id;
             const user = await userService.getUserById(userId);
             res.status(200).json(user);
         } catch (err) {
