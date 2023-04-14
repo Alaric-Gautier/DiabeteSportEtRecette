@@ -16,57 +16,42 @@ jobs:
         working-directory: ./server
 
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Install Node.js 18.15.0
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.15.0
+    - name: Install Node.js 18.15.0
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.15.0
       
-      - name: Install dependencies
-        run: npm ci
+    - name: Install dependencies
+      run: npm ci
         
-      - name: Check librairies vulnerability
-        uses: github/codeql-action/analyze@v2
-        with:
-          languages: javascript
-          search-path: ./server
-        id: check-lib
+    - name: Check librairies vulnerability
+      uses: github/codeql-action/analyze@v2
+      with:
+        languages: javascript
+        search-path: ./server
+      id: check-lib
 
-      -name: Check code security
-        uses: githu/security-lab@v1
-        with:
-          languages: javascript
-          search-path: ./server
-        id: check-lib
+    - name: Check code security
+      uses: githu/security-lab@v1
+      with:
+        languages: javascript
+        search-path: ./server
+      id: check-lib
 
-      -name: Comment on PR
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Number of vulnerabilities: ${{ steps.check-lib.outputs.vulnerabilities }}
-            Number of high vulnerabilities: ${{ steps.check-lib.outputs.high }}
-            Number of moderate vulnerabilities: ${{ steps.check-lib.outputs.moderate }}
-            Number of low vulnerabilities: ${{ steps.check-lib.outputs.low }}
-            Number of info vulnerabilities: ${{ steps.check-lib.outputs.info }}
-        if: always()
+    - name: Comment on PR
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          Number of vulnerabilities: ${{ steps.check-lib.outputs.vulnerabilities }}
+          Number of high vulnerabilities: ${{ steps.check-lib.outputs.high }}
+          Number of moderate vulnerabilities: ${{ steps.check-lib.outputs.moderate }}
+          Number of low vulnerabilities: ${{ steps.check-lib.outputs.low }}
+          Number of info vulnerabilities: ${{ steps.check-lib.outputs.info }}
+      if: always()
 
-      - name: Fail if vulnerabilities found
-        run: exit ${{ steps.check-lib.outputs.vulnerabilities }}
-        if: ${{ steps.check-lib.outputs.vulnerabilities }} > 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    - name: Fail if vulnerabilities found
+      run: exit ${{ steps.check-lib.outputs.vulnerabilities }}
+      if: ${{ steps.check-lib.outputs.vulnerabilities }} > 0
