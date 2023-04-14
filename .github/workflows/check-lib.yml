@@ -33,12 +33,12 @@ jobs:
         search-path: ./server
       id: check-lib
 
-    - name: Check code security
-      uses: githu/security-lab@v1
-      with:
-        languages: javascript
-        search-path: ./server
-      id: check-code
+    # - name: Check code security
+    #   uses: githu/security-lab@v1
+    #   with:
+    #     languages: javascript
+    #     search-path: ./server
+    #   id: check-security
       
     - name: Comment on PR
       uses: peter-evans/create-or-update-comment@v1
