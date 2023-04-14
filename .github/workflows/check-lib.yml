@@ -25,7 +25,7 @@ jobs:
       
     - name: Install dependencies
       run: npm ci
-        
+
     - name: Check librairies vulnerability
       uses: github/codeql-action/analyze@v2
       with:
@@ -38,8 +38,8 @@ jobs:
       with:
         languages: javascript
         search-path: ./server
-      id: check-lib
-
+      id: check-code
+      
     - name: Comment on PR
       uses: peter-evans/create-or-update-comment@v1
       with:
