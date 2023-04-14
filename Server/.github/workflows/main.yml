@@ -1,0 +1,108 @@
+name: Build & Deploy app
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  client-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Node.js 18.15.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.0
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run test with Vitest
+        run: npm run vitest
+
+  server-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+
+  # comment faire des tests pour un db herbergée sur un serveur distant ?
+
+    env: 
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      # pas sûr que ça soit nécessaire
+      DB_PORT: ${{ secrets.DB_PORT }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Node.js 18.15.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.0
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run test with Jest ou autre ?
+        run: npm run test
+
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: [client-test, server-test]
+
+  # comment faire des tests pour un db herbergée sur un serveur distant ?
+
+    env: 
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      # pas sûr que ça soit nécessaire
+      DB_PORT: ${{ secrets.DB_PORT }}
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Start app
+        # utiliser docker-compose pour lancer l'app (client + server) avec un fichier docker-compose.yml
+        run: docker-compose up -d
+
+      - name: Run integration tests
+        # utiliser un fichier de test qui lance des requêtes sur l'app
+      
+      - name: Stop app
+        # utiliser docker-compose pour stopper l'app (client + server) avec un fichier docker-compose.yml
+        run: docker-compose down
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [integration-test]
+    if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+
+    strategy:
+      matrix:
+        component: [client, server]
+
+    permissions:
+      packages: write
+      contents: read
+    
+    steps:
+      -uses: actions/checkout@v3
+
+    
+    
+

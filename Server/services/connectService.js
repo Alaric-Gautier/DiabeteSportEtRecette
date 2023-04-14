@@ -15,7 +15,7 @@ const connectService = {
 
         // If no user has been found, throw an error
         if (!user) {
-            createError("Accountrror");
+            createError("AccountError");
         }
 
         //Check if the password is correct
