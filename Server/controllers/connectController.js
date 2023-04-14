@@ -1,5 +1,5 @@
 const connectService = require("../services/connectService");
-const { isEmpty } = require("../utils/tools");
+const { isEmpty } = require("../utils/validators");
 
 const connectController = {
     login: async (req, res, next) => {
