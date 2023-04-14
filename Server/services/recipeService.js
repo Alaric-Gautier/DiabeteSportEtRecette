@@ -54,6 +54,49 @@ const recipeService = {
         });
         return recipe;
     },
+    getRecipeById: async recipeId => {
+        // get recipe
+        const recipe = await prisma.recipe.findUnique({
+            where: {
+                id: parseInt(recipeId),
+            },
+            include: {
+                ingredients: true,
+                images: true,
+                reviews: true,
+                author: true,
+            },
+        });
+        return recipe;
+    },
+    getFiveMostRecentRecipes: async () => {
+        // get five most recent recipe
+        const recipes = await prisma.recipe.findMany({
+            take: 5,
+            orderBy: {
+                createdAt: "desc",
+            },
+            include: {
+                ingredients: true,
+                images: true,
+                reviews: false,
+                author: false,
+            },
+        });
+        return recipes;
+    },
+    getAllRecipes: async () => {
+        // get all recipes
+        const recipes = await prisma.recipe.findMany({
+            include: {
+                ingredients: true,
+                images: true,
+                reviews: false,
+                author: false,
+            },
+        });
+        return recipes;
+    },
     update: async ({ title, description, tag, glycemic_charge, duration, difficulty, images, recipeId }) => {
         // check if all required fields are filled
         isEmpty(title, description, tag, glycemic_charge);
@@ -104,7 +147,15 @@ const recipeService = {
         });
         return recipe;
     },
-        
+    delete: async recipeId => {
+        // delete recipe
+        const recipe = await prisma.recipe.delete({
+            where: {
+                id: parseInt(recipeId),
+            },
+        });
+        return recipe;
+    },
 };
 
 module.exports = recipeService;
