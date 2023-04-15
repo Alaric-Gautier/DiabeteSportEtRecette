@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: server
+        working-directory: Server
 
     steps:
     - uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         languages: javascript
-        search-path: server
+        search-path: Server
       id: check-lib
       
     # - name: Comment on PR
