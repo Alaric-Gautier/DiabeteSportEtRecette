@@ -41,7 +41,7 @@ jobs:
       id: check-security
       
     - name: Comment on PR
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
