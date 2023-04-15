@@ -28,10 +28,7 @@ jobs:
 
     - name: Check librairies vulnerability
       uses: github/codeql-action/analyze@v2
-      with:
-        languages: javascript
-        search-path: Server
-      id: check-lib
+      
       
     # - name: Comment on PR
     #   uses: peter-evans/create-or-update-comment@v1
