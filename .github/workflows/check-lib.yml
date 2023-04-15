@@ -34,14 +34,14 @@ jobs:
       id: check-lib
 
     - name: Check code security
-      uses: github/security-lab@v1
+      uses: github/security-lab@v2
       with:
         languages: javascript
         search-path: ./server
       id: check-security
       
     - name: Comment on PR
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v1
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
