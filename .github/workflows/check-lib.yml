@@ -34,7 +34,7 @@ jobs:
       id: check-lib
 
     - name: Check code security
-      uses: githu/security-lab@v1
+      uses: github/security-lab@v1
       with:
         languages: javascript
         search-path: ./server
