@@ -46,6 +46,13 @@ jobs:
           exit 0
         fi
 
+    - name: Comment on PR
+      if: ${{ always() }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: "Audit result : ${{ toJson(steps.audit.outputs) }}"
+
       
 
 
