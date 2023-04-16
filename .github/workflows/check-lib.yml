@@ -41,7 +41,8 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const octokit = require('@actions/github')
+          const githubAction = require('@actions/github')
+          const octokit = new github.getOctokit(process.env.GITHUB_TOKEN)
           const audit = "${{ steps.audit.outputs.stdout }}"
           if (audit.includes("found")) {
             octokit.issues.createComment({
