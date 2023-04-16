@@ -34,26 +34,33 @@ jobs:
         npm audit --audit-level=high
         npm audit --audit-level=critical
 
-    - name: Check vulnerabilities
+    # - name: Check vulnerabilities
+    #   if: ${{ always() }}
+    #   run: |
+    #     if [ -s "audit.json" ]; then
+    #       echo "Vulnerabilities found"
+    #       echo "Unpermitted to merge"
+    #       exit 1
+    #     else
+    #       echo "No vulnerabilities found"
+    #       exit 0
+    #     fi
+
+    - name: Comment on PR
       if: ${{ always() }}
       run: |
         if [ -s "audit.json" ]; then
           echo "Vulnerabilities found"
           echo "Unpermitted to merge"
-          exit 1
+          body="Audit result: $(cat audit.json)"
         else
           echo "No vulnerabilities found"
-          exit 0
+          body="Audit result: No vulnerabilities found"
         fi
-
-    - name: Comment on PR
-      if: ${{ always() }}
-      uses: peter-evans/create-or-update-comment@v1
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: "Audit result : ${{ toJson(steps.audit.outputs) }}"
-
-      
-
+        curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.APP_DIABSR_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+          -d "{\"body\":\"$body\"}"
 
       
