@@ -39,24 +39,29 @@ jobs:
     - name: Comment on pull request
       uses: actions/github-script@v5
       with:
-        
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const { github } = require('@actions/github')
-          const octokit = new github.getOctokit(process.env.GITHUB_TOKEN)
-          const audit = "${{ steps.audit.outputs.stdout }}"
-          if (audit.includes("found")) {
-            octokit.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "Vulnerabilities found"
+          const github = require('@actions/github')
+          const octokit = github.getOctokit(process.env.GITHUB_TOKEN)
+          const { context } = github
+          const { pull_request: pullRequest } = context.payload
+          const { number: issue_number } = pullRequest
+          const { data: comments } = await octokit.issues.listComments({
+            ...context.repo,
+            issue_number
+          })
+          const comment = comments.find(comment => comment.user.login === 'github-actions[bot]')
+          if (comment) {
+            await octokit.issues.updateComment({
+              ...context.repo,
+              comment_id: comment.id,
+              body: 'Vulnerabilities found'
             })
           } else {
-            octokit.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "No vulnerabilities found"
+            await octokit.issues.createComment({
+              ...context.repo,
+              issue_number,
+              body: 'No vulnerabilities found'
             })
           }
 
