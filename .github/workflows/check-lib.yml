@@ -33,7 +33,6 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
-        npm audit --json > audit.json
       continue-on-error: true
 
     - name: Comment on PR
@@ -53,18 +52,18 @@ jobs:
           https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
           -d "{\"body\":\"$body\"}"
     
-    # - name: Fail if vulnerabilities found
-    #   if: ${{ always() }}
-    #   uses: actions/github-script@v5
-    #   with:
-    #     script: |
-    #       if (context.payload.pull_request.merged == true) {
-    #         console.log('PR is merged, skipping')
-    #         return
-    #       }
-    #       const fs = require('fs')
-    #       const audit = JSON.parse(fs.readFileSync('audit.json', 'utf8'))
-    #       if (audit.metadata.vulnerabilities.low > 0 || audit.metadata.vulnerabilities.moderate > 0 || audit.metadata.vulnerabilities.high > 0 || audit.metadata.vulnerabilities.critical > 0) {
-    #         core.setFailed('Vulnerabilities found')
-    #       }
+    - name: Fail if vulnerabilities found
+      if: ${{ always() }}
+      uses: actions/github-script@v5
+      with:
+        script: |
+          if (context.payload.pull_request.merged == true) {
+            console.log('PR is merged, skipping')
+            return
+          }
+          const fs = require('fs')
+          const audit = JSON.parse(fs.readFileSync('audit.json', 'utf8'))
+          if (audit.metadata.vulnerabilities.low > 0 || audit.metadata.vulnerabilities.moderate > 0 || audit.metadata.vulnerabilities.high > 0 || audit.metadata.vulnerabilities.critical > 0) {
+            core.setFailed('Vulnerabilities found')
+          }
 
