@@ -16,6 +16,36 @@ const recipeController = {
             next(err);
         }
     },
+    getRecipeById: async (req, res, next) => {
+        try {
+            const recipeId = req.params.id;
+            // Call the service to get a recipe
+            const recipe = await recipeService.getRecipeById(recipeId);
+            res.status(200).json(recipe);
+        } catch (err) {
+            next(err);
+        }
+    },
+    getFiveMostRecentRecipes: async (req, res, next) => {
+        try {
+            // Call the service to get all recipes
+            const recipes = await recipeService.getFiveMostRecentRecipes();
+            res.status(200).json(recipes);
+        } catch (err) {
+            next(err);
+        }
+    },
+    getAllRecipes: async (req, res, next) => {
+        try {
+            // Call the service to get all recipes
+            const recipes = await recipeService.getAllRecipes();
+            res.status(200).json(recipes);
+        } catch (err) {
+            next(err);
+        }
+    },
+    //TODO getRecipesByTag peut être utilisé pour afficher les recettes par tag dans la page d'accueil
+
     update: async (req, res, next) => {
         try {
             // Get all fields from request body

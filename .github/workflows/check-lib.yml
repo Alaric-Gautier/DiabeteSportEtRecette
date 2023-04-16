@@ -1,0 +1,47 @@
+name: check librairies vulnerability
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  check-lib:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Server
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Node.js 18.15.0
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.15.0
+      
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Check librairies vulnerability
+      uses: github/codeql-action/analyze@v2
+      
+      
+    # - name: Comment on PR
+    #   uses: peter-evans/create-or-update-comment@v1
+    #   with:
+    #     issue-number: ${{ github.event.pull_request.number }}
+    #     body: |
+    #       Number of vulnerabilities: ${{ steps.check-lib.outputs.vulnerabilities }}
+    #       Number of high vulnerabilities: ${{ steps.check-lib.outputs.high }}
+    #       Number of moderate vulnerabilities: ${{ steps.check-lib.outputs.moderate }}
+    #       Number of low vulnerabilities: ${{ steps.check-lib.outputs.low }}
+    #       Number of info vulnerabilities: ${{ steps.check-lib.outputs.info }}
+    #   if: always()
+
+    # - name: Fail if vulnerabilities found
+    #   run: exit ${{ steps.check-lib.outputs.vulnerabilities }}
+    #   if: ${{ steps.check-lib.outputs.vulnerabilities }} > 0
