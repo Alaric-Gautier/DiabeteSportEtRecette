@@ -27,10 +27,11 @@ jobs:
       run: npm ci
 
     - name: Audit dependencies
-      run: npm audit --audit-level=low
-      run: npm audit --audit-level=moderate
-      run: npm audit --audit-level=high
-      run: npm audit --audit-level=critical
+      run: |
+      npm audit --audit-level=low
+      npm audit --audit-level=moderate
+      npm audit --audit-level=high
+      npm audit --audit-level=critical
       
 
     # if no vulnerabilities found, write no vulnerabilities found in the pull request
