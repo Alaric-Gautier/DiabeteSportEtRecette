@@ -38,13 +38,13 @@ jobs:
     # if no vulnerabilities found, write no vulnerabilities found in the comment area of the pull request and permitted to merge
     # else write the vulnerabilities found in the comment area of the pull request and unpermitted to merge
       -name: Comment on pull request
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ${{ steps.audit.outputs.audit }}
-        if: ${{ always() }}
-         env:
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          ${{ steps.audit.outputs.audit }}
+      if: ${{ always() }}
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     
