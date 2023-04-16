@@ -58,10 +58,8 @@ jobs:
           body="Audit result: No vulnerabilities found"
         fi
         curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Authorization: Bearer ${{ secrets.APP_DIABSR_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
-          -d "{\"body\":\"$body\"}"      
-
-
+          -d "{\"body\":\"$body\"}"
       
