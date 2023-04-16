@@ -41,18 +41,17 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const github = require('@actions/github')
-          const octokit = new github.getOctokit(process.env.GITHUB_TOKEN)
+          const octokit = require('@actions/github')
           const audit = "${{ steps.audit.outputs.stdout }}"
           if (audit.includes("found")) {
-            oktokit.issues.createComment({
+            octokit.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: "Vulnerabilities found"
             })
           } else {
-            oktokit.issues.createComment({
+            octokit.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
