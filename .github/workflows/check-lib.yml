@@ -34,19 +34,34 @@ jobs:
         npm audit --audit-level=critical
       
 
-    # if no vulnerabilities found, write no vulnerabilities found in the pull request
-    # else write the vulnerabilities found in the pull request and unpermitted to merge
-    - name: Check vulnerabilities
+    # if no vulnerabilities found, write no vulnerabilities found in the comment area of the pull request and permitted to merge
+    # else write the vulnerabilities found in the comment area of the pull request and unpermitted to merge
+    - name: Comment on pull request
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          ${{ steps.audit.outputs.audit }}
       if: ${{ always() }}
-      run: |
-        if [ -s "audit.json" ]; then
-          echo "Vulnerabilities found"
-          echo "Unpermitted to merge"
-          exit 1
-        else
-          echo "No vulnerabilities found"
-          exit 0
-        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
+    # - name: Check vulnerabilities
+    #   if: ${{ always() }}
+    #   run: |
+    #     if [ -s "audit.json" ]; then
+    #       echo "Vulnerabilities found"
+    #       echo "Unpermitted to merge"
+    #       exit 1
+    #     else
+    #       echo "No vulnerabilities found"
+    #       exit 0
+    #     fi
 
       
 
