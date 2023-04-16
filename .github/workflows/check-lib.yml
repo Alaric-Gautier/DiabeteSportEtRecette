@@ -41,31 +41,31 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const github = require('@actions/github')
-          const octokit = github.getOctokit(process.env.GITHUB_TOKEN)
-          const { context } = github
-          const { pull_request: pullRequest } = context.payload
-          const { number: issue_number } = pullRequest
-          const { data: comments } = await octokit.issues.listComments({
-            ...context.repo,
-            issue_number
-          })
-          const comment = comments.find(comment => comment.user.login === 'github-actions[bot]')
-          if (comment) {
-            await octokit.issues.updateComment({
+          async function run() {
+            const { context, github } = require('@actions/github');
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN)
+            const { pull_request: pullRequest } = context.payload
+            const { number: issue_number } = pullRequest
+            const { data: comments } = await octokit.issues.listComments({
               ...context.repo,
-              comment_id: comment.id,
-              body: 'Vulnerabilities found'
+              issue_number
             })
-          } else {
-            await octokit.issues.createComment({
-              ...context.repo,
-              issue_number,
-              body: 'No vulnerabilities found'
-            })
+            const comment = comments.find(comment => comment.user.login === 'github-actions[bot]')
+            if (comment) {
+              await octokit.issues.updateComment({
+                ...context.repo,
+                comment_id: comment.id,
+                body: 'Vulnérabilités trouvées'
+              })
+            } else {
+              await octokit.issues.createComment({
+                ...context.repo,
+                issue_number,
+                body: 'Aucune vulnérabilité trouvée'
+              })
+            }
           }
-
-
+          run()
 
 
     # - name: Check vulnerabilities
@@ -82,27 +82,5 @@ jobs:
 
       
 
-  # check-client-lib:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: Client
-
-  #   steps:
-  #   - uses: actions/checkout@v3
-
-  #   - name: Install Node.js 18.15.0
-  #     uses: actions/setup-node@v3
-  #     with:
-  #       node-version: 18.15.0
-      
-  #   - name: Install dependencies
-  #     run: npm ci
-
-  #   - name: Audit dependencies
-  #     run: npm audit --audit-level=low
-  #     run: npm audit --audit-level=moderate
-  #     run: npm audit --audit-level=high
-  #     run: npm audit --audit-level=critical
 
       
