@@ -1,29 +1,31 @@
 version: '3.8'
 
 services:
-  client:
-    build: ./client
-    networks:
-      app-network:
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./client:/app
-    command: npm run dev
-    env_file:
-      - .env
+  # client:
+  #   build: ./Client
+  #   networks:
+  #     app-network:
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./Client:/app
+  #   command: npm run dev
+    # env_file:
+    #   - ./Client/.env
 
   server:
-    build: ./server
+    build: ./Server
     networks:
       app-network:
         aliases:
           - api
     volumes:
-      - ./server:/app
+      - ./Server:/app
     command: npm run dev
+    ports:
+      - "8000:8000"
     env_file:
-      - .env
+      - ./Server/.env
 
 networks:
   app-network:

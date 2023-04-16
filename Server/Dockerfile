@@ -1,14 +1,15 @@
-FROM node:18-alpine
+FROM node:18.15.0-alpine
 
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers nécessaires dans le conteneur
-COPY package*.json ./
-COPY . .
+COPY package.json ./
 
 # Installer les dépendances
 RUN npm install
+
+# Copier les fichiers nécessaires dans le conteneur
+COPY . .
 
 # Exposer le port utilisé par le serveur
 EXPOSE 8000
