@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  client:
+    build: ./client
+    networks:
+      app-network:
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+    command: npm run dev
+    env_file:
+      - .env
+
+  server:
+    build: ./server
+    networks:
+      app-network:
+        aliases:
+          - api
+    volumes:
+      - ./server:/app
+    command: npm run dev
+    env_file:
+      - .env
+
+networks:
+  app-network:
+    driver: bridge
