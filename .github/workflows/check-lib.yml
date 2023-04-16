@@ -55,12 +55,16 @@ jobs:
     
     - name: Fail if vulnerabilities found
       if: ${{ always() }}
-      uses: dawidd6/action-fail-if-present@v3
+      uses: actions/github-script@v5
       with:
-        github_token: ${{ secrets.APP_DIABSR_TOKEN }}
-        message: "Vulnerabilities found"
-      continue-on-error: true
-      env:
-        VULNERABILITIES_FOUND: ${{ steps.audit.outputs.exitcode == 1 }}
-      
+        script: |
+          if (context.payload.pull_request.merged == true) {
+            console.log('PR is merged, skipping')
+            return
+          }
+          const fs = require('fs')
+          const audit = JSON.parse(fs.readFileSync('audit.json', 'utf8'))
+          if (audit.metadata.vulnerabilities.low > 0 || audit.metadata.vulnerabilities.moderate > 0 || audit.metadata.vulnerabilities.high > 0 || audit.metadata.vulnerabilities.critical > 0) {
+            core.setFailed('Vulnerabilities found')
+          }
 
