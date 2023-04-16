@@ -1,4 +1,4 @@
-name: check librairies vulnerability
+name: check dependencies vulnerabilities
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  check-lib:
+  check-server-lib:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -26,22 +26,50 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Check librairies vulnerability
-      uses: github/codeql-action/analyze@v2
+    - name: Audit dependencies
+      run: npm audit --audit-level=low
+      run: npm audit --audit-level=moderate
+      run: npm audit --audit-level=high
+      run: npm audit --audit-level=critical
       
-      
-    # - name: Comment on PR
-    #   uses: peter-evans/create-or-update-comment@v1
-    #   with:
-    #     issue-number: ${{ github.event.pull_request.number }}
-    #     body: |
-    #       Number of vulnerabilities: ${{ steps.check-lib.outputs.vulnerabilities }}
-    #       Number of high vulnerabilities: ${{ steps.check-lib.outputs.high }}
-    #       Number of moderate vulnerabilities: ${{ steps.check-lib.outputs.moderate }}
-    #       Number of low vulnerabilities: ${{ steps.check-lib.outputs.low }}
-    #       Number of info vulnerabilities: ${{ steps.check-lib.outputs.info }}
-    #   if: always()
 
-    # - name: Fail if vulnerabilities found
-    #   run: exit ${{ steps.check-lib.outputs.vulnerabilities }}
-    #   if: ${{ steps.check-lib.outputs.vulnerabilities }} > 0
+    # if no vulnerabilities found, write no vulnerabilities found in the pull request
+    # else write the vulnerabilities found in the pull request and unpermitted to merge
+    - name: Check vulnerabilities
+      if: ${{ always() }}
+      run: |
+        if [ -s "audit.json" ]; then
+          echo "Vulnerabilities found"
+          echo "Unpermitted to merge"
+          exit 1
+        else
+          echo "No vulnerabilities found"
+          exit 0
+        fi
+
+      
+
+  # check-client-lib:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: Client
+
+  #   steps:
+  #   - uses: actions/checkout@v3
+
+  #   - name: Install Node.js 18.15.0
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: 18.15.0
+      
+  #   - name: Install dependencies
+  #     run: npm ci
+
+  #   - name: Audit dependencies
+  #     run: npm audit --audit-level=low
+  #     run: npm audit --audit-level=moderate
+  #     run: npm audit --audit-level=high
+  #     run: npm audit --audit-level=critical
+
+      
