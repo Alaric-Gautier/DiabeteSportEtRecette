@@ -1,4 +1,4 @@
-name: check librairies vulnerability
+name: check dependencies vulnerabilities
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  check-lib:
+  check-server-lib:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -26,22 +26,27 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Check librairies vulnerability
-      uses: github/codeql-action/analyze@v2
-      
-      
-    # - name: Comment on PR
-    #   uses: peter-evans/create-or-update-comment@v1
-    #   with:
-    #     issue-number: ${{ github.event.pull_request.number }}
-    #     body: |
-    #       Number of vulnerabilities: ${{ steps.check-lib.outputs.vulnerabilities }}
-    #       Number of high vulnerabilities: ${{ steps.check-lib.outputs.high }}
-    #       Number of moderate vulnerabilities: ${{ steps.check-lib.outputs.moderate }}
-    #       Number of low vulnerabilities: ${{ steps.check-lib.outputs.low }}
-    #       Number of info vulnerabilities: ${{ steps.check-lib.outputs.info }}
-    #   if: always()
+    - name: Audit dependencies
+      id: audit
+      run: |
+        npm audit --audit-level=low
+        npm audit --audit-level=moderate
+        npm audit --audit-level=high
+        npm audit --audit-level=critical
 
-    # - name: Fail if vulnerabilities found
-    #   run: exit ${{ steps.check-lib.outputs.vulnerabilities }}
-    #   if: ${{ steps.check-lib.outputs.vulnerabilities }} > 0
+    - name: Comment on PR
+      if: ${{ always() }}
+      run: |
+        if [ -s "audit.json" ]; then
+          echo "Vulnerabilities found"
+          echo "Unpermitted to merge"
+          body="Audit result: $(cat audit.json) ❌🚨❌👎❌"
+        else
+          echo "No vulnerabilities found"
+          body="Audit result: No vulnerabilities found 👍 👏 🎉"
+        fi
+        curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.APP_DIABSR_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+          -d "{\"body\":\"$body\"}"
