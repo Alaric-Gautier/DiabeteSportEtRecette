@@ -55,7 +55,7 @@ jobs:
     
     - name: Fail if vulnerabilities found
       if: ${{ always() }}
-      uses: dawidd6/action-fail@v3
+      uses: dawidd6/action-fail-if-present@v3
       with:
         github_token: ${{ secrets.APP_DIABSR_TOKEN }}
         message: "Vulnerabilities found"
