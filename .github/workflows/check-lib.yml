@@ -26,9 +26,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Install required modules
-      run: npm install @actions/github
-
     - name: Audit dependencies
       id: audit
       run: |
