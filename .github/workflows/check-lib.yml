@@ -40,27 +40,25 @@ jobs:
       uses: actions/github-script@v5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
+      script: |
           const github = require('@actions/github')
-          const context = github.context
+          const octokit = new github.getOctokit(process.env.GITHUB_TOKEN)
           const audit = "${{ steps.audit.outputs.stdout }}"
           if (audit.includes("found")) {
-            github.issues.createComment({
+            oktokit.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: "Vulnerabilities found"
             })
           } else {
-            github.issues.createComment({
+            oktokit.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: "No vulnerabilities found"
             })
           }
-    
-
 
 
 
