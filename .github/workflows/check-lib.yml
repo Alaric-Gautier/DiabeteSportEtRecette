@@ -40,7 +40,7 @@ jobs:
       uses: actions/github-script@v5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-      script: |
+        script: |
           const github = require('@actions/github')
           const octokit = new github.getOctokit(process.env.GITHUB_TOKEN)
           const audit = "${{ steps.audit.outputs.stdout }}"
