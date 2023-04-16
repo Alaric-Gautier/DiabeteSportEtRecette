@@ -44,8 +44,8 @@ jobs:
         body: |
           ${{ steps.audit.outputs.audit }}
       if: ${{ always() }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     
 
