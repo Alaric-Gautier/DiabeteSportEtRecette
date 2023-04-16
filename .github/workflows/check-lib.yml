@@ -33,7 +33,7 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
-        npm audit --json > audit.json || true
+        npm audit --json > audit.json || exit 1
       continue-on-error: true
 
     - name: Comment on PR
