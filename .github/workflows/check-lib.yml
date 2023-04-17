@@ -30,7 +30,7 @@ jobs:
       id: audit
       run: |
         npm audit --json > audit.json
-        cat audit.json | jq 
+        cat audit.json | jq '.metadata.vulnerabilities'
       continue-on-error: true
 
     - name: Comment on PR
