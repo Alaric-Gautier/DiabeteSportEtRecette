@@ -28,14 +28,11 @@ jobs:
 
     - name: Audit dependencies
       id: audit
+      run: npm audit --json > audit.json
+      
+
+    - name: Comment on PR
       run: |
-        npm audit --audit-level=low
-        npm audit --audit-level=moderate
-        npm audit --audit-level=high
-        npm audit --audit-level=critical
-        npm audit --json > audit.json
-        # si des vulnérabilités sont trouvées, on crée un fichier json avec le résultat
-        # et on le commente dans la PR
         if [ -s "audit.json" ]; then
           echo "Vulnerabilities found"
           echo "Unpermitted to merge"
@@ -44,6 +41,12 @@ jobs:
           echo "No vulnerabilities found"
           body="npm audit: No vulnerabilities found 👍 👏 🎉"
         fi
+        curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+          -d "{\"body\":\"$body\"}"
+
 
    
         
