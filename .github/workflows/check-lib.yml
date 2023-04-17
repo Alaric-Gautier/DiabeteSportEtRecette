@@ -32,11 +32,6 @@ jobs:
         npm audit --json > audit.json
       continue-on-error: true
 
-# Get result of audit and comment it in the PR
-    - name: Comment on PR
-      run: |
-        echo "Vulnerabilities found"
-
       
 
 
