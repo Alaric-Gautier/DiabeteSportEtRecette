@@ -29,10 +29,13 @@ jobs:
     - name: Audit dependencies
       id: audit
       run: |
-        npm audit --audit-level=low
-        npm audit --audit-level=moderate
-        npm audit --audit-level=high
-        npm audit --audit-level=critical
+        npm audit --audit-level=low > audit-low.json
+        npm audit --audit-level=moderate > audit-moderate.json
+        npm audit --audit-level=high > audit-high.json
+        npm audit --audit-level=critical > audit-critical.json
+        audit.json = audit-low.json + audit-moderate.json + audit-high.json + audit-critical.json
+
+        
       continue-on-error: true
 
     - name: Comment on PR
