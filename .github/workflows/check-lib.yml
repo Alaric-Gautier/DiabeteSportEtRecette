@@ -34,20 +34,22 @@ jobs:
         npm audit --audit-level=high
         npm audit --audit-level=critical
         npm audit --json > audit.json
-        
       continue-on-error: true
 
+# Get result of audit and comment it in the PR
     - name: Comment on PR
-      if: ${{ always() }}
       run: |
-        if (npm audit --audit-level=low | grep "found 0 vulnerabilities") && (npm audit --audit-level=moderate | grep "found 0 vulnerabilities") && (npm audit --audit-level=high | grep "found 0 vulnerabilities") && (npm audit --audit-level=critical | grep "found 0 vulnerabilities"); then
+        const auditResult = ${{ steps.audit.outputs.result }}
+        if (auditResult === 'success') {
           echo "No vulnerabilities found"
           body="npm audit: No vulnerabilities found 👍 👏 🎉"
-        else
+        } else {
           echo "Vulnerabilities found"
           echo "Unpermitted to merge"
           body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
-        fi
+        }
+
+      
 
 
 
