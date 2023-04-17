@@ -33,10 +33,14 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
+      continue-on-error: true
         
 # récupérer le résultat dans un fichier json pour le commenter dans la PR 
     - name: Save audit result
       run: npm audit --json > audit.json
+
+    - name: Comment on PR
+    
 
 
 
