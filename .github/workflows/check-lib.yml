@@ -34,6 +34,7 @@ jobs:
         npm audit --audit-level=high
         npm audit --audit-level=critical
         npm audit --json > audit.json
+        echo "::set-output name=result::$(npm audit --json | grep -c '"vulnerabilities": {}')"
       continue-on-error: true
 
 # Get result of audit and comment it in the PR
