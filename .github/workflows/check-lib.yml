@@ -33,26 +33,38 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
-        npm audit --json > audit.json
-        echo "::set-output name=audit::$(cat audit.json)"
       continue-on-error: true
 
     - name: Comment on PR
       if: ${{ always() }}
       run: |
-        if [ -s "audit.json" ]; then
+        if (npm audit --audit-level=low | grep "found 0 vulnerabilities") && (npm audit --audit-level=moderate | grep "found 0 vulnerabilities") && (npm audit --audit-level=high | grep "found 0 vulnerabilities") && (npm audit --audit-level=critical | grep "found 0 vulnerabilities"); then
+          echo "No vulnerabilities found"
+          body="npm audit: No vulnerabilities found 👍 👏 🎉"
+        else
           echo "Vulnerabilities found"
           echo "Unpermitted to merge"
-          body="Audit result: $(cat audit.json) ❌🚨❌👎❌"
-        else
-          echo "No vulnerabilities found"
-          body="Audit result: No vulnerabilities found 👍 👏 🎉"
+          body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
         fi
-        curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
-          -d "{\"body\":\"$body\"}"
+
+
+
+
+
+
+# if [ -s "audit.json" ]; then
+        #   echo "Vulnerabilities found"
+        #   echo "Unpermitted to merge"
+        #   body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
+        # else
+        #   echo "No vulnerabilities found"
+        #   body="npm audit: No vulnerabilities found 👍 👏 🎉"
+        # fi
+        # curl -X POST \
+        #   -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
+        #   -H "Accept: application/vnd.github.v3+json" \
+        #   https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+        #   -d "{\"body\":\"$body\"}"
    
         
 # récupérer le résultat dans un fichier json pour le commenter dans la PR 
