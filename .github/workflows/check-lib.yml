@@ -33,8 +33,7 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
-      continue-on-error: true
-
+      
     - name: Comment on PR
       if: ${{ always() }}
       run: |
