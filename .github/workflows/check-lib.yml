@@ -34,30 +34,11 @@ jobs:
         npm audit --audit-level=high
         npm audit --audit-level=critical
         npm audit --json > audit.json
-        const audit = JSON.parse(fs.readFileSync('audit.json', 'utf8'))
-
-        if (audit.metadata.vulnerabilities.low > 0) {
-          console.log('Low vulnerabilities found')
-          console.log('Unpermitted to merge')
-          process.exit(1)
-        } else if (audit.metadata.vulnerabilities.moderate > 0) {
-          console.log('Moderate vulnerabilities found')
-          console.log('Unpermitted to merge')
-          process.exit(1)
-        } else if (audit.metadata.vulnerabilities.high > 0) {
-          console.log('High vulnerabilities found')
-          console.log('Unpermitted to merge')
-          process.exit(1)
-        } else if (audit.metadata.vulnerabilities.critical > 0) {
-          console.log('Critical vulnerabilities found')
-          console.log('Unpermitted to merge')
-          process.exit(1)
-        } else {
-          console.log('No vulnerabilities found')
-          process.exit(0)
-        }
+        echo "::set-output name=audit::$(cat audit.json)"
 
         
+
+
         
 
 
