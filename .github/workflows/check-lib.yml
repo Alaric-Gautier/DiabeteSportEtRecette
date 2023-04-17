@@ -41,10 +41,10 @@ jobs:
         if [ -s "audit.json" ]; then
           echo "Vulnerabilities found"
           echo "Unpermitted to merge"
-          body="Audit result: $(cat audit.json) ❌🚨❌👎❌"
+          body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
         else
           echo "No vulnerabilities found"
-          body="Audit result: No vulnerabilities found 👍 👏 🎉"
+          body="npm audit: No vulnerabilities found 👍 👏 🎉"
         fi
         curl -X POST \
           -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
