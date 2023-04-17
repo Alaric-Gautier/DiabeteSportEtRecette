@@ -33,6 +33,7 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
+        npm audit --json > audit.json
       
     - name: Comment on PR
       if: ${{ always() }}
