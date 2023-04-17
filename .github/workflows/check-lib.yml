@@ -33,7 +33,6 @@ jobs:
         npm audit --audit-level=moderate --json > audit.json
         npm audit --audit-level=high --json > audit.json
         npm audit --audit-level=critical --json > audit.json
-        echo "::set-output name=audit::$(cat audit.json)"
       
     - name: Comment on PR
       if: ${{ always() }}
