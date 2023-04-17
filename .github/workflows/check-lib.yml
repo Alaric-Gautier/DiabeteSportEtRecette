@@ -33,8 +33,7 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
-        cat audit.json
-
+        npm audit --json > audit.json
         
       continue-on-error: true
 
