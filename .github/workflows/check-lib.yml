@@ -29,11 +29,12 @@ jobs:
     - name: Audit dependencies
       id: audit
       run: |
-        npm audit --audit-level=low --json > audit.json
-        npm audit --audit-level=moderate --json > audit.json
-        npm audit --audit-level=high --json > audit.json
-        npm audit --audit-level=critical --json > audit.json
-      
+        npm audit --audit-level=low --json > low-audit.json
+        npm audit --audit-level=moderate --json > moderate-audit.json
+        npm audit --audit-level=high --json > high-audit.json
+        npm audit --audit-level=critical --json > critical-audit.json
+        cat*.json > audit.json
+
     - name: Comment on PR
       if: ${{ always() }}
       run: |
