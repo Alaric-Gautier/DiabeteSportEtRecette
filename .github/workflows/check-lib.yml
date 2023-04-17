@@ -32,6 +32,17 @@ jobs:
         npm audit --json > audit.json
       continue-on-error: true
 
+    - name: Comment on PR
+      if: ${{ always() }}
+      run: if [ -s "audit.json" ]; then 
+              echo "Vulnerabilities found"
+              echo "Unpermitted to merge" 
+              body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
+            else echo 
+              "No vulnerabilities found"
+              body="npm audit: No vulnerabilities found 👍 👏 🎉"
+            fi
+
       
 
 
