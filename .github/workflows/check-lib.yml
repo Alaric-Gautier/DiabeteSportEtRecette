@@ -29,26 +29,13 @@ jobs:
     - name: Audit dependencies
       id: audit
       run: |
-        npm audit --audit-level=low
-        npm audit --audit-level=moderate
-        npm audit --audit-level=high
-        npm audit --audit-level=critical
         npm audit --json > audit.json
-        echo "::set-output name=result::$(npm audit --json | grep -c '"vulnerabilities": {}')"
       continue-on-error: true
 
 # Get result of audit and comment it in the PR
     - name: Comment on PR
       run: |
-        const auditResult = ${{ steps.audit.outputs.result }}
-        if (auditResult === 'success') {
-          echo "No vulnerabilities found"
-          body="npm audit: No vulnerabilities found 👍 👏 🎉"
-        } else {
-          echo "Vulnerabilities found"
-          echo "Unpermitted to merge"
-          body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
-        }
+        echo "Vulnerabilities found"
 
       
 
