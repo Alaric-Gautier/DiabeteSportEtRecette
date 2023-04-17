@@ -26,20 +26,31 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Check vulnerabilities
+    - name: Audit dependencies
+      id: audit
       run: |
         npm audit --audit-level=low
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
-        if [ $? -eq 0 ]; then
-          echo "No vulnerabilities found"
-          body="npm audit: No vulnerabilities found 👍 👏 🎉"
-        else
+      continue-on-error: true
+
+    - name: Comment on PR
+      if: ${{ always() }}
+      run: |
+        if [ -s "audit.json" ]; then
           echo "Vulnerabilities found"
           echo "Unpermitted to merge"
-          body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
+          body="Audit result: $(cat audit.json) ❌🚨❌👎❌"
+        else
+          echo "No vulnerabilities found"
+          body="Audit result: No vulnerabilities found 👍 👏 🎉"
         fi
+        curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.APP_DIABSR_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+          -d "{\"body\":\"$body\"}"
    
         
 # récupérer le résultat dans un fichier json pour le commenter dans la PR 
