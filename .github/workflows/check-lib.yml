@@ -47,7 +47,6 @@ jobs:
           console.log("No vulnerabilities found");
           body="npm audit: No vulnerabilities found 👍 👏 🎉";
         }
-        fi
         curl -X POST \
           -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
