@@ -9,7 +9,7 @@ router.get("/recipes/recent", recipe.getFiveMostRecentRecipes);
 //protected
 router.get("/", verifyAccessToken, recipe.getAllRecipes);
 router.post("/create", verifyAccessToken, recipe.create);
-router.get("/:id", verifyAccessToken, recipe.get);
+router.get("/:id", verifyAccessToken, recipe.getRecipeById);
 router.put("/update/:id", verifyAccessToken, recipe.update);
 router.delete("/delete", verifyAccessToken, recipe.delete);
 
