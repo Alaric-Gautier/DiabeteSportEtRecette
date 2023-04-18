@@ -35,19 +35,34 @@ jobs:
     - name: Comment on PR
       if: ${{ always() }}
       run: |
-          if [ -s "audit.json" ]; then
-            echo "Vulnerabilities found"
-            echo "Unpermitted to merge" 
-            body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
-          else 
-            echo "No vulnerabilities found"
-            body="npm audit: No vulnerabilities found 👍 👏 🎉"
-          fi
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
-            -d "{\"body\":\"$body\"}"
+# parcourir le fichier audit.json
+        parseAudit = JSON.parse(fs.readFileSync('audit.json', 'utf8'));
+        return parseAudit;
+
+
+
+
+
+
+
+
+
+
+
+      # run: |
+      #     if [ -s "audit.json" ]; then
+      #       echo "Vulnerabilities found"
+      #       echo "Unpermitted to merge" 
+      #       body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
+      #     else 
+      #       echo "No vulnerabilities found"
+      #       body="npm audit: No vulnerabilities found 👍 👏 🎉"
+      #     fi
+      #     curl -X POST \
+      #       -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
+      #       -H "Accept: application/vnd.github.v3+json" \
+      #       https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+      #       -d "{\"body\":\"$body\"}"
 
       
 
