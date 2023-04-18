@@ -35,9 +35,7 @@ jobs:
     - name: Comment on PR
       if: ${{ always() }}
       run: |
-# parcourir le fichier audit.json
-        parseAudit = JSON.parse(fs.readFileSync('audit.json', 'utf8'));
-        return parseAudit;
+        echo "yo"
 
 
 
