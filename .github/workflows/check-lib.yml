@@ -29,7 +29,7 @@ jobs:
     - name: Audit dependencies
       id: audit
       run: |
-        npm audit 
+        npm audit --json > audit.json
       continue-on-error: true
 
     - name: Comment on PR
