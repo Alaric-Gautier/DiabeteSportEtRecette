@@ -2,14 +2,15 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-
-const { validateEmail, validatePassword, isEmpty } = require("../utils/validators");
-const { createError } = require("../utils/tools");
+const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/validators");
+const { createError, sendMail, sendConfirmationLink } = require("../utils/tools");
+const { createConfirmationCode } = require("../utils/token");
 
 const userService = {
-    createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password }) => {
+    createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword }) => {
+        console.log(firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword);
         // check if all required fields are filled with isEmpty function
-        isEmpty(firstName, lastName, email, birthDate, is_diabetic, password);
+        isEmpty(firstName, lastName, email, birthDate, is_diabetic, password, confirmPassword);
 
         // if email is already use, throw an error
         if (await prisma.account.findUnique({ where: { email: email } })) {
@@ -18,6 +19,9 @@ const userService = {
 
         // check if email is valid
         validateEmail(email);
+
+        // confirm the password
+        passwordMatch(password, confirmPassword);
 
         // check if password has at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character
         validatePassword(password);
@@ -29,8 +33,8 @@ const userService = {
         if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
             createError("ValidationError", "Le format de la date de naissance est invalide, veuillez respecter le format DD/MM/YYYY");
         }
-        
-       
+        // create a token and send it to the user mail
+        await sendConfirmationLink(email);
         // create user
         const user = await prisma.account.create({
             data: {
@@ -62,6 +66,10 @@ const userService = {
                 reviews: true,
             },
         });
+
+        if (!user) {
+            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+        }
         return user;
     },
     getUserByMail: async email => {
@@ -70,7 +78,77 @@ const userService = {
             where: { email },
         });
 
+        if (!user) {
+            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+        }
+
         return user;
+    },
+    changePassword: async (id, oldPassword, newPassword, confirmPassword) => {
+        // Input verifications
+        isEmpty(oldPassword, newPassword, confirmPassword);
+        passwordMatch(newPassword, confirmPassword);
+
+        // If it's not a forgotten password
+        const user = await prisma.account.findUnique({ where: { id } });
+        // Check if the oldPassword is correct
+        const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+        if (!isOldPasswordValid) {
+            createError("AccountError", "Le mot de passe actuel est erroné");
+        }
+
+        if (newPassword === oldPassword) {
+            createError("ValidationError", "Vous ne pouvez pas réutiliser votre mot de passe actuel");
+        }
+
+        validatePassword(newPassword);
+
+        // hash password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        const passwordChanged = await prisma.account.update({
+            where: {
+                id: id,
+            },
+            data: {
+                password: hashedPassword,
+            },
+        });
+
+        if (!passwordChanged) {
+            createError("updateError");
+        }
+    },
+    updateProfile: async (id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type) => {
+        if (email) {
+            const existingEmail = await prisma.account.findUnique({ where: { email } });
+
+            if (existingEmail) {
+                createError("ResourceConflictError", "Un compte existe déjà avec cette adresse email");
+            }
+        }
+
+        const updatedUser = await prisma.account.update({
+            where: {
+                id,
+            },
+            data: {
+                firstName,
+                lastName,
+                email,
+                birthDate,
+                is_diabetic,
+                diabetes_type,
+            },
+        });
+        if (updatedUser) {
+            return updatedUser;
+        } else {
+            createError("updateError");
+        }
+    },
+    deleteAccount: async id => {
+        await prisma.account.delete({ where: { id } });
     },
 };
 
