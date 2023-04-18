@@ -29,7 +29,7 @@ jobs:
     - name: Audit dependencies
       id: audit
       run: |
-        npm audit --json > audit.json
+        npm audit --registry=https://registry.npmjs.org/
       continue-on-error: true
 
     - name: Comment on PR
