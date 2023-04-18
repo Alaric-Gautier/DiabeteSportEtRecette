@@ -31,12 +31,10 @@ const userService = {
 
         // check if birthDate format is valid
         if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
-            createError("ValidationError", "Le format de la date de naissance n'est pas valide. Veuillez utiliser JJ/MM/AAAA");
+            createError("ValidationError", "Le format de la date de naissance est invalide, veuillez respecter le format DD/MM/YYYY");
         }
-
         // create a token and send it to the user mail
         await sendConfirmationLink(email);
-
         // create user
         const user = await prisma.account.create({
             data: {

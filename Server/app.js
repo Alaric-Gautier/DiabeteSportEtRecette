@@ -27,8 +27,8 @@ app.use(express.json());
 app.use(connect);
 app.use(home);
 app.use(user);
-app.use(recipe);
-app.use(forgotPassword);
+app.use("/recipe",recipe);
+app.use(connect);
 
 // Middleware which receive and handle all errors in app
 app.use(errorHandler);
