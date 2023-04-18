@@ -33,7 +33,7 @@ jobs:
         npm audit --audit-level=moderate
         npm audit --audit-level=high
         npm audit --audit-level=critical
-        cat audit.json | jq '.metadata.vulnerabilities'
+        
       continue-on-error: true
 
     - name: Comment on PR
