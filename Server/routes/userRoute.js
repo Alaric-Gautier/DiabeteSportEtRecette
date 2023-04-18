@@ -7,9 +7,9 @@ const { verifyAccessToken } = require("../middlewares/authenticate");
 userRouter.post("/register", register);
 
 //protected
-userRouter.get("/user", verifyAccessToken, getUserById);
-userRouter.post("/user/changePassword", verifyAccessToken, changePassword);
-userRouter.put("/user/updateProfil", verifyAccessToken, updateProfile);
-userRouter.delete("/user/deleteAccount", verifyAccessToken, deleteAccount);
+userRouter.get("/", verifyAccessToken, getUserById);
+userRouter.post("/changePassword", verifyAccessToken, changePassword);
+userRouter.put("/updateProfil", verifyAccessToken, updateProfile);
+userRouter.delete("/deleteAccount", verifyAccessToken, deleteAccount);
 
 module.exports = userRouter;

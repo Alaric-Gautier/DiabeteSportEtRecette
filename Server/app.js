@@ -24,11 +24,11 @@ app.use(express.json());
 
 // Configure the route
 
-app.use(connect);
+app.use("/", connect);
+app.use("/", forgotPassword)
 app.use(home);
-app.use(user);
-app.use("/recipe",recipe);
-app.use(connect);
+app.use("/user", user);
+app.use("/recipe", recipe);
 
 // Middleware which receive and handle all errors in app
 app.use(errorHandler);
