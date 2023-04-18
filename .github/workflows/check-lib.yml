@@ -31,14 +31,11 @@ jobs:
       run: |
         npm audit --json > audit.json
         parse_audit=$(cat audit.json | jq '.metadata.vulnerabilities')
-        echo "::set-output name=parse_audit::$parse_audit"
-      continue-on-error: true
+      
 
-    # - name: Comment on PR
-    #   if: ${{ always() }}
-    #   run: |
-    #     echo "yo"
+    
 
+      
 
 
 
