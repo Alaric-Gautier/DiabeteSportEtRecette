@@ -1,0 +1,1462 @@
+[
+    {
+        "name": "Abricot",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Abricot sec",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Abricot sirop (en boîte)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Acérola",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Agrave (sirop)",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Agneau ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Ail",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Airelle rouge (canneberge \/ cranberry) *",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Alcool",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Amande",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Amande (farine)",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Amande (lait)",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Amande (purée)",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Amarante",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Ananas (boîte, frais et jus)",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Anchois ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Anone",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Artichaut",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Asperge",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Aubergine",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Avocat",
+        "glycemic_index": 10
+    },
+    {
+        "name": "Avoine (flocons)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Avoine (lait)",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Baguette (pain blanc)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Banane (verte, jaune, mûre)",
+        "glycemic_index": "35, 45, 55"
+    },
+    {
+        "name": "Banane plantain (cuite)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Barre chocolatée sucrée",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Basilic",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Betterave (crue)",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Betterave (cuite) *",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Beurre de cacahuète (sans sucre ajouté)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Bière *",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Bière (levure)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Biscotte",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Biscuit",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Biscuit sablé",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Blé (farine blanche)",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Blé (farine complète)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Blé (farine intégrale)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Blé (germe)",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Blette",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Boeuf (steak, filet, entrecôte, etc.) ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Boudin ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Boulgour",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Boulgour complet",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Brioche",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Brocoli",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Brugnon",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Cacahuète",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Cacao en poudre (sans sucre)",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Café ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Canneberge (cranberry \/ airelle rouge) *",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Cannelle",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Carotte (crue)",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Carotte (cuite) *",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Cassis",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Cassoulet",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Céleri branche",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Céleri rave (cru)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Céleri rave (cuit) *",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Céréales complètes (sans sucre)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Céréales Corn Flakes (flocons de maïs)",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Céréales muesli avec sucre",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Céréales muesli sans sucre",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Céréales raffinées sucrées",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Céréales Special K",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Cerise",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Champagne ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Champignon",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Charcuterie (saucisson, salami, jambon…)",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Châtaigne",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Châtaigne (farine)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Chicorée (boisson)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Chips",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Chocolat en poudre (sucré)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Chocolat noir 70 % de cacao",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Chocolat noir 85 % de cacao",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Chou-fleur",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Choucroute",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Chou de Bruxelles",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Cidre (brut)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Citron",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Clémentine",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Cœur de palmier",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Coing",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Colas (sodas)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Concombre",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Confiture standard",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Cornichon",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Courgette",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Couscous (semoule)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Crabe",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Crème glacée classique (avec sucre)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Crème glacée fructose",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Crème fraîche",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Crevette",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Croissant",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Crustacés",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Datte",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Dinde ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Donut",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Echalote",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Endive",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Épeautre (farine intégrale)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Épeautre (farine raffinée)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Épices (herbes)",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Épinard",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Érable (sirop)",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Falafel (pois chiche)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Farine (plusieurs sortes)",
+        "glycemic_index": "Entre 20 et 95"
+    },
+    {
+        "name": "Farine d’amande",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Farine d’épeautre (intégrale)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Farine d’épeautre (raffinée)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Farine de blé (blanche)",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Farine de blé (complète)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Farine de blé (intégrale)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Farine de châtaigne (marron)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Farine de coco",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Farine de farro (intégrale)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Farine de kamut (intégrale)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Farine de maïs",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Farine de noisette",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Farine de pois chiche",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Farine de quinoa",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Farine de riz (complète)",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Farine de riz (raffinée)",
+        "glycemic_index": 95
+    },
+    {
+        "name": "Farine de sarrasin (intégrale)",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Farine de seigle (intégrale)",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Farine de soja",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Fécule de maïs (type maïzena)",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Fécule de pomme de terre",
+        "glycemic_index": 95
+    },
+    {
+        "name": "Fenouil",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Fève (crue)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Fève (cuite)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Figue",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Figue sèche",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Flageolet",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Flocon d'avoine",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Foie gras ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Fraise",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Framboise",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Frites (pomme de terre)",
+        "glycemic_index": 95
+    },
+    {
+        "name": "Fromage ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Fromage blanc **",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Fruit à pain (arbre à pain)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Fruit de la passion",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Fruits de mer ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Galette de riz",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Gaufre au sucre",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Gingembre",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Glucose",
+        "glycemic_index": 100
+    },
+    {
+        "name": "Gnocchi",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Goji (baie)",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Graines germées",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Graisse animale, végétale, margarine ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Grenade",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Groseille",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Haricot blanc",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Haricot borlotti",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Haricot coco",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Haricot mungo",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Haricot noir",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Haricot rouge",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Haricot rouge (boîte)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Haricot vert",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Herbes (épices)",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Houmous",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Huile (olive, tournesol, colza, etc.) ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Huitre",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Igname",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Jambon (blanc, cuit, fumé…) ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Kaki",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Kamut (intégral)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Ketchup",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Kiwi *",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Lactose",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Lait d’amande",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Lait d’avoine",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Lait de coco",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Lait de riz",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Lait de soja",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Lait de vache **",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Lait de vache en poudre **",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Lapin ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Lentilles brunes",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Lentilles jaunes",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Lentilles vertes",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Levure",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Lin (graines)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Litchi",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Lupin",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Maïs",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Maïs (farine)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Maïs (sirop)",
+        "glycemic_index": 115
+    },
+    {
+        "name": "Maïzena (fécule\/amidon de maïs)",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Maltodextrine",
+        "glycemic_index": 95
+    },
+    {
+        "name": "Mandarine",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Mangue",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Manioc",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Marmelade (sans sucre)",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Marmelade (sucrée)",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Marron (châtaigne)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Mars (barre chocolatée)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Mayonnaise industrielle",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Mayonnaise maison",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Mélasse",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Melon *",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Miel",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Millet",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Moule",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Moutarde (sans sucre ajouté)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Mouton ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Muesli (avec sucre)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Muesli (sans sucre)",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Mûre",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Myrtille (airelle)",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Navet (cru)",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Navet (cuit)*",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Nèfle",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Noisette",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Noisette (farine)",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Noix",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Noix de cajou",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Noix de coco",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Noix de pécan",
+        "glycemic_index": 10
+    },
+    {
+        "name": "Nouilles chinoises",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Oeuf ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Oignon",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Olive",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Orange",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Orange pressée (jus sans sucre)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Orge (mondé)",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Orge (perlé)",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Origan",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Oseille",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Ovomaltine",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Pain au chocolat",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Pain au lait",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Pain azyme (farine blanche)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Pain azyme (farine intégrale)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Pain blanc",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Pain blanc (sans gluten)",
+        "glycemic_index": 90
+    },
+    {
+        "name": "Pain complet",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Pain de mie (très blanc)",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Pain de riz",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Pain épeautre (intégral)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Pain essène",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Pain hamburger",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Pain intégral (levain pur)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Pain kamut",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Pain quinoa",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Pain seigle",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Pain Wasa léger",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Pain Wasa fibres",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Pamplemousse",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Panais *",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Papaye *",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Pastèque *",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Patate douce",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Pâtes (blé dur)",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Pâtes (blé tendre)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Pâtes (intégrales al dente)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Pâtes lasagnes (blé dur)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Pâte lasagnes (blé tendre)",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Pavot (graines)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Pêche",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Pêche (sirop, en boîte)",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Persil",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Pesto",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Petit pois (boîte)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Petit pois (frais)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Physalis",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Pignon de pin",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Piment",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Pistache",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Pizza",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Poire",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Poireau",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Pois cassés",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Pois chiches (frais, boîte et farine)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Poisson ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Poivre",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Poivron",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Polenta (semoule de maïs)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Pomme (fruit et compote)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Pomme de terre au four",
+        "glycemic_index": 95
+    },
+    {
+        "name": "Pomme de terre cuite à l’eau (avec peau)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Pomme de terre en purée",
+        "glycemic_index": 80
+    },
+    {
+        "name": "Pomme de terre fécule",
+        "glycemic_index": 95
+    },
+    {
+        "name": "Pomme de terre frite",
+        "glycemic_index": 95
+    },
+    {
+        "name": "Pop corn (sans sucre)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Porc ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Potiron *",
+        "glycemic_index": 75
+    },
+    {
+        "name": "Poudre chocolatée (sucrée)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Poulet ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Pousse de bambou",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Prune",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Pruneau",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Quinoa",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Quinoa (farine)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Radis",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Raisin",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Raisin sec",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Ratatouille (sans sucre)",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Ravioli (blé dur)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Ravioli (blé tendre)",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Rhubarbe",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Risotto",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Riz (farine complète \/ raffinée)",
+        "glycemic_index": "75 \/ 95"
+    },
+    {
+        "name": "Riz (lait)",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Riz au lait (sucré)",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Riz basmati",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Riz blanc standard",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Riz complet",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Riz rouge",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Riz sauvage",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Riz soufflé (galette de riz)",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Rutabaga",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Salade (laitue, frisée, mâche…)",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Salsifis",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Sardine ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Sarrasin",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Saucisse (animale) ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Saucisson (animal) ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Saumon ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Seigle intégral",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Semoule",
+        "glycemic_index": 60
+    },
+    {
+        "name": "Semoule complète",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Semoule intégrale",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Sésame (graines)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Soja (farine)",
+        "glycemic_index": 25
+    },
+    {
+        "name": "Soja (graines)",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Soja (lait)",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Soja (sauce, sans sucre)",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Soja (yaourt nature)",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Son (blé, avoine)",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Sorbet (sans sucre)",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Sorbet (sucré)",
+        "glycemic_index": 65
+    },
+    {
+        "name": "Spaghettis (al dente)",
+        "glycemic_index": 45
+    },
+    {
+        "name": "Spaghettis (bien cuites)",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Sucre blanc, roux, complet, intégral",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Surimi",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Sushi",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Tacos",
+        "glycemic_index": 70
+    },
+    {
+        "name": "Tagliatelles (bien cuites)",
+        "glycemic_index": 55
+    },
+    {
+        "name": "Tahin",
+        "glycemic_index": 40
+    },
+    {
+        "name": "Tamari (sauce, sans sucre)",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Tamarin doux",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Tapioca",
+        "glycemic_index": 85
+    },
+    {
+        "name": "Tempeh",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Tofu (soja)",
+        "glycemic_index": 15
+    },
+    {
+        "name": "Tomate",
+        "glycemic_index": 30
+    },
+    {
+        "name": "Tomate en sauce, coulis (avec sucre \/ sans sucre)",
+        "glycemic_index": "45 \/ 35"
+    },
+    {
+        "name": "Tomate séchée",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Topinambour",
+        "glycemic_index": 50
+    },
+    {
+        "name": "Tournesol (graines)",
+        "glycemic_index": 35
+    },
+    {
+        "name": "Thé ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Thon ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Tisane ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Vanille",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Viande et volaille ***",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Vin rouge, blanc",
+        "glycemic_index": 0
+    },
+    {
+        "name": "Vinaigre",
+        "glycemic_index": 5
+    },
+    {
+        "name": "Yaourt nature (lait de soja) **",
+        "glycemic_index": 20
+    },
+    {
+        "name": "Yaourt nature (lait de vache) **",
+        "glycemic_index": 35
+    }
+]
