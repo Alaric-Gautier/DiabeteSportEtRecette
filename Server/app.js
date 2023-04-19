@@ -15,6 +15,7 @@ const home = require("./routes/homeRoute");
 const user = require("./routes/userRoute");
 const connect = require("./routes/connectRoute");
 const recipe = require("./routes/recipeRoute");
+const sport = require("./routes/sportRoute");
 
 // Configure the app
 app.use(logger("dev"));
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(home);
 app.use(user);
 app.use(recipe);
+app.use("/sport-exercises", sport);
 app.use(connect);
 
 // Middleware which receive and handle all errors in app
