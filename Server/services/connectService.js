@@ -12,6 +12,12 @@ const connectService = {
         //Search the user from the DataBase
         const user = await prisma.account.findUnique({
             where: { email },
+            select:{
+                id:true,
+                roles:true,
+                password:true,
+                // isConfirmed:true,
+            }
         });
 
         // If no user has been found, throw an error
@@ -19,9 +25,9 @@ const connectService = {
             createError("AccountError");
         }
 
-        if (!user.isConfirmed) {
-            createError("Unauthorized", "Votre compte n'a pas été confirmé");
-        }
+        // if (!user.isConfirmed) {
+        //     createError("Unauthorized", "Votre compte n'a pas été confirmé");
+        // }
 
         //Check if the password is correct
         const isPasswordValid = await bcrypt.compare(password, user.password);

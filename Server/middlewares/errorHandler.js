@@ -5,6 +5,10 @@ const errorHandler = (err, req, res, next) => {
         case "AccountError":
             res.status(401).json({ message: err.message || "Le mot de passe ou l'email est incorrect. Veuillez réessayer" });
             break;
+
+            case "forbidden":
+            res.status(403).json({ message: err.message || "Vous n'avez pas accès à cette ressource" });
+            break;
         case "notFound":
             res.status(404).json({ message: err.message || "Désolé, la page que vous cherchez est introuvable." });
             break;

@@ -9,14 +9,15 @@ const createConfirmationCode = email => {
 
 // Create an access token
 const createAccessToken = user => {
-    return jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
+    console.log("dans createAccessToken === ", user);
+    return jwt.sign({ id: user.id, roles: user.roles }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "10m",
     });
 };
 
 // Create a refresh token
 const createRefreshToken = user => {
-    return jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, {
+    return jwt.sign({ id: user.id, roles: user.roles}, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: "1h",
     });
 };

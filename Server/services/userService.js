@@ -45,14 +45,26 @@ const userService = {
                 is_diabetic: is_diabetic,
                 diabetes_type: diabetes_type,
                 password: hashedPassword,
-                // roles: {
-                //     connect: {
-                //         id: 1,
-                //     }
-                // }
+                roles: {
+                    connect: {
+                        id: 1,
+                    }
+                }
             },
         });
-        return user;
+
+
+        return prisma.account.findUnique({
+            where:{
+                id: user.id,
+            },
+            select:{
+                firstName:true,
+                lastName:true,
+                email:true,
+                roles:true
+            }
+        });
     },
     getUserById: async userId => {
         const user = await prisma.account.findUnique({
