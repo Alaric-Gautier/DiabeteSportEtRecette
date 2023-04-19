@@ -30,30 +30,15 @@ jobs:
       id: audit
       run: |
         npm audit --json > audit.json
+        if [ -s "audit.json" ]; then
+          echo "Vulnerabilities found"
+          echo "Unpermitted to merge"
+          body="npm audit: $(cat audit.json) ❌🚨❌👎❌"
+        else
+          echo "No vulnerabilities found"
+          body="npm audit: No vulnerabilities found 👍 👏 🎉"
+        fi
       continue-on-error: true
-
-    - name: Comment on PR
-      id: comment
-      if: ${{ always() }}
-      run: |
-        const fs = require('fs');
-        const audit = JSON.parse(fs.readFileSync('audit.json', 'utf8'));
-        const result = audit.metadata.vulnerabilities;
-        if (result.low > 0 || result.moderate > 0 || result.high > 0 || result.critical > 0) {
-          echo "Vulnerabilities found";
-          echo "Unpermitted to merge";
-          body="npm audit: result.low low vulnerabilities, result.moderate moderate vulnerabilities, result.high high vulnerabilities, result.critical critical vulnerabilities ❌🚨❌👎❌";
-        } else {
-          console.log("No vulnerabilities found");
-          body="npm audit: No vulnerabilities found 👍 👏 🎉";
-        }
-        curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.CHECK_DEP_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
-          -d "{\"body\":\"$body\"}";
-
-
 
 
 
