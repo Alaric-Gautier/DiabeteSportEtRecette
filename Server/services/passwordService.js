@@ -53,7 +53,7 @@ const resetPassword = async (token, password, confirmPassword) => {
         });
 
         if (!user) {
-            createError("notFound", "Le token n'est pas valide ou il a expiré. Veuillez renouveler votre demande");
+            createError("NotFound", "Le token n'est pas valide ou il a expiré. Veuillez renouveler votre demande");
         }
 
         // Hash the password

@@ -80,7 +80,7 @@ const userService = {
         });
 
         if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
         return user;
     },
@@ -91,7 +91,7 @@ const userService = {
         });
 
         if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
         return user;

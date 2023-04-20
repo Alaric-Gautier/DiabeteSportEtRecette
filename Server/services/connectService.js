@@ -51,7 +51,7 @@ const connectService = {
         });
 
         if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
         await prisma.account.update({
@@ -65,7 +65,7 @@ const connectService = {
         });
 
         if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
         if (user.isConfirmed) {
