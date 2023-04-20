@@ -16,7 +16,7 @@ const connectService = {
                 id:true,
                 roles:true,
                 password:true,
-                // isConfirmed:true,
+                is_confirmed:true,
             }
         });
 
@@ -25,9 +25,9 @@ const connectService = {
             createError("AccountError");
         }
 
-        // if (!user.isConfirmed) {
-        //     createError("Unauthorized", "Votre compte n'a pas été confirmé");
-        // }
+        if (!user.is_confirmed) {
+            createError("Unauthorized", "Votre compte n'a pas été confirmé");
+        }
 
         //Check if the password is correct
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -56,7 +56,7 @@ const connectService = {
 
         await prisma.account.update({
             where: { email },
-            data: { isConfirmed: true },
+            data: { is_diabetic: true },
         });
     },
     sendNewLink: async email => {
@@ -68,7 +68,7 @@ const connectService = {
             createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
-        if (user.isConfirmed) {
+        if (user.is_confirmed) {
             return false;
         }
 

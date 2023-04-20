@@ -45,6 +45,7 @@ const userService = {
                 is_diabetic: is_diabetic,
                 diabetes_type: diabetes_type,
                 password: hashedPassword,
+                is_confirmed:false,
                 roles: {
                     connect: {
                         id: 1,

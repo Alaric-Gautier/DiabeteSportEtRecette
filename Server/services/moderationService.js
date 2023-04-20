@@ -11,16 +11,16 @@ const moderationService = {
         const subject = `Validation de votre ${contentType}`;
         const text = `Votre ${contentType} a été validé par un modérateur. Son contenu est désormais visible par la communauté. Merci de votre participation !`;
 
-        const isConfirmed = await prisma[contentType].update({
+        const isValidate = await prisma[contentType].update({
             where: {
                 id: Number(contentId),
             },
             data: {
-                isConfirmed: true,
+                is_moderate: true,
             },
         });
 
-        if (!isConfirmed) {
+        if (!isValidate) {
             createError("Error");
         }
 
