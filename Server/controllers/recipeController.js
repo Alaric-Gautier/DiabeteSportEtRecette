@@ -1,5 +1,4 @@
 const recipeService = require("../services/recipeService");
-const userRecipe = require("../services/recipeService");
 
 const recipeController = {
     create: async (req, res, next) => {

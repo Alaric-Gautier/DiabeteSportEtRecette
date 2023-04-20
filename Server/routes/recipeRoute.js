@@ -11,6 +11,6 @@ router.get("/", verifyAccessToken, recipe.getAllRecipes);
 router.post("/create", verifyAccessToken, recipe.create);
 router.get("/:id", verifyAccessToken, recipe.getRecipeById);
 router.put("/update/:id", verifyAccessToken, recipe.update);
-router.delete("/delete", verifyAccessToken, recipe.delete);
+router.delete("/delete/:id", verifyAccessToken, recipe.delete);
 
 module.exports = router;
