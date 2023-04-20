@@ -38,8 +38,8 @@ const sendConfirmationLink = async email => {
     const confirmationCode = createConfirmationCode(email);
     const confirmationLink = `http://localhost:8000/confirmUser/${confirmationCode}`;
 
-    if(!confirmationCode){
-        createError("mailError","Une erreur est survenue lors de la création du code de confirmation")
+    if (!confirmationCode) {
+        createError("mailError", "Une erreur est survenue lors de la création du code de confirmation");
     }
 
     // Sending the mail
@@ -49,10 +49,23 @@ const sendConfirmationLink = async email => {
     await sendMail(email, subject, text);
 };
 
-const isUserExists = (user) => {
-    if (!user) {
-        createError("NotFound", "Aucun utilisateur n'a été trouvé")
+const getContentName = type => {
+    switch (type) {
+        case "sport_exercise":
+            return "exercice de sport";
+        case "recipe":
+            return "recette";
+        case "review":
+            return "avis";
+        default:
+            return "contenu";
     }
-}
+};
 
-module.exports = { createError, sendMail, sendConfirmationLink, isUserExists };
+const isUserExists = user => {
+    if (!user) {
+        createError("NotFound", "Aucun utilisateur n'a été trouvé");
+    }
+};
+
+module.exports = { createError, sendMail, sendConfirmationLink, isUserExists, getContentName };

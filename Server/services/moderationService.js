@@ -1,15 +1,15 @@
 const { PrismaClient } = require("@prisma/client");
-const { createError, sendMail } = require("../utils/tools");
+const { createError, sendMail, getContentName } = require("../utils/tools");
 const { getUserByContentId } = require("./userService");
 const prisma = new PrismaClient();
 
 const moderationService = {
     validation: async (contentType, contentId) => {
         const user = await getUserByContentId(contentType, contentId);
-
+        
         const to = user.author.email;
-        const subject = `Validation de votre ${contentType}`;
-        const text = `Votre ${contentType} a été validé par un modérateur. Son contenu est désormais visible par la communauté. Merci de votre participation !`;
+        const subject = `Validation de votre ${getContentName(contentType)}`;
+        const text = `Votre ${getContentName(contentType)} a été validé par un modérateur. Son contenu est désormais visible par la communauté. Merci de votre participation !`;
 
         const isValidate = await prisma[contentType].update({
             where: {
