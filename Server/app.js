@@ -16,6 +16,7 @@ const user = require("./routes/userRoute");
 const connect = require("./routes/connectRoute");
 const recipe = require("./routes/recipeRoute");
 const sport = require("./routes/sportRoute");
+const review = require("./routes/reviewRoute");
 const forgotPassword = require("./routes/passwordRoute");
 const moderation = require("./routes/moderationRoute")
 
@@ -31,6 +32,7 @@ app.use("/", forgotPassword)
 app.use("/moderation", moderation)
 app.use(home);
 app.use("/sport-exercise", sport);
+app.use("/review", review);
 app.use(connect);
 app.use("/user", user);
 app.use("/recipe", recipe);
