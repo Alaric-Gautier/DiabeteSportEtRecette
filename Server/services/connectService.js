@@ -12,6 +12,12 @@ const connectService = {
         //Search the user from the DataBase
         const user = await prisma.account.findUnique({
             where: { email },
+            select:{
+                id:true,
+                roles:true,
+                password:true,
+                is_confirmed:true,
+            }
         });
 
         // If no user has been found, throw an error
@@ -19,7 +25,7 @@ const connectService = {
             createError("AccountError");
         }
 
-        if (!user.isConfirmed) {
+        if (!user.is_confirmed) {
             createError("Unauthorized", "Votre compte n'a pas été confirmé");
         }
 
@@ -45,12 +51,12 @@ const connectService = {
         });
 
         if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
         await prisma.account.update({
             where: { email },
-            data: { isConfirmed: true },
+            data: { is_diabetic: true },
         });
     },
     sendNewLink: async email => {
@@ -59,10 +65,10 @@ const connectService = {
         });
 
         if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
-        if (user.isConfirmed) {
+        if (user.is_confirmed) {
             return false;
         }
 

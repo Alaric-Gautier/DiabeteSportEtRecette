@@ -58,7 +58,7 @@ const verif = {
                 value === undefined || 
                 (typeof value === "object" && Object.keys(value).length === 0) ||
                 (typeof value === "string" && value.trim().length === 0)) {
-                    createError("ValidationError", "Tous les champs requis doivent être remplis");
+                    createError("ValidationError", `Tous les champs requis doivent être remplis` );
             }
         }
     },

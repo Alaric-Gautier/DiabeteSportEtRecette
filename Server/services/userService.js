@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/validators");
-const { createError, sendMail, sendConfirmationLink } = require("../utils/tools");
+const { createError, sendMail, sendConfirmationLink, isUserExists } = require("../utils/tools");
 const { createConfirmationCode } = require("../utils/token");
 
 const userService = {
@@ -45,14 +45,26 @@ const userService = {
                 is_diabetic: is_diabetic,
                 diabetes_type: diabetes_type,
                 password: hashedPassword,
-                // roles: {
-                //     connect: {
-                //         id: 1,
-                //     }
-                // }
+                is_confirmed:false,
+                roles: {
+                    connect: {
+                        id: 1,
+                    },
+                },
             },
         });
-        return user;
+
+        return prisma.account.findUnique({
+            where: {
+                id: user.id,
+            },
+            select: {
+                firstName: true,
+                lastName: true,
+                email: true,
+                roles: true,
+            },
+        });
     },
     getUserById: async userId => {
         const user = await prisma.account.findUnique({
@@ -67,9 +79,7 @@ const userService = {
             },
         });
 
-        if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
-        }
+        isUserExists(user);
         return user;
     },
     getUserByMail: async email => {
@@ -78,10 +88,22 @@ const userService = {
             where: { email },
         });
 
-        if (!user) {
-            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
-        }
+        isUserExists(user);
 
+        return user;
+    },
+    getUserByContentId: async (contentType, contentId) => {
+        const user = await prisma[contentType].findFirst({
+            where: {
+                id: Number(contentId),
+            },
+            select: {
+                author: true,
+            },
+        });
+        if (!user) {
+            createError("NotFound");
+        }
         return user;
     },
     changePassword: async (id, oldPassword, newPassword, confirmPassword) => {

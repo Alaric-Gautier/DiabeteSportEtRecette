@@ -38,6 +38,10 @@ const sendConfirmationLink = async email => {
     const confirmationCode = createConfirmationCode(email);
     const confirmationLink = `http://localhost:8000/confirmUser/${confirmationCode}`;
 
+    if(!confirmationCode){
+        createError("mailError","Une erreur est survenue lors de la création du code de confirmation")
+    }
+
     // Sending the mail
     const subject = "Confirmation de votre compte";
     const text = `Bienvenue sur Diabete Sport & Recettes.\n Cliquez sur le lien suivant pour confirmer votre compte : ${confirmationLink}. \nCe lien est valable 10min.`;
@@ -45,4 +49,10 @@ const sendConfirmationLink = async email => {
     await sendMail(email, subject, text);
 };
 
-module.exports = { createError, sendMail, sendConfirmationLink };
+const isUserExists = (user) => {
+    if (!user) {
+        createError("NotFound", "Aucun utilisateur n'a été trouvé")
+    }
+}
+
+module.exports = { createError, sendMail, sendConfirmationLink, isUserExists };
