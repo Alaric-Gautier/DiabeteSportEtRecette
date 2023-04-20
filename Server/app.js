@@ -28,7 +28,7 @@ app.use(express.json());
 app.use("/", connect);
 app.use("/", forgotPassword)
 app.use(home);
-app.use("/sport-exercises", sport);
+app.use("/sport-exercise", sport);
 app.use(connect);
 app.use("/user", user);
 app.use("/recipe", recipe);
