@@ -1,20 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
 const { createError, sendMail } = require("../utils/tools");
+const { getUserByContentId } = require("./userService");
 const prisma = new PrismaClient();
 
 const moderationService = {
     validation: async (contentType, contentId) => {
-        const user = await prisma[contentType].findFirst({
-            where:{
-                id:contentId
-            },
-            select:{
-                author:true
-            }
-        })
-        if(!user){
-            createError("NotFound")
-        }
+        const user = await getUserByContentId(contentType, contentId);
 
         const to = user.author.email;
         const subject = `Validation de votre ${contentType}`;
@@ -22,24 +13,29 @@ const moderationService = {
 
         const isConfirmed = await prisma[contentType].update({
             where: {
-                id: contentId,
+                id: Number(contentId),
             },
             data: {
                 isConfirmed: true,
             },
         });
-        
+
         if (!isConfirmed) {
-            createError("Error")
+            createError("Error");
         }
 
         // envoi du mail de notification à l'utilisateur
-        sendMail(to, subject, text); // Il faut trouver un moyen de récupérer le mail de l'utilisateur
+        sendMail(to, subject, text);
     },
-    rejection: (contentType, contentId) => {
-        // envoi un mail à l'utilisateur afin de faire l'update du contenu rejeté
-        //! penser à mettre sur le dashboard de l'utilisateur un onglet pour afficher tous les contenus non validé
-        //! éventuellement triés par type de contenu (commentaire, recette, exercice de sport)
+    rejection: (contentType, contentId, message) => {
+        const user = getUserByContentId(contentType, contentId);
+
+        const to = user.author.email;
+        const subject = `Validation de votre ${contentType}`;
+        const text = `Votre ${contentType} a été refusé par un modérateur. !\n\n ${message} \n\n Veuillez vous rendre sur votre Dashboard et apporter les modifications nécessaires avant de renouveler votre envoi`;
+
+        // envoi du mail de notification à l'utilisateur
+        sendMail(to, subject, text);
     },
 };
 

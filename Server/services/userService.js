@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/validators");
-const { createError, sendMail, sendConfirmationLink } = require("../utils/tools");
+const { createError, sendMail, sendConfirmationLink, isUserExists } = require("../utils/tools");
 const { createConfirmationCode } = require("../utils/token");
 
 const userService = {
@@ -48,22 +48,21 @@ const userService = {
                 roles: {
                     connect: {
                         id: 1,
-                    }
-                }
+                    },
+                },
             },
         });
 
-
         return prisma.account.findUnique({
-            where:{
+            where: {
                 id: user.id,
             },
-            select:{
-                firstName:true,
-                lastName:true,
-                email:true,
-                roles:true
-            }
+            select: {
+                firstName: true,
+                lastName: true,
+                email: true,
+                roles: true,
+            },
         });
     },
     getUserById: async userId => {
@@ -79,9 +78,7 @@ const userService = {
             },
         });
 
-        if (!user) {
-            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
-        }
+        isUserExists(user);
         return user;
     },
     getUserByMail: async email => {
@@ -90,10 +87,22 @@ const userService = {
             where: { email },
         });
 
-        if (!user) {
-            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
-        }
+        isUserExists(user);
 
+        return user;
+    },
+    getUserByContentId: async (contentType, contentId) => {
+        const user = await prisma[contentType].findFirst({
+            where: {
+                id: Number(contentId),
+            },
+            select: {
+                author: true,
+            },
+        });
+        if (!user) {
+            createError("NotFound");
+        }
         return user;
     },
     changePassword: async (id, oldPassword, newPassword, confirmPassword) => {

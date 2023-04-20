@@ -49,4 +49,10 @@ const sendConfirmationLink = async email => {
     await sendMail(email, subject, text);
 };
 
-module.exports = { createError, sendMail, sendConfirmationLink };
+const isUserExists = (user) => {
+    if (!user) {
+        createError("NotFound", "Aucun utilisateur n'a été trouvé")
+    }
+}
+
+module.exports = { createError, sendMail, sendConfirmationLink, isUserExists };
