@@ -56,7 +56,7 @@ const connectService = {
 
         await prisma.account.update({
             where: { email },
-            data: { is_diabetic: true },
+            data: { is_confirmed: true },
         });
     },
     sendNewLink: async email => {
