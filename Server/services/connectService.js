@@ -1,9 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
 const { validateEmail } = require("../utils/validators");
-const { createError } = require("../utils/tools");
+const { createError, sendConfirmationLink } = require("../utils/tools");
 
 const connectService = {
     login: async (email, password) => {
@@ -18,6 +19,10 @@ const connectService = {
             createError("AccountError");
         }
 
+        if (!user.isConfirmed) {
+            createError("Unauthorized", "Votre compte n'a pas été confirmé");
+        }
+
         //Check if the password is correct
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
@@ -29,6 +34,39 @@ const connectService = {
         const accessToken = createAccessToken(user);
         const refreshToken = createRefreshToken(user);
         return { accessToken, refreshToken };
+    },
+    confirmUser: async token => {
+        const { email } = jwt.verify(token, process.env.CONFIRMATION_CODE_SECRET);
+
+        const user = await prisma.account.findUnique({
+            where: {
+                email,
+            },
+        });
+
+        if (!user) {
+            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+        }
+
+        await prisma.account.update({
+            where: { email },
+            data: { isConfirmed: true },
+        });
+    },
+    sendNewLink: async email => {
+        const user = await prisma.account.findUnique({
+            where: { email },
+        });
+
+        if (!user) {
+            createError("notFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+        }
+
+        if (user.isConfirmed) {
+            return false;
+        }
+
+        sendConfirmationLink(email);
     },
     logout: async (accessToken, refreshToken) => {
         try {
