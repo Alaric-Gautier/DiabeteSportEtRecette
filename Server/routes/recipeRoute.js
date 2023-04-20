@@ -4,7 +4,7 @@ const recipe = require("../controllers/recipeController");
 const { verifyAccessToken } = require("../middlewares/authenticate");
 
 //public
-router.get("/recipes/recent", recipe.getFiveMostRecentRecipes);
+router.get("/recent", recipe.getFiveMostRecentRecipes);
 
 //protected
 router.get("/", verifyAccessToken, recipe.getAllRecipes);
