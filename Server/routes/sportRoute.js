@@ -12,6 +12,6 @@ router.post("/create", verifyAccessToken, sportExercise.create);
 router.get("/:id", verifyAccessToken, sportExercise.getSportExerciseById);
 // router.get("/for-children", verifyAccessToken, sportExercise.getSportExercisesForChildren);
 router.put("/update/:id", verifyAccessToken, sportExercise.update);
-router.delete("/delete", verifyAccessToken, sportExercise.delete);
+router.delete("/delete/:id", verifyAccessToken, sportExercise.delete);
 
 module.exports = router;
