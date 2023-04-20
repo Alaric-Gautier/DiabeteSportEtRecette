@@ -1,5 +1,6 @@
 const connectService = require("../services/connectService");
-const { isEmpty } = require("../utils/validators");
+const { createCookie } = require("../utils/token");
+const { createError } = require("../utils/tools");
 
 const connectController = {
     login: async (req, res, next) => {
@@ -10,10 +11,34 @@ const connectController = {
             const { accessToken, refreshToken } = await connectService.login(email, password);
 
             // Create cookies with both tokens and send a message
-            createCookie("accessToken", accessToken, 600, res);
-            createCookie("refreshToken", refreshToken, 3600, res);
+            createCookie("accessToken", accessToken, res);
+            createCookie("refreshToken", refreshToken, res);
             res.json({ message: "Successfully logged in" });
         } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    },
+    confirmUser: async (req, res, next) => {
+        const confirmationCode = req.params.confirmationCode;
+        try {
+            await connectService.confirmUser(confirmationCode);
+            res.status(200).json({ message: "Votre compte a bien été confirmé" });
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    },
+    sendNewLink: async (req, res, next) => {
+        const { email } = req.body;
+        try {
+            // If the user's account is already confirmed, no mail will be send
+            if (!(await connectService.sendNewLink(email))) {
+                return res.status(200).json({ message: "Vous avez déjà confirmé votre compte. Veuillez vous connecter." });
+            }
+            res.status(201).json({ message: "un mail de confirmation vous a été envoyé à l'adresse indiquée" });
+        } catch (err) {
+            console.error(err);
             next(err);
         }
     },
@@ -32,7 +57,7 @@ const connectController = {
 
                 res.status(200).send({ message: "You have been successfully disconnected" });
             } else {
-                res.sendStatus(500);
+                createError("Error");
             }
         } catch (err) {
             next(err);

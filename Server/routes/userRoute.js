@@ -1,12 +1,15 @@
 const express = require("express");
-const router = express.Router();
-const user = require("../controllers/userController");
+const userRouter = express.Router();
+const { register, getUserById, changePassword, updateProfile, deleteAccount } = require("../controllers/userController");
 const { verifyAccessToken } = require("../middlewares/authenticate");
 
 //public
-router.post("/register", user.register);
+userRouter.post("/register", register);
 
 //protected
-router.get("/user", verifyAccessToken, user.getUserById);
+userRouter.get("/", verifyAccessToken, getUserById);
+userRouter.post("/changePassword", verifyAccessToken, changePassword);
+userRouter.put("/updateProfil", verifyAccessToken, updateProfile);
+userRouter.delete("/deleteAccount", verifyAccessToken, deleteAccount);
 
-module.exports = router;
+module.exports = userRouter;

@@ -43,7 +43,12 @@ const verif = {
 
         //If the password doesn't fill the requirements, throw an error with codes
         if (errorCodes.length > 0) {
-            createError("ValidationError", "Le mot de passe ne respecte pas les critères de sécurité", errorCodes);
+            createError("ValidationError", "Le mot de passe ne respecte pas les critères de sécurité", { errorCodes });
+        }
+    },
+    passwordMatch: (password, confirmPassword) => {
+        if (password !== confirmPassword) {
+            createError("ValidationError", "les mots de passe ne correspondent pas");
         }
     },
     isEmpty: (...values) => {
