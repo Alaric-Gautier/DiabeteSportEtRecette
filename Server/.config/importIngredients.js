@@ -2,10 +2,10 @@ const mysql = require('mysql');
 const fs = require('fs');
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'project_diabete',
-    password: 'titrePro2023DSR',
-    database: 'project_diabete'
+    host: process.env.SECRET_HOST,
+    user: process.env.SECRET_USER,
+    password: process.env.SECRET_PASSWORD,
+    database: process.env.SECRET_DATABASE
 });
 
 if (connection) {
