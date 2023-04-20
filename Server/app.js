@@ -15,6 +15,7 @@ const home = require("./routes/homeRoute");
 const user = require("./routes/userRoute");
 const connect = require("./routes/connectRoute");
 const recipe = require("./routes/recipeRoute");
+const sport = require("./routes/sportRoute");
 const forgotPassword = require("./routes/passwordRoute");
 
 // Configure the app
@@ -27,6 +28,8 @@ app.use(express.json());
 app.use("/", connect);
 app.use("/", forgotPassword)
 app.use(home);
+app.use("/sport-exercises", sport);
+app.use(connect);
 app.use("/user", user);
 app.use("/recipe", recipe);
 
