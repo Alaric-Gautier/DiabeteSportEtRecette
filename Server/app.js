@@ -10,6 +10,9 @@ const errorHandler = require("./middlewares/errorHandler");
 // Connection to MongoDB
 require("./.config/mongoConnect");
 
+// Import ingredients and roles to MySQL database
+require("./.config/importDatasToDb");
+
 // import the routes
 const home = require("./routes/homeRoute");
 const user = require("./routes/userRoute");
