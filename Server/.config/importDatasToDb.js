@@ -13,74 +13,75 @@ connection.connect((err) => {
     console.log('Connected to MySQL Database');
 });
 
-fs.readFile('./data/ingredients.json', 'utf8', (err, data) => {
-    if (err) {
-        console.error(err);
-        return;
-    }
-
-    const ingredients = JSON.parse(data);
-
-    let count = 0;
-    const total = ingredients.length;
-
-    ingredients.forEach(ingredient => {
-        // check if ingredient already exists in database
-        const checkIngredient = `SELECT * FROM ingredient WHERE name = ('${ingredient.name}')`;
-        connection.query(checkIngredient, function (err, result) {
-            if (err)
-                throw err;
+// function to check if datas already exist in database
+function checkIfExistInDb(table, name) {
+    return new Promise((resolve, reject) => {
+        const check = `SELECT * FROM ${table} WHERE name = ('${name}')`;
+        connection.query(check, function (err, result) {
+            if (err) reject(err);
             if (result.length > 0) {
-                console.log(`Ingredient ${ingredient.name} already exists in database`);
-                return;
+                console.log(`${table} ${name} already exists in database`);
+                resolve(true);
             } else {
-                // if ingredient does not exist in database insert it
-                const insertIngredient = `INSERT INTO ingredient (name, glycemic_index, glycemic_charge) VALUES ('${ingredient.name}', '${ingredient.glycemic_index}', '${ingredient.glycemic_charge}')`;
-                connection.query(insertIngredient, function (err, result) {
-                    if (err)
-                        throw err;
-                    console.log(`Ingredient ${ingredient.name} inserted in database`);
-                });
-            }
-            count++;
-            if (count === total) {
-                connection.end();
+                resolve(false);
             }
         });
     });
-});
+}
 
-fs.readFile('./data/roles.json', 'utf8', (err, data) => {
-    if (err) {
-        console.error(err);
-        return;
-    }
-    
-    const roles = JSON.parse(data);
+// function to insert ingredients in database
+function insertIngredient(ingredient) {
+    return new Promise((resolve, reject) => {
+        const insert = `INSERT INTO ingredient (name, glycemic_index, glycemic_charge) VALUES ('${ingredient.name}', '${ingredient.glycemic_index}', '${ingredient.glycemic_charge}')`;
+        connection.query(insert, function (err, result) {
+            if (err) reject(err);
+            console.log(`Ingredient ${ingredient.name} inserted in database`);
+            resolve(true);
+        });
+    });
+}
 
-    let count = 0;
-    const total = roles.length;
+// function to insert roles in database
+function insertRole(role) {
+    return new Promise((resolve, reject) => {
+        const insert = `INSERT INTO role (name) VALUES ('${role.name}')`;
+        connection.query(insert, function (err, result) {
+            if (err) reject(err);
+            console.log(`Role ${role.name} inserted in database`);
+            resolve(true);
+        });
+    });
+}
 
-    roles.forEach(role => {
-        // check if role already exists in database
-        const checkRole = `SELECT * FROM role WHERE name = ('${role.name}')`;
-        connection.query(checkRole, function (err, result) {
-            if (err) throw err;
-            if (result.length > 0) {
-                console.log(`Role ${role.name} already exists in database`);
+// function for read json file and insert datas in database if they do not exist
+async function readAndInsert(table, file) {
+    fs.readFile(file, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        const datas = JSON.parse(data);
+
+        datas.forEach(async data => {
+            // check if data already exists in database
+            const check = await checkIfExistInDb(table, data.name);
+            if (check) {
                 return;
             } else {
-                // if role does not exist in database insert it
-                const insertRole = `INSERT INTO role (name) VALUES ('${role.name}')`;
-                connection.query(insertRole, function (err, result) {
-                    if (err) throw err;
-                    console.log(`Role ${role.name} inserted in database`);
-                });
+                // if data does not exist in database insert it
+                if (table === 'ingredient') {
+                    await insertIngredient(data);
+                } else if (table === 'role') {
+                    await insertRole(data);
+                } else {
+                    console.log('Table not found');
+                }
             }
-            count++;
-            if (count === total) {
-                connection.end();
-            }
-        });        
+        });
     });
-});
+}
+
+// call function for ingredients and roles
+readAndInsert('ingredient', './data/ingredients.json');
+readAndInsert('role', './data/roles.json');
