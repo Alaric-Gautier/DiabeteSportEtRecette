@@ -1,0 +1,19 @@
+@import "reset";
+@import "variables";
+@import "fonts/fonts";
+
+body {
+    font-family: 'Futura', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 300;
+    line-height: 1.5rem;
+    // color: $text-color;
+}
+
+main {
+    overflow: hidden;
+    position: relative;
+    background: #c3dde9;
+}
+
+@import "components";
