@@ -1,12 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Account from "./Account";
+import { useMediaQuery } from "react-responsive";
 
 const Menu = () => {
+    const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
+    const [menuToggle, setMenuToggle] = useState(false);
+
     return (
         <Fragment>
 
-            <div className="menu-container">
+            <div className={`menu-container ${isMobile ? "mobile" : ""} ${menuToggle ? "opened" : ""} `}>
 
                 <div className="menu-item">
                     <NavLink to="/recipe" className="menu-link" activeClassName="menu-link-active">
