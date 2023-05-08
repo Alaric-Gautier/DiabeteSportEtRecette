@@ -14,6 +14,14 @@ const App = () => {
                         {/* Public routes */}
                         <Route path="/" element={<Home />} />
                     </Route>
+
+                    {/* <Route path="/" element={<MainAdminLayout />}> */}
+                    {/* Admin routes */}
+                    {/* <Route path="admin/*" element={<Admin />} /> */}
+                    {/* </Route> */}
+
+                    {/* //TODO: Add 404 page in the main layout ? */}
+                    <Route path="*" element={<h1>404</h1>} />
                 </Routes>
 
             </Fragment>

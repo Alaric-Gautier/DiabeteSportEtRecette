@@ -13,7 +13,12 @@ body {
 main {
     overflow: hidden;
     position: relative;
-    background: #c3dde9;
+    background: $background-color;
+}
+
+.page-container {
+    padding: 3rem 6rem;
+    min-height: 70vh;
 }
 
 @import "components";

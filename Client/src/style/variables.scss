@@ -1,7 +1,10 @@
 $text-color: #ffffff;
+$text-color-black: #363636;
+$background-color: #ffffff;
 
-$headerGradient: linear-gradient(to right, #c3dde9, #5f98e7);
-$footerGradient: linear-gradient(#5C73F2, #8CD6F9);
+$headerGradient: linear-gradient(to right, #FFFFFF 55%, #556AED);
+$footerGradient: linear-gradient(#556AED, #9EA9F0 66%, #FFFFFF);
 
-
-$quaternary-color: #7BA3DB;
+$blueChart: #556AED;
+$yellowChart: #EDE83E;
+$purpleChart: #9EA9F0;

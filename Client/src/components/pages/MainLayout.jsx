@@ -10,7 +10,7 @@ const MainLayout = () => {
 
                 <Header />
 
-                <div className="container">
+                <div className="page-container">
                     <Outlet />
                 </div>
 
