@@ -13,8 +13,12 @@
         justify-content: space-between;
 
         .header-logo {
+            display: flex;
+            align-items: flex-start;
+
             img {
                 width: 25rem;
+                //TODO mobile 15rem
 
                 &:hover {
                     transform: scale(1.1);
@@ -30,14 +34,18 @@
 
         .menu-container {
             display: flex;
-            margin-right: 1.5rem;
-            align-items: center;
-            justify-content: space-evenly;
+
+            .container-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 3rem;
+            }
 
             .menu-item {
                 text-decoration: none;
                 // margin-right: 1rem;
-                font-size: 1.3rem;
+                font-size: 1.1rem;
                 font-weight: bold;
                 cursor: pointer;
 
@@ -55,7 +63,6 @@
                     }
 
                     &:last-child {
-                        margin-right: 4rem;
 
                         :active {
                             //TODO: fix this
@@ -65,38 +72,6 @@
                 }
             }
 
-            .account-container {
-                display: flex;
-
-                .account-item {
-                    text-decoration: none;
-                    margin-right: 1.5rem;
-                    font-size: 1.3rem;
-                    font-weight: bold;
-                    cursor: pointer;
-                    border: 2px solid #363636;
-                    padding: 1rem 1rem;
-                    border-radius: 0.5rem;
-
-                    &:first-child {
-                        margin-right: 2.5rem;
-                        margin-left: 3rem;
-                    }
-
-                    &:hover {
-                        background: $yellowChart padding-box;
-
-                        .account-link {
-                            color: $purpleChart;
-                        }
-                    }
-
-                    .account-link {
-                        color: $yellowChart;
-                        text-decoration: none;
-                    }
-                }
-            }
 
             &.mobile {
                 display: none;
@@ -108,12 +83,41 @@
             }
         }
 
+        .account-container {
+            display: flex;
+            gap: 2rem;
+            margin-right: 2rem;
+
+            .account-item {
+                text-decoration: none;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                border: 2px solid #363636;
+                padding: 0.5rem 0.5rem;
+                border-radius: 0.5rem;
+
+                &:hover {
+                    background: $yellowChart padding-box;
+
+                    .account-link {
+                        color: $purpleChart;
+                    }
+                }
+
+                .account-link {
+                    color: $yellowChart;
+                    text-decoration: none;
+                }
+            }
+        }
+
         .burger-menu {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 2rem;
-            height: 1.5rem;
+            width: 2.5rem;
+            height: 1.9rem;
             cursor: pointer;
             top: 1.5rem;
             left: 1.5rem;
@@ -153,6 +157,16 @@
 
                 .line-3 {
                     transform: rotate(-45deg);
+                }
+            }
+        }
+
+        &.mobile {
+            display: block;
+
+            .header-logo {
+                img {
+                    width: 15rem;
                 }
             }
         }

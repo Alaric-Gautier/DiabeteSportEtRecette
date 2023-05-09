@@ -9,7 +9,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <div className="header-container">
+            <div className={`header-container ${isMobile ? "mobile" : ""}`}>
                 <NavLink to="/" className="header-logo">
                     <img src="/images/logos/logo-horizontal-color.png" alt="logo-color" />
                 </NavLink>
