@@ -1,10 +1,15 @@
 import { NavLink } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { useSelector } from "react-redux";
+import { toggleMenu } from "../../store/menu/menuToggle.slice";
 
 const Footer = () => {
+    const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
+
     return (
         <footer className="footer">
 
-            <div className="footer-container">
+            <div className={`footer-container ${isMobile ? "mobile" : ""} `}>
 
                 <div className="footer-logo">
                     <NavLink to="/" className="footer-logo" onClick={() => window.scrollTo(0, 0)}>
@@ -17,24 +22,24 @@ const Footer = () => {
                 <div className="social-container">
 
                     <div className="social-item">
-                        <NavLink to="/" className="social-link">
+                        <a href="https://www.linkedin.com/in/alaric-gautier/" className="social-link">
                             <img src="/images/social-icons/linkedin.svg" alt="linkedin" width="30" />
-                            <span>LinkedIn 1</span>
-                        </NavLink>
+                            <span>Alaric Gautier</span>
+                        </a>
                     </div>
 
                     <div className="social-item">
-                        <NavLink to="/" className="social-link">
+                        <a href="/" className="social-link">
                             <img src="/images/social-icons/linkedin.svg" alt="linkedin" width="30" />
-                            <span>LinkedIn 2</span>
-                        </NavLink>
+                            <span>Yannick Graffi</span>
+                        </a>
                     </div>
 
                     <div className="social-item">
-                        <NavLink to="/" className="social-link">
+                        <a href="/" className="social-link">
                             <img src="/images/social-icons/linkedin.svg" alt="linkedin" width="30" />
-                            <span>LinkedIn 3</span>
-                        </NavLink>
+                            <span>Jérémie Verbeke</span>
+                        </a>
                     </div>
 
                 </div>
@@ -42,10 +47,10 @@ const Footer = () => {
                 <div className="professional-container">
 
                     <div className="professional-item">
-                        <NavLink to="/" className="professional-link">
+                        <a href="/" className="professional-link">
                             <img src="/images/professional-icons/malt.svg" alt="malt" width="30" />
-                            <span>Profil Malt</span>
-                        </NavLink>
+                            <span>Jérémie Verbeke</span>
+                        </a>
                     </div>
 
                 </div>

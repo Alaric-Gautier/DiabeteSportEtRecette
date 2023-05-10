@@ -1,12 +1,138 @@
 .footer {
     background: $footerGradient;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
+    min-height: 40vh;
 
     .footer-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+
+        .footer-logo {
+            display: flex;
+
+            img {
+                width: 18rem;
+                //TODO mobile 15rem
+            }
+        }
+
+        .social-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .social-item {
+                display: flex;
+
+                .social-link {
+                    font-size: 0.9rem;
+                    font-weight: bold;
+                    text-decoration: none;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    span {
+                        color: $blueChart;
+
+                        &:hover {
+                            color: $yellowChart;
+                        }
+                    }
+                }
+            }
+        }
+
+        .professional-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+
+            .professional-item {
+                display: flex;
+
+                .professional-link {
+                    font-size: 0.9rem;
+                    font-weight: bold;
+                    text-decoration: none;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    img {
+                        border-radius: 50%;
+                    }
+
+                    span {
+                        color: $blueChart;
+
+                        &:hover {
+                            color: $yellowChart;
+                        }
+                    }
+                }
+            }
+        }
+
+        .legal-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-right: 2.5rem;
+
+            .legal-item {
+                display: flex;
+
+                .legal-link {
+                    text-decoration: none;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    span {
+                        color: $blueChart;
+
+                        &:hover {
+                            color: $yellowChart;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.mobile {
+            flex-direction: column;
+            gap: 1rem;
+
+            .footer-logo {
+                img {
+                    width: 15rem;
+                }
+            }
+
+            .social-container {
+                gap: 0.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid $yellowChart;
+            }
+
+            .professional-container {
+                gap: 0.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid $yellowChart;
+            }
+
+            .legal-container {
+                margin-right: 0;
+                align-items: center;
+                gap: 0;
+            }
+        }
     }
 }
