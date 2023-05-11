@@ -1,7 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { useSelector } from "react-redux";
-import { toggleMenu } from "../../store/menu/menuToggle.slice";
 
 const Footer = () => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
@@ -29,14 +27,14 @@ const Footer = () => {
                     </div>
 
                     <div className="social-item">
-                        <a href="/" className="social-link">
+                        <a href="https://www.linkedin.com/in/yannick-graffi/" className="social-link">
                             <img src="/images/social-icons/linkedin.svg" alt="linkedin" width="30" />
                             <span>Yannick Graffi</span>
                         </a>
                     </div>
 
                     <div className="social-item">
-                        <a href="/" className="social-link">
+                        <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9mie-verb%C3%A8ke-556451168" className="social-link">
                             <img src="/images/social-icons/linkedin.svg" alt="linkedin" width="30" />
                             <span>Jérémie Verbeke</span>
                         </a>
@@ -47,7 +45,7 @@ const Footer = () => {
                 <div className="professional-container">
 
                     <div className="professional-item">
-                        <a href="/" className="professional-link">
+                        <a href="https://www.malt.fr/profile/jeremieverbeke1" className="professional-link">
                             <img src="/images/professional-icons/malt.png" alt="malt" width="30" />
                             <span>Jérémie Verbeke</span>
                         </a>

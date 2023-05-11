@@ -2,16 +2,14 @@ import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import Account from "./Account";
 import { useMediaQuery } from "react-responsive";
-import { useSelector } from "react-redux";
 
-const Menu = () => {
+const Menu = ({ opened }) => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
-    const menuToggle = useSelector((state) => state.menuToggle.opened);
 
     return (
         <Fragment>
 
-            <div className={`menu-container ${isMobile ? "mobile" : ""} ${menuToggle ? "opened" : ""} `}>
+            <div className={`menu-container ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
 
                 <div className={`container-item ${isMobile ? "mobile" : ""} `}>
 
@@ -50,7 +48,9 @@ const Menu = () => {
 
             </div>
 
-            <Account />
+            <Account
+                opened={opened}
+            />
 
         </Fragment>
 

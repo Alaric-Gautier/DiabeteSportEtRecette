@@ -15,7 +15,6 @@
 
             img {
                 width: 18rem;
-                //TODO mobile 15rem
             }
         }
 
@@ -28,7 +27,7 @@
                 display: flex;
 
                 .social-link {
-                    font-size: 0.9rem;
+                    font-size: 1rem;
                     font-weight: bold;
                     text-decoration: none;
                     cursor: pointer;
@@ -56,7 +55,7 @@
                 display: flex;
 
                 .professional-link {
-                    font-size: 0.9rem;
+                    font-size: 1rem;
                     font-weight: bold;
                     text-decoration: none;
                     cursor: pointer;
@@ -89,6 +88,7 @@
                 display: flex;
 
                 .legal-link {
+                    font-size: 1rem;
                     text-decoration: none;
                     cursor: pointer;
                     display: flex;
@@ -97,13 +97,13 @@
 
                     .contact {
                         &:hover {
-                            color: $blueChart;
-                            font-weight: bold;
+                            color: $text-color-black;
+                            transform: scale(1.1);
                         }
                     }
 
                     span {
-                        color: $blueChart;
+                        color: $text-color-black;
 
                         &:hover {
                             color: $yellowChart;
