@@ -139,6 +139,10 @@
                 margin-right: 0;
                 align-items: center;
                 gap: 0;
+
+                .legal-item .legal-link {
+                    font-size: 0.8rem;
+                }
             }
         }
     }
