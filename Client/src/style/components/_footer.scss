@@ -95,6 +95,13 @@
                     align-items: center;
                     gap: 0.5rem;
 
+                    .contact {
+                        &:hover {
+                            color: $blueChart;
+                            font-weight: bold;
+                        }
+                    }
+
                     span {
                         color: $blueChart;
 

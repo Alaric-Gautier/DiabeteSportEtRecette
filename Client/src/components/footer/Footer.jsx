@@ -48,7 +48,7 @@ const Footer = () => {
 
                     <div className="professional-item">
                         <a href="/" className="professional-link">
-                            <img src="/images/professional-icons/malt.svg" alt="malt" width="30" />
+                            <img src="/images/professional-icons/malt.png" alt="malt" width="30" />
                             <span>Jérémie Verbeke</span>
                         </a>
                     </div>
@@ -66,6 +66,12 @@ const Footer = () => {
                     <div className="legal-item">
                         <NavLink to="/privacy" className="legal-link">
                             <span>Politique de confidentialité</span>
+                        </NavLink>
+                    </div>
+
+                    <div className="legal-item">
+                        <NavLink to="/contact" className="legal-link">
+                            <span className="contact">Nous contacter</span>
                         </NavLink>
                     </div>
 
