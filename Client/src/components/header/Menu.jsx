@@ -39,13 +39,6 @@ const Menu = ({ opened }) => {
 
                 </div>
 
-                {/* // TODO : Add this in the footer component ? */}
-                {/* <div className="menu-item">
-                    <NavLink to="/contact" className="menu-link" activeClassName="menu-link-active">
-                        <span className="menu-link-text">Contact</span>
-                    </NavLink>
-                </div> */}
-
             </div>
 
             <Account
