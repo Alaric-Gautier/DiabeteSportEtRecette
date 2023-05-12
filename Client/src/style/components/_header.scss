@@ -17,7 +17,6 @@
 
             img {
                 width: 25rem;
-                //TODO mobile 15rem
 
                 &:hover {
                     transform: scale(1.1);
@@ -76,7 +75,6 @@
                     &:last-child {
 
                         :active {
-                            //TODO: fix this
                             color: $purpleChart;
                         }
                     }
@@ -160,12 +158,6 @@
                     .account-link {
                         color: $blueChart;
                         text-decoration: none;
-
-                        //TODO: fix this
-                        :hover {
-                            color: red;
-                        }
-
                     }
                 }
 
