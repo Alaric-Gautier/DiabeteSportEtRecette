@@ -28,3 +28,7 @@ const logout = async () => {
 const confirmUser = async (confirmationCode) => {
     await factorizedFetch(`${BASE_URL}/confirmUser/${confirmationCode}`,"GET")
 }
+
+const getNewConfirmationCode = async(body) => {
+    await factorizedFetch()
+}
