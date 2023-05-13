@@ -33,7 +33,6 @@ app.use("/moderation", moderation)
 app.use(home);
 app.use("/sport-exercise", sport);
 app.use("/review", review);
-app.use(connect);
 app.use("/user", user);
 app.use("/recipe", recipe);
 
