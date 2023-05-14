@@ -26,11 +26,8 @@ const reviewService = {
 
         return reviews;
     },
-    create: async (rating, comment, userId, content) => {
-        //! content doit être de la forme "contentType-contentId"
-        // get the type and id from content
-        const [type, id] = content.split("-");
-
+    // TODO tester la fonction
+    create: async (rating, comment, userId, { type, id }) => {
         // check if all required fields are filled
         isEmpty(rating);
 
@@ -44,7 +41,7 @@ const reviewService = {
             createError("ValidationError", "Le commentaire doit être une chaîne de caractères");
         }
 
-        const createReview = async (contentType,contentId) =>{
+        const createReview = async (contentType, contentId) => {
             review = await prisma.review.create({
                 data: {
                     rating: rating,
@@ -61,12 +58,11 @@ const reviewService = {
                     },
                 },
             });
+        };
 
-        }
-        
         // create review
-        const review = createReview(type, id)
-        
+        const review = createReview(type, id);
+
         return review;
     },
     delete: async ({ id }) => {

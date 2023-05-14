@@ -14,8 +14,7 @@ const reviewController = {
     create: async (req, res, next) => {
         try {
             // Get fields from request
-            const { rating, comment } = req.body;
-            const { content } = req.params;
+            const { rating, comment, content } = req.body;
             //! content doit être de la forme "contentType-contentId"
 
             // Call the service to create a review
