@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate, useOutlet } from "react-router-dom";
+import { Outlet, useNavigate, useOutlet, useParams } from "react-router-dom";
 import DashboardNav from "./account/dashboard/DashboardNav";
 import { useMediaQuery } from "react-responsive";
 
@@ -15,6 +15,22 @@ const DashboardLayout = () => {
         }
     }, [outlet]);
 
+    const changeBackground = () => {
+        const { page } = useParams();
+        switch (page) {
+            case "my-account":
+                return "url(../../../images/dashboard/backgrounds/myAccount.jpg)";
+            case "my-recipes":
+                return "url(../../../images/dashboard/backgrounds/myRecipes.jpg)";
+            case "my-sport-exercises":
+                return "url(../../../images/dashboard/backgrounds/mySportExercises.jpg)";
+            default:
+                return "url(../../../images/dashboard/backgrounds/myAccount.jpg)";
+        }
+    };
+
+    const style = isMobile ? { background: "none" } : { background: changeBackground() };
+
     return (
 
         <div className="dashboard-container">
@@ -23,7 +39,7 @@ const DashboardLayout = () => {
                 <DashboardNav />
             </div>
 
-            <div className={`dashboard-page ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
+            <div className={`dashboard-page ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `} style={style}>
                 <Outlet />
             </div>
 

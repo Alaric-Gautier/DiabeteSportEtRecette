@@ -20,10 +20,11 @@ const App = () => {
 
                         {/* Protected routes */}
                         {/* //TODO Add a protection and redirection */}
-                        <Route path="dashboard" element={<DashboardLayout />}>
+                        <Route path="dashboard/:page" element={<DashboardLayout />}>
                             <Route path="my-account" element={<MyAccount />} />
                             <Route path="my-recipes" element={<MyRecipe />} />
                             <Route path="my-sport-exercises" element={<MySportExercise />} />
+                            <Route path="delete" element={<h1>Delete</h1>} />
                         </Route>
 
                     </Route>
