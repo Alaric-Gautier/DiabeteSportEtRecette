@@ -14,7 +14,6 @@ require("./.config/mongoConnect");
 require("./.config/importDatasToDb");
 
 // import the routes
-const home = require("./routes/homeRoute");
 const user = require("./routes/userRoute");
 const connect = require("./routes/connectRoute");
 const recipe = require("./routes/recipeRoute");
@@ -33,10 +32,8 @@ app.use(express.json());
 app.use("/", connect);
 app.use("/", forgotPassword)
 app.use("/moderation", moderation)
-app.use(home);
 app.use("/sport-exercise", sport);
 app.use("/review", review);
-app.use(connect);
 app.use("/user", user);
 app.use("/recipe", recipe);
 

@@ -10,8 +10,8 @@ services:
   #   volumes:
   #     - ./Client:/app
   #   command: npm run dev
-    # env_file:
-    #   - ./Client/.env
+  # env_file:
+  #   - ./Client/.env
 
   server:
     build: ./Server

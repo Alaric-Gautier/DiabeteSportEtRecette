@@ -17,7 +17,8 @@ const Account = ({ opened }) => {
             </div>
 
             <div className="account-item">
-                <NavLink to="/register" className="account-link">
+                {/* //TODO change link register */}
+                <NavLink to="/dashboard" className="account-link">
                     <span className="account-link-text">S'inscrire</span>
                 </NavLink>
             </div>
