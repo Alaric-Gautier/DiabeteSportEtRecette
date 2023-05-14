@@ -15,7 +15,8 @@ const login = async (body) => {
     return(
     <AuthContext.Provider value={{
         login,
-        isAuth
+        isAuth,
+        setIsAuth,
     }}>
         {props.children}
     </AuthContext.Provider>

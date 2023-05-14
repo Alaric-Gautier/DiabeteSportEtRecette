@@ -5,7 +5,12 @@ import { AuthContext } from "../../utils/context";
 
 const Account = ({ opened }) => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
-    const {isAuth} = useContext(AuthContext)
+    const {isAuth, setIsAuth} = useContext(AuthContext)
+
+    const handleLogout = async () => {
+    await factorizedFetch("GET", "logout", {}, true)
+        setIsAuth(false)
+    }
 
     return (
         <div className={`account-container ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
@@ -25,12 +30,12 @@ const Account = ({ opened }) => {
            : <Fragment>
                 <div className="account-item">
                     <NavLink to="/dashboard" className="account-link">
-                        <span className="account-link-text">Dashboard</span>
+                        <span className="account-link-text">Tableau de bord</span>
                     </NavLink>
                 </div>
 
                 <div className="account-item">
-                    <NavLink to="/logout" className="account-link">
+                    <NavLink to="/logout" className="account-link" onClick={handleLogout}>
                         <span className="account-link-text">Se déconnecter</span>
                     </NavLink>
                 </div>

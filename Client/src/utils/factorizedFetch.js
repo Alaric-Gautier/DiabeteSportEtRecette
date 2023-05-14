@@ -7,9 +7,9 @@
  * @param {Object} headers 
  * @returns
  */
-export default factorizedFetch = async (method, endpoint, body = null, needAuth = false, headers={}) => {
+const factorizedFetch = async (method, endpoint, body = null, needAuth = false, headers={}) => {
     // construit l'url à partir de l'url de base + endpoint à spécifier (param inclus)
-    let url = `${import.meta.env.VITE_API}/${endpoint}`
+    const url = `${import.meta.env.VITE_API}/${endpoint}`
     
     // Ajoute le Content-Type aux headers, s'il y en a
     headers["Content-Type"] = "application/json";
@@ -35,3 +35,5 @@ export default factorizedFetch = async (method, endpoint, body = null, needAuth 
         console.error(error);
     }
   };
+
+  export default factorizedFetch;
