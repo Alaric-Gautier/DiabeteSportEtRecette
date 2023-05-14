@@ -9,7 +9,6 @@ await factorizedFetch("GET", "logout", {}, true)
 
 // confirmUser
 await factorizedFetch("GET", `confirmUser/${confirmationCode}`)
-await factorizedFetch("GET", "confirmUser", null, false, confirmationCode)
 
 // getNewConfirmationCode
 await factorizedFetch("POST", "/getNewConfirmationCode",body)
