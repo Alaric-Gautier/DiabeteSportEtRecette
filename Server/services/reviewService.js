@@ -4,7 +4,30 @@ const { isEmpty, isString, isNumber } = require("../utils/validators");
 const { createError } = require("../utils/tools");
 
 const reviewService = {
-    create: async ({ rating, comment, userId, recipeId, sport_exerciseId }) => {
+    getReviewByContentId: async contentId => {
+        const reviews = await prisma.review.findMany({
+            where: {
+                OR: [
+                    {
+                        sport_exercise: {
+                            id: parseInt(contentId),
+                        },
+                    },
+                    {
+                        recipe: {
+                            id: parseInt(contentId),
+                        },
+                    },
+                ],
+            },
+        });
+
+        if (!reviews) createError("NotFound");
+
+        return reviews;
+    },
+    // TODO tester la fonction
+    create: async (rating, comment, userId, { type, id }) => {
         // check if all required fields are filled
         isEmpty(rating);
 
@@ -18,28 +41,28 @@ const reviewService = {
             createError("ValidationError", "Le commentaire doit être une chaîne de caractères");
         }
 
+        const createReview = async (contentType, contentId) => {
+            review = await prisma.review.create({
+                data: {
+                    rating: rating,
+                    comment: comment,
+                    author: {
+                        connect: {
+                            id: parseInt(userId),
+                        },
+                    },
+                    [contentType]: {
+                        connect: {
+                            id: parseInt(contentId),
+                        },
+                    },
+                },
+            });
+        };
+
         // create review
-        const review = await prisma.review.create({
-            data: {
-                rating: rating,
-                comment: comment,
-                author: {
-                    connect: {
-                        id: parseInt(userId),
-                    },
-                },
-                recipe: {
-                    connect: {
-                        id: parseInt(recipeId),
-                    },
-                },
-                sport_exercise: {
-                    connect: {
-                        id: parseInt(sport_exerciseId),
-                    },
-                },
-            },
-        });
+        const review = createReview(type, id);
+
         return review;
     },
     delete: async ({ id }) => {
