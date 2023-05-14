@@ -24,7 +24,7 @@ const connectController = {
         try {
             await connectService.confirmUser(confirmationCode);
             res.status(200).json({ message: "Votre compte a bien été confirmé" });
-            // TODO res.redirect("localhost:3000/login")
+            res.redirect("localhost:5173/auth/login");
         } catch (err) {
             console.error(err);
             next(err);

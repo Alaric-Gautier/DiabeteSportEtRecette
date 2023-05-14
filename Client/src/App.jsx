@@ -6,6 +6,8 @@ import DashboardLayout from "./components/pages/DashboardLayout";
 import MyAccount from "./components/pages/account/dashboard/pages/MyAccount";
 import MyRecipe from "./components/pages/account/dashboard/pages/Myrecipe";
 import MySportExercise from "./components/pages/account/dashboard/pages/MySportExercise";
+import AuthForm from "./components/authForm/authForm";
+import ConfirmUser from "./components/pages/login/ConfirmUser";
 
 const App = () => {
     return (
@@ -17,6 +19,10 @@ const App = () => {
                     <Route path="/" element={<MainLayout />}>
                         {/* Public routes */}
                         <Route path="/" element={<Home />} />
+
+                        {/* Auth Route */}
+                        <Route path="/auth/:type" element={<AuthForm/>}/>
+                        <Route path="/auth/:confirmationCode" element={<ConfirmUser/>}/>
 
                         {/* Protected routes */}
                         {/* //TODO Add a protection and redirection */}

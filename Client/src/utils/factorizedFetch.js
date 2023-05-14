@@ -29,7 +29,7 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
         if (!response.ok) {
           throw new Error(responseData.message || "Une erreur s'est produite !");
         }
-        return responseData;
+        return {responseData, status:response.status};
 
     } catch (error) {
         console.error(error);
