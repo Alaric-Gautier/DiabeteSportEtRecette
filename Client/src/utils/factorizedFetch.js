@@ -1,24 +1,14 @@
 /**
  * Factorized function used to fetch the API. 
- * @param {String} url
- * @param {String} method
- * @param {Object} body
+ * @param {String} method - Method of the fetch (GET, POST, PUT, DELETE)
+ * @param {String} endpoint - Endpoint of the url
+ * @param {Object} body - optional, body of the request
  * @param {Boolean} needAuth - Is the fetch need an authentication ? false by default.
  * @param {Object} headers 
  * @returns
  */
-// V1
-// export default factorizedFetch = async (url, method, body = null, needAuth = false, headers={}) => {
-
-// V2
-// export default factorizedFetch = async (method, endpoint, body = null, needAuth = false, param=null, headers={}) => {
-
-//V3
 export default factorizedFetch = async (method, endpoint, body = null, needAuth = false, headers={}) => {
-    // V2 - construit l'url à partir de l'url de base + endpoint et param à spécifier en argument
-    // const url = `${import.meta.env.VITE_API}/${endpoint}/${param}`
-
-    // V3 - construit l'url à partir de l'url de base + endpoint à spécifier (param inclus)
+    // construit l'url à partir de l'url de base + endpoint à spécifier (param inclus)
     const url = `${import.meta.env.VITE_API}/${endpoint}`
     
     // Ajoute le Content-Type aux headers, s'il y en a
@@ -31,7 +21,7 @@ export default factorizedFetch = async (method, endpoint, body = null, needAuth 
       headers: headers,
       body: body ? JSON.stringify(body) : null
     };
-
+    
     // Exécute le fetch et retourne les data ou une erreur
     try {
         const response = await fetch(url, options);

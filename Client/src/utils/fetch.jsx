@@ -1,56 +1,23 @@
 import factorizedFetch from "./factorizedFetch";
 
-// const register = async (data) => {
-//     const response = await fetch(`${import.meta.env.VITE_API}/register`, {
-//         method: "POST",
-//         credentials: "include",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//     });
-//     return response.json();
-// };
-const BASE_URL = import.meta.env.VITE_API
-
-
 //* ----- CONNECT FETCH ----- *\\
 // login
 await factorizedFetch("POST", "login", body,true)
 
-const login = async (body) => {
-        await factorizedFetch(`${BASE_URL}/login`,"POST",body,true)
-}
-
 // logout
 await factorizedFetch("GET", "logout", {}, true)
-
-const logout = async () => {
-    await factorizedFetch(`${BASE_URL}/logout`, "GET", _, true)
-}
 
 // confirmUser
 await factorizedFetch("GET", `confirmUser/${confirmationCode}`)
 await factorizedFetch("GET", "confirmUser", null, false, confirmationCode)
 
-const confirmUser = async (confirmationCode) => {
-    await factorizedFetch(`${BASE_URL}/confirmUser/${confirmationCode}`,"GET")
-}
-
 // getNewConfirmationCode
 await factorizedFetch("POST", "/getNewConfirmationCode",body)
 
-const getNewConfirmationCode = async(body) => {
-    await factorizedFetch()
-}
 
 //* ----- USER FETCH ----- *\\
 // register
 await factorizedFetch("POST","register",body)
-
-const register = async (body) => {
-        await factorizedFetch(`${BASE_URL}/register`, "POST", body)
-}
 
 // getUserById
 await factorizedFetch("GET","user",null,true)
@@ -124,6 +91,8 @@ await factorizedFetch("DELETE", `recipe/delete/${sportId}`, null, true)
 
 
 //* ----- Review Fetch ----- *\\
+// getReviewsByContentId
+await factorizedFetch("GET", `review/${contentId}`, body)
 // create review
 await factorizedFetch("POST", `review/create`, body, true)
 
