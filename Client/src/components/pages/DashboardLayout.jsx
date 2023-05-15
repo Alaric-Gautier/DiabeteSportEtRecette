@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useOutlet, useParams } from "react-router-dom";
 import DashboardNav from "./account/dashboard/DashboardNav";
 import { useMediaQuery } from "react-responsive";
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ page }) => {
     const outlet = useOutlet();
     const navigate = useNavigate();
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
@@ -16,7 +16,7 @@ const DashboardLayout = () => {
     }, [outlet]);
 
     const changeBackground = () => {
-        const { page } = useParams();
+        const page = location.pathname.split("/")[2];
         switch (page) {
             case "my-account":
                 return "url(../../../images/dashboard/backgrounds/myAccount.jpg)";
@@ -48,7 +48,9 @@ const DashboardLayout = () => {
             </div>
 
             <div className={`dashboard-page ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `} style={style}>
-                <Outlet />
+                <Outlet
+                    page={page}
+                />
             </div>
 
             {isMobile ? (
