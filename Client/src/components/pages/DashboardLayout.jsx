@@ -31,12 +31,20 @@ const DashboardLayout = () => {
 
     const style = isMobile ? { background: "none" } : { background: changeBackground() };
 
+    const removeOpenedClass = () => {
+        if (opened) {
+            setOpened(false);
+        }
+    };
+
     return (
 
         <div className="dashboard-container">
 
             <div className={`dashboard-nav ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
-                <DashboardNav />
+                <DashboardNav
+                    removeOpenedClass={removeOpenedClass}
+                />
             </div>
 
             <div className={`dashboard-page ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `} style={style}>
@@ -51,7 +59,6 @@ const DashboardLayout = () => {
                 </div>
             ) : null
             }
-
 
         </div>
 
