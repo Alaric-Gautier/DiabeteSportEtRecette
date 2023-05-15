@@ -37,7 +37,7 @@ const sendConfirmationLink = async email => {
     // Prepare the token and link to send to the user to confirm his account
     const confirmationCode = createConfirmationCode(email);
     // const confirmationLink = `http://localhost:8000/confirmUser/${confirmationCode}`;
-    const confirmationLink = `http://localhost:3000/${confirmationCode}`
+    const confirmationLink = `http://localhost:5173/confirmUser/${confirmationCode}`
 
     if(!confirmationCode){
         createError("mailError","Une erreur est survenue lors de la création du code de confirmation")
