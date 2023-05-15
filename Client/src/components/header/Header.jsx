@@ -22,6 +22,7 @@ const Header = () => {
 
                 <Menu
                     opened={opened}
+                    removeOpenedClass={removeOpenedClass}
                 />
 
                 {isMobile ? (
