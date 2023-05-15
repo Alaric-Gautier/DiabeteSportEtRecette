@@ -7,15 +7,22 @@ const Header = () => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
     const [opened, setOpened] = useState(false);
 
+    const removeOpenedClass = () => {
+        if (opened) {
+            setOpened(false);
+        }
+    }
+
     return (
         <header className="header">
             <div className={`header-container ${isMobile ? "mobile" : ""}`}>
-                <NavLink to="/" className="header-logo">
+                <NavLink to="/" className="header-logo" onClick={removeOpenedClass}>
                     <img src="/images/logos/logo-horizontal-color.png" alt="logo-color" />
                 </NavLink>
 
                 <Menu
                     opened={opened}
+                    removeOpenedClass={removeOpenedClass}
                 />
 
                 {isMobile ? (
