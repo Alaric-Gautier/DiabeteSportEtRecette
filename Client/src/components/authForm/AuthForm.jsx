@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { CreateInputCheckbox, CreateInputText } from '../formComponents';
+import { CreateCheckbox, CreateInput } from '../formComponents';
 
 function AuthForm(props) {
 
@@ -67,9 +67,9 @@ function AuthForm(props) {
 
                 {formType === 'login' && (
                     <>
-                        <CreateInputText inputName={"email"} inputType="email" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"email"} inputType="email" formData={formData} setFormData={setFormData}/>
                     
-                        <CreateInputText inputName={"password"} inputType="password" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"password"} inputType="password" formData={formData} setFormData={setFormData}/>
 
                         <button type="submit">Connexion</button>
 
@@ -85,21 +85,21 @@ function AuthForm(props) {
                 {formType === 'register' && (
                     
                     <>
-                        <CreateInputText inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData}/>
 
-                        <CreateInputText inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData}/>
 
-                        <CreateInputText inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData}/>
 
-                        <CreateInputText inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData}/>
                         
-                        <CreateInputCheckbox inputName={"is_diabetic"} label="Êtes-vous diabétique ?" formData={formData} setFormData={setFormData}/>
+                        <CreateCheckbox inputName={"is_diabetic"} label="Êtes-vous diabétique ?" formData={formData} setFormData={setFormData}/>
                         
-                        {formData.is_diabetic && <CreateInputText inputName={"diabetes_type"} label="Type de diabète" inputType="email" formData={formData} setFormData={setFormData}/>}
+                        {formData.is_diabetic && <CreateInput inputName={"diabetes_type"} label="Type de diabète" inputType="email" formData={formData} setFormData={setFormData}/>}
 
-                        <CreateInputText inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
 
-                        <CreateInputText inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
 
                         <button type="submit">Sign Up</button>
 

@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-export const CreateInputText = ({inputName, label,formData, setFormData, inputType="text"}) => {
+export const CreateInput = ({inputName, label,formData, setFormData, inputType="text"}) => {
     const handleInputChange = (event) => {
         const { name, value, checked } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -19,7 +19,7 @@ export const CreateInputText = ({inputName, label,formData, setFormData, inputTy
     )
 }
 
-export const CreateInputCheckbox = ({inputName, label, formData, setFormData}) => {
+export const CreateCheckbox = ({inputName, label, formData, setFormData}) => {
     const handleInputChange = (event) => {
         const { name, checked } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: checked }));
