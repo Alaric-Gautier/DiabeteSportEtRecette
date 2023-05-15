@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { CreateCheckbox, CreateInput } from '../formComponents';
+import { CreateCheckbox, CreateInput } from './formComponents';
 
-function AuthForm(props) {
+const AuthForm = () => {
 
     const { type } = useParams();
-    const [formType, setFormType] = useState(type); // 'login', 'register', or 'forgot-password'
+    const [formType, setFormType] = useState(type);
     const [formData, setFormData] = useState({
         firstName:"",
         lastName:"",
@@ -34,8 +34,8 @@ function AuthForm(props) {
                 case 'forgot-password':
                     await forgotPassword(formData);
                     break;
-                case 'register-restaurant':
-                    await registerRestaurant(formData);
+                case 'reset-password':
+                    await forgotPassword(formData);
                     break;
                 default:
                     break;
@@ -65,11 +65,10 @@ function AuthForm(props) {
             <form onSubmit={handleSubmit} className="auth-form">
                 {formError && <div className="error-message">{formError}</div>}
 
-                {formType === 'login' && (
+                {formType === "login" && (
                     <>
-                        <CreateInput inputName={"email"} inputType="email" formData={formData} setFormData={setFormData}/>
-                    
-                        <CreateInput inputName={"password"} inputType="password" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"email"} label={"Email"} inputType="email" formData={formData} setFormData={setFormData}/>                   
+                        <CreateInput inputName={"password"} label={"Mot de passe"} inputType="password" formData={formData} setFormData={setFormData}/>
 
                         <button type="submit">Connexion</button>
 
@@ -82,23 +81,16 @@ function AuthForm(props) {
                     </>
                 )}
 
-                {formType === 'register' && (
+                {formType === "register" && (
                     
                     <>
                         <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData}/>
-
                         <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData}/>
-
                         <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData}/>
-
                         <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData}/>
-                        
                         <CreateCheckbox inputName={"is_diabetic"} label="Êtes-vous diabétique ?" formData={formData} setFormData={setFormData}/>
-                        
                         {formData.is_diabetic && <CreateInput inputName={"diabetes_type"} label="Type de diabète" inputType="email" formData={formData} setFormData={setFormData}/>}
-
                         <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
-
                         <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
 
                         <button type="submit">Sign Up</button>
@@ -109,32 +101,23 @@ function AuthForm(props) {
                     </>
                 )}
 
-                {formType === 'forgot-password' && (
-                    <>
-                        <label htmlFor="resetEmail">Email</label>
-                        <input type="email" id="resetEmail" name="resetEmail" value={formData.resetEmail} onChange={handleInputChange} />
+                {formType === "forgot-password" && (
+                    <>  
+                        <CreateInput inputName={"forgotPassword"} label={"Email"} inputType="email" formData={formData} setFormData={setFormData}/>
 
-                        <button type="submit">Reset Password</button>
-
-                        <p>
-                            Remember your password? <NavLink to="/auth/login">Log in here</NavLink>
-                        </p>
+                        <button type="submit">Réinitialiser le mot de passe</button>
                     </>
                 )}
 
-                {formType === 'register-restaurant' && (
+                {formType === "reset-password" && (
                     <>
-                        <label htmlFor="resetEmail">Email</label>
-                        <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} />
-                        <label htmlFor="resetEmail">Téléphone</label>
-                        <input type="phone" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} />
-                        <button type="submit">Contactez nous</button>
+                        <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
+                        <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
 
-
+                        <button type="submit">Confirmer</button>
                     </>
                 )}
             </form>
-            <button onClick={()=>{console.log(formData);}}/>
         </div>
     );
 
