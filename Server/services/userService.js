@@ -13,8 +13,12 @@ const userService = {
         isEmpty(firstName, lastName, email, birthDate, is_diabetic, password, confirmPassword);
 
         // if email is already use, throw an error
-        if (await prisma.account.findUnique({ where: { email: email } })) {
-            createError("ResourceConflictError", "Impossible de créer un compte car cet email est déjà utilisé");
+        try {
+            if (await prisma.account.findUnique({ where: { email: email } })) {
+                createError("ResourceConflictError", "Impossible de créer un compte car cet email est déjà utilisé");
+            }
+        } catch (error) {
+            createError("Error");
         }
 
         // check if email is valid
@@ -36,75 +40,92 @@ const userService = {
         // create a token and send it to the user mail
         await sendConfirmationLink(email);
         // create user
-        const user = await prisma.account.create({
-            data: {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                birthDate: birthDate,
-                is_diabetic: is_diabetic,
-                diabetes_type: diabetes_type,
-                password: hashedPassword,
-                is_confirmed:false,
-                roles: {
-                    connect: {
-                        id: 1,
+        try {
+            const user = await prisma.account.create({
+                data: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    birthDate: birthDate,
+                    is_diabetic: is_diabetic,
+                    diabetes_type: diabetes_type,
+                    password: hashedPassword,
+                    is_confirmed: false,
+                    roles: {
+                        connect: {
+                            id: 1,
+                        },
                     },
                 },
-            },
-        });
+            });
+        } catch (error) {
+            createError("Error");
+        }
 
-        return prisma.account.findUnique({
-            where: {
-                id: user.id,
-            },
-            select: {
-                firstName: true,
-                lastName: true,
-                email: true,
-                roles: true,
-            },
-        });
+        try {
+            return prisma.account.findUnique({
+                where: {
+                    id: user.id,
+                },
+                select: {
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                    roles: true,
+                },
+            });
+        } catch (error) {
+            createError("Error");
+        }
     },
     getUserById: async userId => {
-        const user = await prisma.account.findUnique({
-            where: {
-                id: parseInt(userId),
-            },
-            include: {
-                roles: true,
-                sport_exercises: true,
-                recipes: true,
-                reviews: true,
-            },
-        });
+        try {
+            const user = await prisma.account.findUnique({
+                where: {
+                    id: parseInt(userId),
+                },
+                include: {
+                    roles: true,
+                    sport_exercises: true,
+                    recipes: true,
+                    reviews: true,
+                },
+            });
 
-        isUserExists(user);
-        return user;
+            isUserExists(user);
+            return user;
+        } catch (error) {
+            console.log("Error");
+        }
     },
     getUserByMail: async email => {
         //Search the user from the DataBase
-        const user = await prisma.account.findUnique({
-            where: { email },
-        });
+        try {
+            const user = await prisma.account.findUnique({
+                where: { email },
+            });
 
-        isUserExists(user);
+            isUserExists(user);
 
-        return user;
+            return user;
+        } catch (error) {
+            createError("Error");
+        }
     },
     getUserByContentId: async (contentType, contentId) => {
-        const user = await prisma[contentType].findFirst({
-            where: {
-                id: Number(contentId),
-            },
-            select: {
-                author: true,
-            },
-        });
-        if (!user) {
+        try {
+            const user = await prisma[contentType].findFirst({
+                where: {
+                    id: Number(contentId),
+                },
+                select: {
+                    author: true,
+                },
+            });
+            return user;
+        } catch (error) {
             createError("NotFound");
         }
-        return user;
     },
     changePassword: async (id, oldPassword, newPassword, confirmPassword) => {
         // Input verifications
@@ -112,65 +133,77 @@ const userService = {
         passwordMatch(newPassword, confirmPassword);
 
         // If it's not a forgotten password
-        const user = await prisma.account.findUnique({ where: { id } });
-        // Check if the oldPassword is correct
-        const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
-        if (!isOldPasswordValid) {
-            createError("AccountError", "Le mot de passe actuel est erroné");
-        }
+        try {
+            const user = await prisma.account.findUnique({ where: { id } });
+            // Check if the oldPassword is correct
+            const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+            if (!isOldPasswordValid) {
+                createError("AccountError", "Le mot de passe actuel est erroné");
+            }
 
-        if (newPassword === oldPassword) {
-            createError("ValidationError", "Vous ne pouvez pas réutiliser votre mot de passe actuel");
-        }
+            if (newPassword === oldPassword) {
+                createError("ValidationError", "Vous ne pouvez pas réutiliser votre mot de passe actuel");
+            }
 
-        validatePassword(newPassword);
+            validatePassword(newPassword);
 
-        // hash password
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
+            // hash password
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        const passwordChanged = await prisma.account.update({
-            where: {
-                id: id,
-            },
-            data: {
-                password: hashedPassword,
-            },
-        });
+            const passwordChanged = await prisma.account.update({
+                where: {
+                    id: id,
+                },
+                data: {
+                    password: hashedPassword,
+                },
+            });
 
-        if (!passwordChanged) {
-            createError("updateError");
+            if (!passwordChanged) {
+                createError("updateError");
+            }
+        } catch (error) {
+            createError("Error");
         }
     },
     updateProfile: async (id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type) => {
-        if (email) {
-            const existingEmail = await prisma.account.findUnique({ where: { email } });
+        try {
+            if (email) {
+                const existingEmail = await prisma.account.findUnique({ where: { email } });
 
-            if (existingEmail) {
-                createError("ResourceConflictError", "Un compte existe déjà avec cette adresse email");
+                if (existingEmail) {
+                    createError("ResourceConflictError", "Un compte existe déjà avec cette adresse email");
+                }
             }
-        }
 
-        const updatedUser = await prisma.account.update({
-            where: {
-                id,
-            },
-            data: {
-                firstName,
-                lastName,
-                email,
-                birthDate,
-                is_diabetic,
-                diabetes_type,
-            },
-        });
-        if (updatedUser) {
-            return updatedUser;
-        } else {
-            createError("updateError");
+            const updatedUser = await prisma.account.update({
+                where: {
+                    id,
+                },
+                data: {
+                    firstName,
+                    lastName,
+                    email,
+                    birthDate,
+                    is_diabetic,
+                    diabetes_type,
+                },
+            });
+            if (updatedUser) {
+                return updatedUser;
+            } else {
+                createError("updateError");
+            }
+        } catch (error) {
+            createError("Error");
         }
     },
     deleteAccount: async id => {
-        await prisma.account.delete({ where: { id } });
+        try {
+            await prisma.account.delete({ where: { id } });
+        } catch (error) {
+            createError("Error");
+        }
     },
 };
 

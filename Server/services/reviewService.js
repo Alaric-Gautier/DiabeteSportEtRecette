@@ -5,24 +5,28 @@ const { createError } = require("../utils/tools");
 
 const reviewService = {
     getReviewByContentId: async contentId => {
-        const reviews = await prisma.review.findMany({
-            where: {
-                OR: [
-                    {
-                        sport_exercise: {
-                            id: parseInt(contentId),
+        try {
+            const reviews = await prisma.review.findMany({
+                where: {
+                    OR: [
+                        {
+                            sport_exercise: {
+                                id: parseInt(contentId),
+                            },
                         },
-                    },
-                    {
-                        recipe: {
-                            id: parseInt(contentId),
+                        {
+                            recipe: {
+                                id: parseInt(contentId),
+                            },
                         },
-                    },
-                ],
-            },
-        });
+                    ],
+                },
+            });
 
-        if (!reviews) createError("NotFound");
+            if (!reviews) createError("NotFound");
+        } catch (error) {
+            createError("Error");
+        }
 
         return reviews;
     },
@@ -60,19 +64,27 @@ const reviewService = {
             });
         };
 
-        // create review
-        const review = createReview(type, id);
+        try {
+            // create review
+            const review = createReview(type, id);
 
-        return review;
+            return review;
+        } catch (error) {
+            createError("Error");
+        }
     },
     delete: async ({ id }) => {
         // delete review
-        const review = await prisma.review.delete({
-            where: {
-                id: parseInt(id),
-            },
-        });
-        return review;
+        try {
+            const review = await prisma.review.delete({
+                where: {
+                    id: parseInt(id),
+                },
+            });
+            return review;
+        } catch (error) {
+            createError("Error");
+        }
     },
 };
 
