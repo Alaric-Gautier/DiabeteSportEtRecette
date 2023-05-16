@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
+import { AuthContext } from '../../utils/context';
 
 const AuthForm = () => {
-
     const { type } = useParams();
+    const [formError, setFormError] = useState(null);
     const [formType, setFormType] = useState(type);
     const [formData, setFormData] = useState({
         firstName:"",
@@ -16,7 +17,7 @@ const AuthForm = () => {
         password:"",
         confirmPassword:""
     });
-    const [formError, setFormError] = useState(null);
+    const auth = useContext(AuthContext)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -25,7 +26,7 @@ const AuthForm = () => {
         try {
             switch (formType) {
                 case 'login':
-                    await connexion(formData);
+                    await auth.login(formData, auth.setIsAuth);
                     break;
                 case 'register':
                     console.log(formData);

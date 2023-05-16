@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import factorizedFetch from "../../../utils/factorizedFetch"
+import factorizedFetch from "../../../utils/fetchs/factorizedFetch";
 import { NavLink, useParams } from "react-router-dom"
 import { CreateInput } from "../../forms/formComponents";
 

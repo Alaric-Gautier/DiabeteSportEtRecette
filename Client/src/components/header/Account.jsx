@@ -5,12 +5,7 @@ import { AuthContext } from "../../utils/context";
 
 const Account = ({ opened }) => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
-    const {isAuth, setIsAuth} = useContext(AuthContext)
-
-    const handleLogout = async () => {
-    await factorizedFetch("GET", "logout", {}, true)
-        setIsAuth(false)
-    }
+    const {logout, isAuth, setIsAuth} = useContext(AuthContext)
 
     return (
         <div className={`account-container ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
@@ -35,7 +30,7 @@ const Account = ({ opened }) => {
                 </div>
 
                 <div className="account-item">
-                    <NavLink to="/logout" className="account-link" onClick={handleLogout}>
+                    <NavLink to="/" className="account-link" onClick={()=>logout(setIsAuth)}>
                         <span className="account-link-text">Se déconnecter</span>
                     </NavLink>
                 </div>
