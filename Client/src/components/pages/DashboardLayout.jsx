@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate, useOutlet } from "react-router-dom";
+import { Outlet, useNavigate, useOutlet, useParams } from "react-router-dom";
 import DashboardNav from "./account/dashboard/DashboardNav";
 import { useMediaQuery } from "react-responsive";
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ page }) => {
     const outlet = useOutlet();
     const navigate = useNavigate();
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
@@ -15,16 +15,42 @@ const DashboardLayout = () => {
         }
     }, [outlet]);
 
+    const changeBackground = () => {
+        const page = location.pathname.split("/")[2];
+        switch (page) {
+            case "my-account":
+                return "url(../../../images/dashboard/backgrounds/myAccount.jpg)";
+            case "my-recipes":
+                return "url(../../../images/dashboard/backgrounds/myRecipes.jpg)";
+            case "my-sport-exercises":
+                return "url(../../../images/dashboard/backgrounds/mySportExercises.jpg)";
+            default:
+                return "url(../../../images/dashboard/backgrounds/myAccount.jpg)";
+        }
+    };
+
+    const style = isMobile ? { background: "none" } : { background: changeBackground() };
+
+    const removeOpenedClass = () => {
+        if (opened) {
+            setOpened(false);
+        }
+    };
+
     return (
 
         <div className="dashboard-container">
 
             <div className={`dashboard-nav ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
-                <DashboardNav />
+                <DashboardNav
+                    removeOpenedClass={removeOpenedClass}
+                />
             </div>
 
-            <div className={`dashboard-page ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
-                <Outlet />
+            <div className={`dashboard-page ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `} style={style}>
+                <Outlet
+                    page={page}
+                />
             </div>
 
             {isMobile ? (
@@ -35,7 +61,6 @@ const DashboardLayout = () => {
                 </div>
             ) : null
             }
-
 
         </div>
 

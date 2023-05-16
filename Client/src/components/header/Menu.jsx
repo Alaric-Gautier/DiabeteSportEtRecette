@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Account from "./Account";
 import { useMediaQuery } from "react-responsive";
 
-const Menu = ({ opened }) => {
+const Menu = ({ opened, removeOpenedClass }) => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
 
     return (
@@ -14,25 +14,25 @@ const Menu = ({ opened }) => {
                 <div className={`container-item ${isMobile ? "mobile" : ""} `}>
 
                     <div className="menu-item">
-                        <NavLink to="/recipe" className="menu-link">
+                        <NavLink to="/recipe" className="menu-link" onClick={removeOpenedClass}>
                             <span className="menu-link-text">Cuisine & Recettes</span>
                         </NavLink>
                     </div>
 
                     <div className="menu-item">
-                        <NavLink to="/sport-exercise" className="menu-link">
+                        <NavLink to="/sport-exercise" className="menu-link" onClick={removeOpenedClass}>
                             <span className="menu-link-text">Sport & Exercices</span>
                         </NavLink>
                     </div>
 
                     <div className="menu-item">
-                        <NavLink to="/health" className="menu-link" >
+                        <NavLink to="/health" className="menu-link" onClick={removeOpenedClass}>
                             <span className="menu-link-text">Santé</span>
                         </NavLink>
                     </div>
 
                     <div className="menu-item">
-                        <NavLink to="/about" className="menu-link">
+                        <NavLink to="/about" className="menu-link" onClick={removeOpenedClass}>
                             <span className="menu-link-text">A propos de nous</span>
                         </NavLink>
                     </div>
@@ -43,6 +43,7 @@ const Menu = ({ opened }) => {
 
             <Account
                 opened={opened}
+                removeOpenedClass={removeOpenedClass}
             />
 
         </Fragment>
