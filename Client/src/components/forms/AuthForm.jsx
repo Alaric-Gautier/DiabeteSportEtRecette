@@ -17,7 +17,7 @@ const AuthForm = () => {
         password:"",
         confirmPassword:""
     });
-    const auth = useContext(AuthContext)
+    const {login, setIsAuth} = useContext(AuthContext)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,7 +26,7 @@ const AuthForm = () => {
         try {
             switch (formType) {
                 case 'login':
-                    await auth.login(formData, auth.setIsAuth);
+                    await login(formData, setIsAuth);
                     break;
                 case 'register':
                     console.log(formData);
