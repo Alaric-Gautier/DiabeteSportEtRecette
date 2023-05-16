@@ -10,20 +10,21 @@ const connectService = {
     login: async (email, password) => {
         validateEmail(email);
         //Search the user from the DataBase
-        const user = await prisma.account.findUnique({
-            where: { email },
-            select:{
-                id:true,
-                roles:true,
-                password:true,
-                is_confirmed:true,
-            }
-        });
-
-        // If no user has been found, throw an error
-        if (!user) {
+        try {
+            const user = await prisma.account.findUnique({
+                where: { email },
+                select: {
+                    id: true,
+                    roles: true,
+                    password: true,
+                    is_confirmed: true,
+                },
+            });
+        } catch (error) {
             createError("AccountError");
         }
+
+        // If no user has been found, throw an error
 
         if (!user.is_confirmed) {
             createError("Unauthorized", "Votre compte n'a pas été confirmé");

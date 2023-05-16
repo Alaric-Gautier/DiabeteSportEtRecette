@@ -17,7 +17,7 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
     // Défini les options du fetch, incluant le cookie d'authentification
     const options = {
       method: method,
-      credentials: needAuth ? "same-site" : "omit",
+      credentials: needAuth ? "same-origin" : "omit",
       headers: headers,
       body: body ? JSON.stringify(body) : null
     };
@@ -32,7 +32,8 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
         return {responseData, status:response.status};
 
     } catch (error) {
-        console.error(error);
+      console.log("Na marche pas");
+        // console.error(error);
     }
   };
 

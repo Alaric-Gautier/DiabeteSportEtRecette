@@ -825,10 +825,6 @@
         "glycemic_charge": 0
     },
     {
-        "name": "I",
-        "glycemic_charge": 0
-    },
-    {
         "name": "Igname",
         "glycemic_index": 40,
         "glycemic_charge": 9.44

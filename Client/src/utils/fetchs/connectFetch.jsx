@@ -3,13 +3,12 @@ import factorizedFetch from "./factorizedFetch";
 
 //* ----- CONNECT FETCH ----- *\\
 export const login = async ({email, password}, setIsAuth) => {
-    setIsAuth(true)
     console.log("Logged in");
-    // const result = await factorizedFetch("POST", "login", {email, password},true)
-    // if (result.login === 200) {
-    //     setIsAuth(true)
-    //     Navigate("/dashboard/my-account")
-    // }
+    const result = await factorizedFetch("POST", "login", {email, password},true)
+    if (result.login === 200) {
+        setIsAuth(true)
+        Navigate("/dashboard/my-account")
+    }
 } 
 
 // logout
