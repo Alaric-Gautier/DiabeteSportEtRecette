@@ -31,7 +31,8 @@ const App = () => {
 
                         {/* Protected routes */}
                         {/* //TODO Add a protection and redirection */}
-                        <Route path="dashboard/" element={isAuth ? <DashboardLayout /> : <Navigate to="/auth/login" />}>
+                        {/* <Route path="dashboard/" element={isAuth ? <DashboardLayout /> : <Navigate to="/auth/login" />}> */}
+                        <Route path="dashboard/" element={<DashboardLayout />}>
                             <Route path="my-account" element={<MyAccount />} />
                             <Route path="my-recipes" element={<MyRecipe />} />
                             <Route path="my-sport-exercises" element={<MySportExercise />} />

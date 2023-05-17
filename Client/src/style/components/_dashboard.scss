@@ -61,24 +61,16 @@
         }
 
         &.mobile {
-            display: none;
-        }
-
-        &.opened {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: start;
+            display: block;
+            transform: translate(-150%);
+            transition: transform 0.4s ease-in-out;
+            width: fit-content;
             position: absolute;
-            top: 15rem;
-            left: 0;
-            width: 100%;
-            z-index: 99;
-            padding: 0 1.5rem;
             border: none;
             box-shadow: none;
-            //TODO: find a background color for mobile
-            // background: $background-color;
+            top: 15rem;
+            left: 0;
+            padding: 0 1.5rem;
 
             .nav-page {
                 padding: 1rem 0 1rem 0.5rem;
@@ -91,6 +83,15 @@
                 border-top: 1px solid $blueChart;
                 width: 100%;
             }
+        }
+
+        &.opened {
+            transform: translate(0);
+            justify-content: start;
+            position: absolute;
+            width: 100%;
+            //TODO: find a background color for mobile
+            // background: $background-color;
         }
     }
 
