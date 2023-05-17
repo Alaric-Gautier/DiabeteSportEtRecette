@@ -11,24 +11,24 @@ const moderationService = {
         const subject = `Validation de votre ${contentType}`;
         const text = `Votre ${contentType} a été validé par un modérateur. Son contenu est désormais visible par la communauté. Merci de votre participation !`;
 
-        const isValidate = await prisma[contentType].update({
-            where: {
-                id: Number(contentId),
-            },
-            data: {
-                is_moderate: true,
-            },
-        });
-
-        if (!isValidate) {
+        try {
+            await prisma[contentType].update({
+                where: {
+                    id: Number(contentId),
+                },
+                data: {
+                    is_moderate: true,
+                },
+            });
+        } catch (error) {
             createError("Error");
         }
 
         // envoi du mail de notification à l'utilisateur
         sendMail(to, subject, text);
     },
-    rejection: (contentType, contentId, message) => {
-        const user = getUserByContentId(contentType, contentId);
+    rejection: async (contentType, contentId, message) => {
+        const user = await getUserByContentId(contentType, contentId);
 
         const to = user.author.email;
         const subject = `Validation de votre ${contentType}`;

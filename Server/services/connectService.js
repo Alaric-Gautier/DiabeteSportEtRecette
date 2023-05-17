@@ -21,10 +21,9 @@ const connectService = {
                 },
             });
         } catch (error) {
+            // If no user has been found, throw an error
             createError("AccountError");
         }
-
-        // If no user has been found, throw an error
 
         if (!user.is_confirmed) {
             createError("Unauthorized", "Votre compte n'a pas été confirmé");
@@ -44,28 +43,27 @@ const connectService = {
     },
     confirmUser: async token => {
         const { email } = jwt.verify(token, process.env.CONFIRMATION_CODE_SECRET);
+        try {
+            const user = await prisma.account.findUnique({
+                where: {
+                    email,
+                },
+            });
 
-        const user = await prisma.account.findUnique({
-            where: {
-                email,
-            },
-        });
-
-        if (!user) {
+            await prisma.account.update({
+                where: { email },
+                data: { is_confirmed: true },
+            });
+        } catch (error) {
             createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
-
-        await prisma.account.update({
-            where: { email },
-            data: { is_confirmed: true },
-        });
     },
     sendNewLink: async email => {
-        const user = await prisma.account.findUnique({
-            where: { email },
-        });
-
-        if (!user) {
+        try {
+            const user = await prisma.account.findUnique({
+                where: { email },
+            });
+        } catch (error) {
             createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
@@ -81,8 +79,12 @@ const connectService = {
             refreshTokenExpiration = new Date(Date.now() + 3600 * 1000);
 
             // Fonction pour ajouter les tokens en base de données...
-            await addToBlacklist(accessToken, accessTokenExpiration);
-            await addToBlacklist(refreshToken, refreshTokenExpiration);
+            try {
+                await addToBlacklist(accessToken, accessTokenExpiration);
+                await addToBlacklist(refreshToken, refreshTokenExpiration);
+            } catch (error) {
+                createError("Error");
+            }
 
             return true;
         } catch (err) {
