@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useOutlet, useParams } from "react-router-dom";
 import DashboardNav from "./account/dashboard/DashboardNav";
 import { useMediaQuery } from "react-responsive";
 
-const DashboardLayout = ({ page }) => {
+const DashboardLayout = () => {
     const outlet = useOutlet();
     const navigate = useNavigate();
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
@@ -48,9 +48,7 @@ const DashboardLayout = ({ page }) => {
             </div>
 
             <div className={`dashboard-page ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `} style={style}>
-                <Outlet
-                    page={page}
-                />
+                <Outlet />
             </div>
 
             {isMobile ? (
