@@ -1,0 +1,112 @@
+.authForm-container {
+    display: flex;
+    background-color: $background-color;
+
+    .form-banner {
+        display: flex;
+        flex-direction: column;
+
+        img {
+            box-shadow: 0px 2px 5px 0px rgba(16, 51, 95, 0.75);
+            width: 100%;
+        }
+    }
+
+    .auth-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+
+        .authForm-logo {
+            display: flex;
+            width: 10rem;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            color: $blueChart;
+            font-weight: bold;
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 50%;
+
+            label {
+                font-size: 1.2rem;
+                color: $purpleChart;
+                font-weight: bold;
+            }
+
+            input {
+                border: 1px solid $purpleChart;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+                font-size: 1.2rem;
+                //TODO: Change this to $text-color-black
+                color: $text-color-black;
+                font-weight: bold;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid $yellowChart;
+                }
+            }
+        }
+
+        .form-submit {
+            display: flex;
+
+            button {
+                border: 1px solid $blueChart;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: $yellowChart;
+                background-color: $blueChart;
+                cursor: pointer;
+                transition: all 0.5s ease-in-out;
+
+                &:hover {
+                    background-color: $yellowChart;
+                    color: $blueChart;
+                }
+            }
+        }
+
+        .form-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+
+            p {
+                font-size: 1.2rem;
+                color: $purpleChart;
+                font-weight: bold;
+            }
+
+            a {
+                text-decoration: none;
+                color: $blueChart;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.5s ease-in-out;
+
+                &:hover {
+                    color: $yellowChart;
+                }
+            }
+        }
+    }
+
+
+    &.mobile {
+        //TODO: add responsive styles here
+    }
+}
