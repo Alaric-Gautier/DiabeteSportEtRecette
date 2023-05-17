@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { login, logout } from "./fetchs/connectFetch";
+import { register, login, logout } from "./fetchs/connectFetch";
 
 
 export const AuthContext = createContext();
@@ -8,6 +8,7 @@ export const AuthProvider = (props) => {
 
     return(
     <AuthContext.Provider value={{
+        register,
         login,
         logout,
         isAuth,

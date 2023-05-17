@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
+import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
 
 const AuthForm = () => {
     const { type } = useParams();
-    const [formError, setFormError] = useState(null);
+    const [formError, setFormError] = useState({});
     const [formType, setFormType] = useState(type);
     const [formData, setFormData] = useState({
         firstName:"",
@@ -17,7 +18,7 @@ const AuthForm = () => {
         password:"",
         confirmPassword:""
     });
-    const {login, setIsAuth} = useContext(AuthContext)
+    const {register, login, setIsAuth} = useContext(AuthContext)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -30,7 +31,7 @@ const AuthForm = () => {
                     break;
                 case 'register':
                     console.log(formData);
-                    await registerCustomer(formData);
+                    await register(formData);
                     break;
                 case 'forgot-password':
                     await forgotPassword(formData);
@@ -42,7 +43,8 @@ const AuthForm = () => {
                     break;
             }
         } catch (error) {
-            setFormError(error.message);
+            console.log(error.data);
+            setFormError(error);
         }
     };
 
@@ -64,7 +66,7 @@ const AuthForm = () => {
     return (
         <div className="authForm-container">
             <form onSubmit={handleSubmit} className="auth-form">
-                {formError && <div className="error-message">{formError}</div>}
+                {formError && <FormError error={formError} />}
 
                 {formType === "login" && (
                     <>

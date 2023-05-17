@@ -23,18 +23,15 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
     };
     
     // Exécute le fetch et retourne les data ou une erreur
-    try {
-        const response = await fetch(url, options);
+   const response = await fetch(url, options);
         const responseData = await response.json();
         if (!response.ok) {
-          throw new Error(responseData.message || "Une erreur s'est produite !");
+          const error = new Error(responseData.message || "Une erreur s'est produite !");
+          error.data = responseData.data
+          console.log("erreur dans fetch=", error.data);
+          throw error
         }
         return {responseData, status:response.status};
-
-    } catch (error) {
-      console.log("Na marche pas");
-        // console.error(error);
-    }
   };
 
   export default factorizedFetch;

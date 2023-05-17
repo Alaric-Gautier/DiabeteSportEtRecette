@@ -2,7 +2,7 @@ import { Fragment } from "react";
 
 export const CreateInput = ({inputName, label,formData, setFormData, inputType="text"}) => {
     const handleInputChange = (event) => {
-        const { name, value, checked } = event.target;
+        const { name, value } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
     return (
@@ -36,4 +36,10 @@ export const CreateCheckbox = ({inputName, label, formData, setFormData}) => {
             />
         </Fragment>
     )
+}
+
+export const CreateDropDown = ({inputName, label, formData, setFormData, selectData}) => {
+    const handleInputChange = event => {
+        
+    }
 }

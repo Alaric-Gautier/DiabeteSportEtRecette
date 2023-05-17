@@ -3,11 +3,12 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
-const { validateEmail } = require("../utils/validators");
+const { validateEmail, isEmpty } = require("../utils/validators");
 const { createError, sendConfirmationLink } = require("../utils/tools");
 
 const connectService = {
     login: async (email, password) => {
+        isEmpty(email, password);
         validateEmail(email);
         //Search the user from the DataBase
         try {

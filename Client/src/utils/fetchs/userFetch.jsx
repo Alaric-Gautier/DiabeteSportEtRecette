@@ -1,11 +1,6 @@
 import factorizedFetch from "./factorizedFetch";
 
 //* ----- USER FETCH ----- *\\
-// register
-export const register = async (body) => {
-    await factorizedFetch("POST","register",body)
-}
-
 // getUserById
 export const getUserById = async () => {
     await factorizedFetch("GET","user",null,true)

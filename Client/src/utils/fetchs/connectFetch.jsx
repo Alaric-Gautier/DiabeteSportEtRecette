@@ -2,8 +2,12 @@ import { Navigate } from "react-router-dom";
 import factorizedFetch from "./factorizedFetch";
 
 //* ----- CONNECT FETCH ----- *\\
+// register
+export const register = async (body) => {
+        await factorizedFetch("POST","user/register",body)
+}
+
 export const login = async ({email, password}, setIsAuth) => {
-    console.log("Logged in");
     const result = await factorizedFetch("POST", "login", {email, password},true)
     if (result.login === 200) {
         setIsAuth(true)
