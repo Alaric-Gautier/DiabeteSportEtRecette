@@ -22,6 +22,7 @@ export const CreateInput = ({inputName, label,formData, setFormData, inputType="
 export const CreateCheckbox = ({inputName, label, formData, setFormData}) => {
     const handleInputChange = (event) => {
         const { name, checked } = event.target;
+        console.log("checked ?",formData[inputName]);
         setFormData((prevFormData) => ({ ...prevFormData, [name]: checked }));
     };
     return (
@@ -31,7 +32,7 @@ export const CreateCheckbox = ({inputName, label, formData, setFormData}) => {
                 type="checkbox"
                 id={inputName} 
                 name={inputName} 
-                checked={formData[inputName]} 
+                checked={formData[inputName]}
                 onChange={handleInputChange} 
             />
         </Fragment>

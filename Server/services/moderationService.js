@@ -21,6 +21,7 @@ const moderationService = {
                 },
             });
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
 

@@ -43,6 +43,7 @@ const sportService = {
             });
             return sportExercise;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -59,8 +60,13 @@ const sportService = {
                     author: true,
                 },
             });
+
+            if (!sportExercise) {
+                createError("NotFound", "L'exercice de sport que vous souhaitez consulter n'existe pas ou a été supprimé");
+            }
             return sportExercise;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -79,6 +85,7 @@ const sportService = {
             });
             return sportExercises;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -93,6 +100,7 @@ const sportService = {
             });
             return sportExercises;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -134,6 +142,7 @@ const sportService = {
             });
             return sportExercise;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -147,6 +156,7 @@ const sportService = {
             });
             return sportExercise;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },

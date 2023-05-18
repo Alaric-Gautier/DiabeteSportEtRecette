@@ -1,3 +1,5 @@
+import { toastUtils } from "../toaster";
+
 /**
  * Factorized function used to fetch the API. 
  * @param {String} method - Method of the fetch (GET, POST, PUT, DELETE)
@@ -26,12 +28,14 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
    const response = await fetch(url, options);
         const responseData = await response.json();
         if (!response.ok) {
-          const error = new Error(responseData.message || "Une erreur s'est produite !");
-          error.data = responseData.data
-          console.log("erreur dans fetch=", error.data);
-          throw error
+          return toastUtils("error", responseData.message || "Un erreur s'est produit !")
+        } else {
+          console.log("responseData = ", responseData);
+          toastUtils("success", responseData.message)
+          return {responseData, status:response.status};
         }
-        return {responseData, status:response.status};
+
+
   };
 
   export default factorizedFetch;

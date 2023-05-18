@@ -7,7 +7,7 @@ const FormError = ({error}) => {
             <h2>Erreur</h2>
             <p>{message}</p>
             {data ? data.map((errorCode)=>{
-                const className = null;
+                let className = null;
                 switch (errorCode) {
                     case 1:
                         className = "majuscule"

@@ -8,6 +8,7 @@ const Header = () => {
     const [opened, setOpened] = useState(false);
 
     const removeOpenedClass = () => {
+        console.log("Click");
         if (opened) {
             setOpened(false);
         }

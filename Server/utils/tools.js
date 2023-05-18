@@ -8,7 +8,7 @@ const createError = (name, message = "", data = null) => {
     throw error;
 };
 
-const sendMail = async (to, subject, text) => {
+const sendMail = (to, subject, text) => {
     try {
         const transporter = nodemailer.createTransport({
             service: process.env.SERVICE,
@@ -24,8 +24,7 @@ const sendMail = async (to, subject, text) => {
             text,
         };
 
-        const info = await transporter.sendMail(mailOptions, err => console.log(err));
-        console.log("fonction sendMail === ", info);
+        const info = transporter.sendMail(mailOptions, err => console.log(err));
         return info;
     } catch (err) {
         console.error(err);
@@ -37,10 +36,10 @@ const sendConfirmationLink = async email => {
     // Prepare the token and link to send to the user to confirm his account
     const confirmationCode = createConfirmationCode(email);
     // const confirmationLink = `http://localhost:8000/confirmUser/${confirmationCode}`;
-    const confirmationLink = `http://localhost:5173/confirmUser/${confirmationCode}`
+    const confirmationLink = `http://localhost:5173/confirmUser/${confirmationCode}`;
 
-    if(!confirmationCode){
-        createError("mailError","Une erreur est survenue lors de la création du code de confirmation")
+    if (!confirmationCode) {
+        createError("mailError", "Une erreur est survenue lors de la création du code de confirmation");
     }
 
     // Sending the mail
@@ -50,10 +49,10 @@ const sendConfirmationLink = async email => {
     await sendMail(email, subject, text);
 };
 
-const isUserExists = (user) => {
+const isUserExists = user => {
     if (!user) {
-        createError("NotFound", "Aucun utilisateur n'a été trouvé")
+        createError("NotFound", "Aucun utilisateur n'a été trouvé");
     }
-}
+};
 
 module.exports = { createError, sendMail, sendConfirmationLink, isUserExists };

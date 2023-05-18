@@ -4,12 +4,12 @@ import factorizedFetch from "./factorizedFetch";
 //* ----- CONNECT FETCH ----- *\\
 // register
 export const register = async (body) => {
-        await factorizedFetch("POST","user/register",body)
+    await factorizedFetch("POST","user/register",body)
 }
 
 export const login = async ({email, password}, setIsAuth) => {
     const result = await factorizedFetch("POST", "login", {email, password},true)
-    if (result.login === 200) {
+    if (result?.login === 200) {
         setIsAuth(true)
         Navigate("/dashboard/my-account")
     }

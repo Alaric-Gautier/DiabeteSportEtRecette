@@ -25,6 +25,7 @@ const reviewService = {
 
             if (!reviews) createError("NotFound");
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
 
@@ -83,6 +84,7 @@ const reviewService = {
             });
             return review;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },

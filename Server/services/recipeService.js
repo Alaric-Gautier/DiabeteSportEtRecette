@@ -55,6 +55,7 @@ const recipeService = {
             });
             return recipe;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -72,6 +73,10 @@ const recipeService = {
                     author: true,
                 },
             });
+
+            if (!recipe) {
+                createError("NotFound", "La recette que vous tentez de consulter n'existe pas ou a été supprimée");
+            }
             return recipe;
         } catch (error) {
             createError("Error");
@@ -94,6 +99,7 @@ const recipeService = {
             });
             return recipes;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -110,6 +116,7 @@ const recipeService = {
             });
             return recipes;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -164,6 +171,7 @@ const recipeService = {
             });
             return recipe;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -177,6 +185,7 @@ const recipeService = {
             });
             return recipe;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },

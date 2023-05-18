@@ -8,17 +8,12 @@ const { createConfirmationCode } = require("../utils/token");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword }) => {
-        console.log(firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword);
         // check if all required fields are filled with isEmpty function
         isEmpty(firstName, lastName, email, birthDate, is_diabetic, password, confirmPassword);
 
         // if email is already use, throw an error
-        try {
-            if (await prisma.account.findUnique({ where: { email: email } })) {
-                createError("ResourceConflictError", "Impossible de créer un compte car cet email est déjà utilisé");
-            }
-        } catch (error) {
-            createError("Error");
+        if (await prisma.account.findUnique({ where: { email: email } })) {
+            createError("ResourceConflictError", "Impossible de créer un compte car cet email est déjà utilisé");
         }
 
         // check if email is valid
@@ -34,14 +29,16 @@ const userService = {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // check if birthDate format is valid
+        birthDate = moment(birthDate, "YYYY-MM-DD").format("DD/MM/YYYY");
+
         if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
             createError("ValidationError", "Le format de la date de naissance est invalide, veuillez respecter le format DD/MM/YYYY");
         }
-        // create a token and send it to the user mail
-        await sendConfirmationLink(email);
+
         // create user
+        let user;
         try {
-            const user = await prisma.account.create({
+            user = await prisma.account.create({
                 data: {
                     firstName: firstName,
                     lastName: lastName,
@@ -58,7 +55,11 @@ const userService = {
                     },
                 },
             });
+
+            // create a token and send it to the user mail
+            await sendConfirmationLink(email);
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
 
@@ -75,6 +76,7 @@ const userService = {
                 },
             });
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -95,6 +97,7 @@ const userService = {
             isUserExists(user);
             return user;
         } catch (error) {
+            console.error(error);
             console.log("Error");
         }
     },
@@ -109,6 +112,7 @@ const userService = {
 
             return user;
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -124,6 +128,7 @@ const userService = {
             });
             return user;
         } catch (error) {
+            console.error(error);
             createError("NotFound");
         }
     },
@@ -163,6 +168,7 @@ const userService = {
                 createError("updateError");
             }
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -195,6 +201,7 @@ const userService = {
                 createError("updateError");
             }
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },
@@ -202,6 +209,7 @@ const userService = {
         try {
             await prisma.account.delete({ where: { id } });
         } catch (error) {
+            console.error(error);
             createError("Error");
         }
     },

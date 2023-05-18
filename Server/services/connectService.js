@@ -4,15 +4,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
 const { validateEmail, isEmpty } = require("../utils/validators");
-const { createError, sendConfirmationLink } = require("../utils/tools");
+const { createError, sendConfirmationLink, isUserExists } = require("../utils/tools");
 
 const connectService = {
     login: async (email, password) => {
         isEmpty(email, password);
         validateEmail(email);
         //Search the user from the DataBase
+        let user;
         try {
-            const user = await prisma.account.findUnique({
+            user = await prisma.account.findUnique({
                 where: { email },
                 select: {
                     id: true,
@@ -23,6 +24,7 @@ const connectService = {
             });
         } catch (error) {
             // If no user has been found, throw an error
+            console.error(error);
             createError("AccountError");
         }
 
@@ -44,6 +46,7 @@ const connectService = {
     },
     confirmUser: async token => {
         const { email } = jwt.verify(token, process.env.CONFIRMATION_CODE_SECRET);
+
         try {
             const user = await prisma.account.findUnique({
                 where: {
@@ -51,20 +54,25 @@ const connectService = {
                 },
             });
 
+            isUserExists(user);
+
             await prisma.account.update({
                 where: { email },
                 data: { is_confirmed: true },
             });
         } catch (error) {
+            console.error(error);
             createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
     },
     sendNewLink: async email => {
+        let user;
         try {
-            const user = await prisma.account.findUnique({
+            user = await prisma.account.findUnique({
                 where: { email },
             });
         } catch (error) {
+            console.error(error);
             createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
 
@@ -84,11 +92,13 @@ const connectService = {
                 await addToBlacklist(accessToken, accessTokenExpiration);
                 await addToBlacklist(refreshToken, refreshTokenExpiration);
             } catch (error) {
+                console.error(error);
                 createError("Error");
             }
 
             return true;
-        } catch (err) {
+        } catch (error) {
+            console.error(error);
             createError("logoutError");
         }
     },

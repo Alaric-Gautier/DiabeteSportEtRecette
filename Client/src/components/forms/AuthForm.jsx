@@ -4,11 +4,13 @@ import { CreateCheckbox, CreateInput } from './formComponents';
 import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
 import { useMediaQuery } from 'react-responsive';
+import { toast } from 'react-toastify';
+import { toastUtils } from '../../utils/toaster';
 
 const AuthForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const { type } = useParams();
-    const [formError, setFormError] = useState({});
+    const [formError, setFormError] = useState(null);
     const [formType, setFormType] = useState(type);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -26,13 +28,12 @@ const AuthForm = () => {
         event.preventDefault();
         setFormError(null);
 
-        try {
+        // try {
             switch (formType) {
                 case 'login':
                     await login(formData, setIsAuth);
                     break;
                 case 'register':
-                    console.log(formData);
                     await register(formData);
                     break;
                 case 'forgot-password':
@@ -44,10 +45,10 @@ const AuthForm = () => {
                 default:
                     break;
             }
-        } catch (error) {
-            console.log(error.data);
-            setFormError(error);
-        }
+        // } catch (error) {
+        //     toastUtils("error", error.message)
+        //     setFormError(error);
+        // }
     };
 
     useEffect(() => {
@@ -58,7 +59,7 @@ const AuthForm = () => {
             email: "",
             birthDate: "",
             is_diabetic: false,
-            diabetes_type: null,
+            diabetes_type: "",
             password: "",
             confirmPassword: ""
         });
@@ -73,12 +74,7 @@ const AuthForm = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="auth-form">
-
-                <div className="authForm-logo">
-                    <img src="/images/logos/logo-vertical-color.svg" alt="logo" />
-                </div>
-
-                {formError && <div className="error-message">{formError}</div>}
+                {/* {formError && <div className="error-message">{formError.message}</div>} */}
 
                 {formType === "login" && (
                     <>

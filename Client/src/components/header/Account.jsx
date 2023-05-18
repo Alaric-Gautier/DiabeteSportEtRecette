@@ -12,12 +12,12 @@ const Account = ({ opened, removeOpenedClass }) => {
             {!isAuth
                 ? <Fragment>
                     <div className="account-item">
-                        <NavLink to="/login" className="account-link" onClick={removeOpenedClass}>
+                        <NavLink to="/auth/login" className="account-link" onClick={removeOpenedClass}>
                             <span className="account-link-text">Se connecter</span>
                         </NavLink>
                     </div>
                     <div className="account-item">
-                        <NavLink to="/register" className="account-link" onClick={removeOpenedClass}>
+                        <NavLink to="/auth/register" className="account-link" onClick={removeOpenedClass}>
                             <span className="account-link-text">S'inscrire</span>
                         </NavLink>
                     </div>
