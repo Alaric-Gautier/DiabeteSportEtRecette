@@ -20,11 +20,10 @@ const connectController = {
         }
     },
     confirmUser: async (req, res, next) => {
-        const confirmationCode = req.params.confirmationCode;
+        const confirmationKey = req.params.confirmationKey;
         try {
-            await connectService.confirmUser(confirmationCode);
+            await connectService.confirmUser(confirmationKey);
             res.status(200).json({ message: "Votre compte a bien été confirmé" });
-            res.redirect("localhost:5173/auth/login");
         } catch (err) {
             console.error(err);
             next(err);
@@ -32,12 +31,22 @@ const connectController = {
     },
     sendNewLink: async (req, res, next) => {
         const { email } = req.body;
+        console.log("===========");
+        console.log("===========");
+        console.log("===========");
+        console.log("email en back ?", email);
+        console.log("===========");
+        console.log("===========");
+        console.log("===========");
         try {
             // If the user's account is already confirmed, no mail will be send
-            if (!(await connectService.sendNewLink(email))) {
+            const sendNewLink = await connectService.sendNewLink(email);
+            console.log("SendNewLink ===", sendNewLink);
+            if (sendNewLink) {
+                return res.status(201).json({ message: "un mail de confirmation vous a été envoyé à l'adresse indiquée" });
+            } else {
                 return res.status(200).json({ message: "Vous avez déjà confirmé votre compte. Veuillez vous connecter." });
             }
-            res.status(201).json({ message: "un mail de confirmation vous a été envoyé à l'adresse indiquée" });
         } catch (err) {
             console.error(err);
             next(err);

@@ -1,7 +1,5 @@
 const FormError = ({error}) => {
     const {message, data} = error
-    console.log("message dans customError ==",message);
-    console.log("data dans customError ==",data);
     return(
         <div>
             <h2>Erreur</h2>

@@ -38,6 +38,9 @@ const userService = {
         // create user
         let user;
         try {
+            // create a token and send it to the user mail
+            await sendConfirmationLink(email);
+
             user = await prisma.account.create({
                 data: {
                     firstName: firstName,
@@ -55,9 +58,6 @@ const userService = {
                     },
                 },
             });
-
-            // create a token and send it to the user mail
-            await sendConfirmationLink(email);
         } catch (error) {
             console.error(error);
             createError("Error");
@@ -98,7 +98,7 @@ const userService = {
             return user;
         } catch (error) {
             console.error(error);
-            console.log("Error");
+            createError("Error");
         }
     },
     getUserByMail: async email => {

@@ -27,7 +27,7 @@ const App = () => {
 
                         {/* Auth Route */}
                         <Route path="/auth/:type" element={<AuthForm />} />
-                        <Route path="/confirmUser/:confirmationCode" element={<ConfirmUser />} />
+                        <Route path="/confirmUser/:confirmationKey" element={<ConfirmUser />} />
 
                         {/* Protected routes */}
                         {/* //TODO Add a protection and redirection */}

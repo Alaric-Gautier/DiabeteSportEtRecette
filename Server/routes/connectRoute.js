@@ -4,7 +4,7 @@ const { login, confirmUser, logout, sendNewLink } = require("../controllers/conn
 const { verifyAccessToken } = require("../middlewares/authenticate");
 
 router.post("/login", login);
-router.get("/confirmUser/:confirmationCode", confirmUser);
+router.get("/confirmUser/:confirmationKey", confirmUser);
 router.post("/getNewConfirmationCode", sendNewLink);
 router.get("/logout", verifyAccessToken, logout);
 

@@ -30,7 +30,6 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
         if (!response.ok) {
           return toastUtils("error", responseData.message || "Un erreur s'est produit !")
         } else {
-          console.log("responseData = ", responseData);
           toastUtils("success", responseData.message)
           return {responseData, status:response.status};
         }

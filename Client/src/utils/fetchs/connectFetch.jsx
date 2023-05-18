@@ -23,10 +23,17 @@ export const logout = async (setIsAuth) => {
 
 // confirmUser
 export const confirmUser = async (confirmationCode) => {
-    await factorizedFetch("GET", `confirmUser/${confirmationCode}`)
+    const result = await factorizedFetch("GET", `confirmUser/${confirmationCode}`)
+    if (result.status !== 200) {
+        return false
+    } else {
+        Navigate("/auth/login")
+        return true
+    }
 }
 
 // getNewConfirmationCode
-export const getNewConfirmationCode = async (body) => {
-    await factorizedFetch("POST", "/getNewConfirmationCode",body)
+export const getNewConfirmationCode = async (email) => {
+    console.log("email", email);
+    await factorizedFetch("POST", "getNewConfirmationCode",{email})
 }

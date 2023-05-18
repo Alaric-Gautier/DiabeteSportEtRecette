@@ -11,7 +11,6 @@ const verifyAccessToken = async (req, res, next) => {
         if (!accessToken || isBlacklisted) createError("Unauthorized");
 
         jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            console.log("user dans auth middleware ===",user);
             if (err) {
                 return verifyRefreshToken(req, res, next);
             }

@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
 const { validateEmail, isEmpty } = require("../utils/validators");
 const { createError, sendConfirmationLink, isUserExists } = require("../utils/tools");
+const ConfirmationPair = require("../models/ConfirmationPair");
 
 const connectService = {
     login: async (email, password) => {
@@ -44,17 +45,26 @@ const connectService = {
         const refreshToken = createRefreshToken(user);
         return { accessToken, refreshToken };
     },
-    confirmUser: async token => {
+    confirmUser: async confirmationKey => {
+        const confirmationPair = await ConfirmationPair.findOne({ confirmationKey });
+        console.log("confirmationPair");
+        if (!confirmationPair) {
+            createError("NotFound", "Le lien de confirmation n'est pas valide ou il a expiré");
+        }
+
+        const token = confirmationPair.confirmationCode;
+
         const { email } = jwt.verify(token, process.env.CONFIRMATION_CODE_SECRET);
+        const user = await prisma.account.findUnique({
+            where: {
+                email,
+            },
+        });
+
+        isUserExists(user);
 
         try {
-            const user = await prisma.account.findUnique({
-                where: {
-                    email,
-                },
-            });
-
-            isUserExists(user);
+            await ConfirmationPair.deleteOne({ confirmationKey });
 
             await prisma.account.update({
                 where: { email },
@@ -62,10 +72,13 @@ const connectService = {
             });
         } catch (error) {
             console.error(error);
-            createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
+            createError("Error");
         }
     },
     sendNewLink: async email => {
+        isEmpty(email);
+        validateEmail(email);
+
         let user;
         try {
             user = await prisma.account.findUnique({
@@ -75,12 +88,15 @@ const connectService = {
             console.error(error);
             createError("NotFound", "Aucun utilisateur n'a été trouvé avec cette adresse");
         }
+        isUserExists(user);
 
         if (user.is_confirmed) {
             return false;
         }
 
-        sendConfirmationLink(email);
+        const linkSend = await sendConfirmationLink(email);
+        console.log("LinkSend ??? ", linkSend);
+        return true;
     },
     logout: async (accessToken, refreshToken) => {
         try {
