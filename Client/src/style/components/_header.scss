@@ -82,11 +82,9 @@
             }
 
             &.mobile {
-                display: none;
-            }
-
-            &.opened {
-                display: flex;
+                display: block;
+                transform: translate(150%);
+                transition: transform 0.4s ease-in-out;
                 width: 100%;
                 justify-content: center;
                 position: absolute;
@@ -94,6 +92,10 @@
                 right: 0;
                 z-index: 99;
                 background: $purpleChart;
+            }
+
+            &.opened {
+                transform: translate(0);
             }
         }
 
@@ -127,11 +129,8 @@
             }
 
             &.mobile {
-                display: none;
-            }
-
-            &.opened {
-                display: flex;
+                transform: translate(150%);
+                transition: transform 0.4s ease-in-out;
                 flex-direction: column;
                 width: 100%;
                 align-items: center;
@@ -142,7 +141,7 @@
                 z-index: 99;
                 gap: 1rem;
                 background: $purpleChart;
-                border-top: 2px solid $yellowChart;
+                border-top: 1px solid $yellowChart;
 
                 .account-item {
                     border: none;
@@ -161,7 +160,10 @@
                         text-decoration: none;
                     }
                 }
+            }
 
+            &.opened {
+                transform: translate(0);
             }
         }
 
