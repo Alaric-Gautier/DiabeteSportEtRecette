@@ -22,29 +22,29 @@ const AuthForm = () => {
         password: "",
         confirmPassword: ""
     });
-    const {register, login, setIsAuth} = useContext(AuthContext)
+    const { register, login, setIsAuth } = useContext(AuthContext)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setFormError(null);
 
         // try {
-            switch (formType) {
-                case 'login':
-                    await login(formData, setIsAuth);
-                    break;
-                case 'register':
-                    await register(formData);
-                    break;
-                case 'forgot-password':
-                    await forgotPassword(formData);
-                    break;
-                case 'reset-password':
-                    await forgotPassword(formData);
-                    break;
-                default:
-                    break;
-            }
+        switch (formType) {
+            case 'login':
+                await login(formData, setIsAuth);
+                break;
+            case 'register':
+                await register(formData);
+                break;
+            case 'forgot-password':
+                await forgotPassword(formData);
+                break;
+            case 'reset-password':
+                await forgotPassword(formData);
+                break;
+            default:
+                break;
+        }
         // } catch (error) {
         //     toastUtils("error", error.message)
         //     setFormError(error);
@@ -74,6 +74,10 @@ const AuthForm = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="auth-form">
+
+                <div className="authForm-logo">
+                    <img src="/images/logos/logo-vertical-color.svg" alt="logo" />
+                </div>
                 {/* {formError && <div className="error-message">{formError.message}</div>} */}
 
                 {formType === "login" && (
