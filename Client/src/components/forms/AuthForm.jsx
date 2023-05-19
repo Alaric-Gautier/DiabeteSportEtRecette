@@ -81,6 +81,7 @@ const AuthForm = () => {
                 {/* {formError && <div className="error-message">{formError.message}</div>} */}
 
                 {formType === "login" && (
+
                     <Fragment>
 
                         <div className="form-title">
@@ -136,6 +137,7 @@ const AuthForm = () => {
                 )}
 
                 {formType === "forgot-password" && (
+
                     <Fragment>
 
                         <div className="form-title">
@@ -158,6 +160,7 @@ const AuthForm = () => {
                 )}
 
                 {formType === "reset-password" && (
+
                     <Fragment>
 
                         <div className="form-title">
