@@ -106,6 +106,21 @@
 
 
     &.mobile {
-        //TODO: add responsive styles here
+
+        .form-banner {
+            display: none;
+        }
+
+        .auth-form {
+            margin-bottom: 1rem;
+
+            .form-fields {
+                width: 70%;
+
+                input {
+                    font-size: 1rem;
+                }
+            }
+        }
     }
 }
