@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
 import { AuthContext } from '../../utils/context';
@@ -79,21 +79,28 @@ const AuthForm = () => {
                 {formError && <div className="error-message">{formError}</div>}
 
                 {formType === "login" && (
-                    <>
-                        <h1>Connexion</h1>
+                    <Fragment>
 
-                        <CreateInput inputName={"email"} label={"Email"} inputType="email" formData={formData} setFormData={setFormData} />
-                        <CreateInput inputName={"password"} label={"Mot de passe"} inputType="password" formData={formData} setFormData={setFormData} />
+                        <div className="form-title">
+                            <h1>Connexion</h1>
+                        </div>
 
-                        <button type="submit">Connexion</button>
+                        <div className="form-fields">
+                            <CreateInput inputName={"email"} label={"Email"} inputType="email" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"password"} label={"Mot de passe"} inputType="password" formData={formData} setFormData={setFormData} />
+                        </div>
 
-                        <p>
-                            Pas de compte ? <NavLink to="/auth/register">Inscrivez-vous ici</NavLink>.
-                        </p>
-                        <p>
-                            <NavLink to="/auth/forgot-password">Mot de passe oublié ? </NavLink>.
-                        </p>
-                    </>
+                        <div className="form-submit">
+                            <button type="submit">Connexion</button>
+                        </div>
+
+                        <div className="form-footer">
+                            <p>Pas de compte ?</p><NavLink to="/auth/register">Inscrivez-vous ici.</NavLink>
+
+                            <NavLink to="/auth/forgot-password">Mot de passe oublié ? </NavLink>
+                        </div>
+
+                    </Fragment>
                 )}
 
                 {formType === "register" && (
@@ -127,20 +134,44 @@ const AuthForm = () => {
                 )}
 
                 {formType === "forgot-password" && (
-                    <>
-                        <CreateInput inputName={"forgotPassword"} label={"Email"} inputType="email" formData={formData} setFormData={setFormData} />
+                    <Fragment>
 
-                        <button type="submit">Réinitialiser le mot de passe</button>
-                    </>
+                        <div className="form-title">
+                            <h1>Mot de passe oublié</h1>
+                        </div>
+
+                        <div className="form-fields">
+                            <CreateInput inputName={"forgotPassword"} label={"Email"} inputType="email" formData={formData} setFormData={setFormData} />
+                        </div>
+
+                        <div className="form-submit">
+                            <button type="submit">Réinitialiser le mot de passe</button>
+                        </div>
+
+                        <div className="form-footer">
+                            <p>Vous vous souvenez de votre mot de passe ?</p><NavLink to="/auth/login">Connectez-vous ici.</NavLink>
+                        </div>
+
+                    </Fragment>
                 )}
 
                 {formType === "reset-password" && (
-                    <>
-                        <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
-                        <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                    <Fragment>
 
-                        <button type="submit">Confirmer</button>
-                    </>
+                        <div className="form-title">
+                            <h1>Réinitialiser le mot de passe</h1>
+                        </div>
+
+                        <div className="form-fields">
+                            <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                        </div>
+
+                        <div className="form-submit">
+                            <button type="submit">Confirmer</button>
+                        </div>
+
+                    </Fragment>
                 )}
 
             </form>
