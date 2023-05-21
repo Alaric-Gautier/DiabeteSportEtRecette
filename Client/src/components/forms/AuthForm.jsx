@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useRef, useState } from 'react';
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams, NavLink, Navigate } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
 // import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
@@ -21,7 +21,7 @@ const AuthForm = () => {
         password: "",
         confirmPassword: ""
     });
-    const { register, login, setIsAuth } = useContext(AuthContext)
+    const { register, login } = useContext(AuthContext)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -30,8 +30,8 @@ const AuthForm = () => {
         // try {
         switch (formType) {
             case 'login':
-                await login(formData, setIsAuth);
-                break;
+                await login(formData)
+                break
             case 'register':
                 await register(formData);
                 break;

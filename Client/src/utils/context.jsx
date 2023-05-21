@@ -1,11 +1,27 @@
 import { createContext, useState } from "react";
-import { register, login, logout } from "./fetchs/connectFetch";
+import factorizedFetch from "./fetchs/factorizedFetch";
 
 
 export const AuthContext = createContext();
 export const AuthProvider = (props) => {
     const [isAuth, setIsAuth] = useState(false);
 
+    const register = async (body) => {
+        await factorizedFetch("POST","user/register",body)
+    }
+
+    const login = async ({email, password}) => {
+        const result = await factorizedFetch("POST", "login", {email, password},true)
+        if (result?.status === 200) {
+            setIsAuth(true)
+        }
+    } 
+    
+    const logout = async (setIsAuth) => {
+        setIsAuth(false)
+        // await factorizedFetch("GET", "logout", {}, true)
+    }
+    
     return(
     <AuthContext.Provider value={{
         register,
