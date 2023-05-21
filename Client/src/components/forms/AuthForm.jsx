@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useRef, useState } from 'react';
-import { useParams, NavLink, Navigate } from 'react-router-dom';
+import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
 // import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
@@ -8,6 +8,7 @@ import { sendMailForgotPassword } from '../../utils/fetchs/passwordFetch';
 
 const AuthForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+    const navigate = useNavigate();
     const { type } = useParams();
     const [formError, setFormError] = useState(null);
     const [formType, setFormType] = useState(type);
@@ -30,8 +31,12 @@ const AuthForm = () => {
         // try {
         switch (formType) {
             case 'login':
-                await login(formData)
-                break
+                const loggedIn = await login(formData)
+                if (loggedIn) {
+                    navigate("/dashboard/my-account")
+                    window.scrollTo(0, 0)
+                }
+                break;
             case 'register':
                 await register(formData);
                 break;
