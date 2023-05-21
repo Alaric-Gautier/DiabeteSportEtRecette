@@ -52,7 +52,7 @@ const sendConfirmationLink = async email => {
         createError("Error");
     }
 
-    const confirmationLink = `http://localhost:5173/confirmUser/${confirmationKey}`;
+    const confirmationLink = `${process.env.URL}/confirmUser/${confirmationKey}`;
     // const confirmationLink = `http://localhost:8000/confirmUser/${confirmationCode}`;
 
     if (!confirmationCode) {

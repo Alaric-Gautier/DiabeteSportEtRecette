@@ -4,15 +4,17 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const userService = require("./userService");
 const { sendMail, createError } = require("../utils/tools");
-const { passwordMatch } = require("../utils/validators");
+const { passwordMatch, validatePassword, isEmpty } = require("../utils/validators");
 
 const forgotPassword = async email => {
+    isEmpty(email);
+
     // Create a random Token + Expiration date
-    const resetPasswordToken = crypto.randomBytes(32).toString("hex");
-    const resetPasswordExpires = new Date(Date.now() + 3600 * 1000);
+    const reset_password_token = crypto.randomBytes(32).toString("hex");
+    const reset_password_expires = new Date(Date.now() + 3600 * 1000);
 
     // Link with the token for the user to reset their password
-    const resetLink = `${process.env.URL}/resetPassword/${resetPasswordToken}`;
+    const resetLink = `${process.env.URL}/reset-password/${reset_password_token}`;
 
     // Variable for the mail to send
     const subject = "Réinitialisation du mot de passe";
@@ -25,47 +27,56 @@ const forgotPassword = async email => {
         await prisma.account.update({
             where: { email },
             data: {
-                resetPasswordToken,
-                resetPasswordExpires,
+                reset_password_token,
+                reset_password_expires,
             },
         });
 
         // Send password reset email with the link
-        await sendMail(email, subject, text);
+        sendMail(email, subject, text);
     } catch (err) {
-        console.error(err);
-        createError("Error");
+        if (err.code !== "P2025") {
+            console.error(err);
+            createError("Error");
+        }
     }
 };
 
 const resetPassword = async (token, password, confirmPassword) => {
+    // check if all required fields are filled with isEmpty function
+    isEmpty(password, confirmPassword);
+
+    // confirm the password
     passwordMatch(password, confirmPassword);
 
+    // check if password has at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character
+    validatePassword(password);
+
     // Get user with the matching reset token until it expires
-    try {
-        const user = await prisma.account.findFirst({
-            where: {
-                resetPasswordToken: token,
-                resetPasswordExpires: {
-                    gte: new Date(),
-                },
+    const user = await prisma.account.findFirst({
+        where: {
+            reset_password_token: token,
+            reset_password_expires: {
+                gte: new Date(),
             },
-        });
+        },
+    });
 
-        if (!user) {
-            createError("NotFound", "Le token n'est pas valide ou il a expiré. Veuillez renouveler votre demande");
-        }
+    if (!user) {
+        createError("NotFound", "Le token n'est pas valide ou il a expiré. Veuillez renouveler votre demande");
+    }
 
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Update user's password and reset token in DB
+    // Update user's password and reset token in DB
+    try {
         await prisma.account.update({
             where: { email: user.email },
             data: {
                 password: hashedPassword,
-                resetPasswordToken: null,
-                resetPasswordExpires: null,
+                reset_password_token: null,
+                reset_password_expires: null,
             },
         });
     } catch (err) {

@@ -54,7 +54,6 @@ const userService = {
                     },
                 },
             });
-
             // if user successfully created, generate a token and send it to the user mail
             isUserExists(user, () => sendConfirmationLink(email));
 

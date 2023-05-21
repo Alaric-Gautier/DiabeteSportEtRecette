@@ -10,6 +10,7 @@ import MySportExercise from "./components/pages/account/dashboard/pages/MySportE
 import AuthForm from "./components/forms/AuthForm";
 import ConfirmUser from "./components/pages/login/ConfirmUser";
 import { AuthContext } from "./utils/context";
+import ResetPassword from "./components/pages/login/ResetPassword";
 
 const App = () => {
     const { isAuth } = useContext(AuthContext);
@@ -28,6 +29,7 @@ const App = () => {
                         {/* Auth Route */}
                         <Route path="/auth/:type" element={<AuthForm />} />
                         <Route path="/confirmUser/:confirmationKey" element={<ConfirmUser />} />
+                        <Route path="/reset-password/:resetCode" element={<ResetPassword/>}/>
 
                         {/* Protected routes */}
                         {/* //TODO Add a protection and redirection */}

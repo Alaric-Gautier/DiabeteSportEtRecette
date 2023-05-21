@@ -11,7 +11,8 @@ export const login = async ({email, password}, setIsAuth) => {
     const result = await factorizedFetch("POST", "login", {email, password},true)
     if (result?.login === 200) {
         setIsAuth(true)
-        Navigate("/dashboard/my-account")
+        // TODO : Redirection vers le dashboard
+        // Navigate("/dashboard/my-account")
     }
 } 
 
@@ -27,7 +28,8 @@ export const confirmUser = async (confirmationCode) => {
     if (result.status !== 200) {
         return false
     } else {
-        Navigate("/auth/login")
+        // TODO : Redirection vers le login
+        // Navigate("/auth/login")
         return true
     }
 }
