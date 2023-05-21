@@ -6,7 +6,6 @@ import { AuthContext } from "../../utils/context";
 const Account = ({ opened, removeOpenedClass }) => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
     const { logout, isAuth, setIsAuth } = useContext(AuthContext)
-    console.log(isAuth);
 
     return (
         <div className={`account-container ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>

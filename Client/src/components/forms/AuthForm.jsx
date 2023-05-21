@@ -22,9 +22,7 @@ const AuthForm = () => {
         password: "",
         confirmPassword: ""
     });
-    const { register, login } = useContext(AuthContext)
-
-    const navigate = useNavigate();
+    const { register, login } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -33,7 +31,11 @@ const AuthForm = () => {
         // try {
         switch (formType) {
             case 'login':
-                await login(formData)
+                const loggedIn = await login(formData);
+                if (loggedIn) {
+                    navigate("/dashboard/my-account");
+                    window.scrollTo(0, 0);
+                }
                 break
             case 'register':
                 await register(formData);
