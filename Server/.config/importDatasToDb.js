@@ -4,7 +4,7 @@ const fs = require("fs");
 const connection = mysql.createConnection({
     host: process.env.SECRET_HOST,
     user: process.env.SECRET_USER,
-    port: 35772,
+    port: process.env.SECRET_PORT,
     password: process.env.SECRET_PASSWORD,
     database: process.env.SECRET_DATABASE,
     connectTimeout: 30000,
