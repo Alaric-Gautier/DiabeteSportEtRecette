@@ -40,7 +40,7 @@ const sendConfirmationLink = async email => {
     const expirationDate = new Date(Date.now() + 600 * 1000);
 
     const confirmationPair = await ConfirmationPair.findOne({ email });
-    console.log("ConfirmationPair dans sendConfirmationLink", confirmationPair);
+
     if (confirmationPair) {
         return createError("Error", "Un lien de confirmation valide vous a déjà été envoyé");
     }
@@ -67,9 +67,13 @@ const sendConfirmationLink = async email => {
     return true;
 };
 
-const isUserExists = user => {
+const isUserExists = (user, callback = null) => {
     if (!user) {
         createError("NotFound", "Aucun utilisateur n'a été trouvé");
+    } else {
+        if (callback) {
+            callback();
+        }
     }
 };
 

@@ -1,11 +1,10 @@
 import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
-import FormError from '../error/error';
+// import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
 import { useMediaQuery } from 'react-responsive';
-import { toast } from 'react-toastify';
-import { toastUtils } from '../../utils/toaster';
+import { sendMailForgotPassword } from '../../utils/fetchs/passwordFetch';
 
 const AuthForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
@@ -37,7 +36,7 @@ const AuthForm = () => {
                 await register(formData);
                 break;
             case 'forgot-password':
-                await forgotPassword(formData);
+                await sendMailForgotPassword(formData.forgotPassword);
                 break;
             case 'reset-password':
                 await forgotPassword(formData);

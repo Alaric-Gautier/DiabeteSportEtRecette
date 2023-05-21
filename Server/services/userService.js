@@ -35,13 +35,9 @@ const userService = {
             createError("ValidationError", "Le format de la date de naissance est invalide, veuillez respecter le format DD/MM/YYYY");
         }
 
-        // create user
-        let user;
         try {
-            // create a token and send it to the user mail
-            await sendConfirmationLink(email);
-
-            user = await prisma.account.create({
+            // create user
+            const user = await prisma.account.create({
                 data: {
                     firstName: firstName,
                     lastName: lastName,
@@ -58,12 +54,10 @@ const userService = {
                     },
                 },
             });
-        } catch (error) {
-            console.error(error);
-            createError("Error");
-        }
 
-        try {
+            // if user successfully created, generate a token and send it to the user mail
+            isUserExists(user, () => sendConfirmationLink(email));
+
             return prisma.account.findUnique({
                 where: {
                     id: user.id,
