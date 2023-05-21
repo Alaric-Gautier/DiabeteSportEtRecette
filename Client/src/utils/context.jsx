@@ -14,6 +14,9 @@ export const AuthProvider = (props) => {
         const result = await factorizedFetch("POST", "login", { email, password }, true)
         if (result?.status === 200) {
             setIsAuth(true)
+            return true
+        } else {
+            return false
         }
     }
 
