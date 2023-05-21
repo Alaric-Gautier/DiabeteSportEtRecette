@@ -14,19 +14,21 @@ services:
   #   - ./Client/.env
 
   server:
-    build: ./Server
-    networks:
-      app-network:
-        aliases:
-          - api
+    container_name: api-node
+    build:
+      context: ./server
+      dockerfile: Dockerfile
     volumes:
-      - ./Server:/app
+      - ./server:/app
     command: npm run dev
     ports:
       - "8000:8000"
     env_file:
-      - ./Server/.env
+      - ./server/.env
 
-networks:
-  app-network:
-    driver: bridge
+#     networks:
+#       - app-network
+
+# networks:
+#   app-network:
+#     driver: bridge

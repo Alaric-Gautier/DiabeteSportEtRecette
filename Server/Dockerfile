@@ -5,6 +5,9 @@ WORKDIR /app
 
 COPY package.json ./
 
+# Installer un compilateur
+# RUN apk add --no-cache make gcc g++ python3
+
 # Installer les dépendances
 RUN npm install
 

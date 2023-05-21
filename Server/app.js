@@ -12,7 +12,7 @@ const cors = require("cors");
 require("./.config/mongoConnect");
 
 // Import ingredients and roles to MySQL database
-// require("./.config/importDatasToDb");
+require("./.config/importDatasToDb");
 
 // import the routes
 const user = require("./routes/userRoute");

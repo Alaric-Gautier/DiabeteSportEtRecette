@@ -4,7 +4,7 @@ const fs = require("fs");
 const connection = mysql.createConnection({
     host: process.env.SECRET_HOST,
     user: process.env.SECRET_USER,
-    port: 35772,
+    port: process.env.SECRET_PORT,
     password: process.env.SECRET_PASSWORD,
     database: process.env.SECRET_DATABASE,
     connectTimeout: 30000,
@@ -55,6 +55,19 @@ function insertRole(role) {
     });
 }
 
+// function to insert diabetes types names into Account table in database
+function insertDiabetesTypes(diabetes_type) {
+    return new Promise((resolve, reject) => {
+        const insert = `INSERT INTO Account (diabetes_type) VALUES ('${diabetes_type}')`;
+        console.log(insert);
+        connection.query(insert, function (err, result) {
+            if (err) reject(err);
+            console.log(`Diabetes type ${diabetes_type} inserted in database`);
+            resolve(true);
+        });
+    });
+}
+
 // function for read json file and insert datas in database if they do not exist
 async function readAndInsert(table, file) {
     fs.readFile(file, "utf8", (err, data) => {
@@ -66,18 +79,18 @@ async function readAndInsert(table, file) {
         const datas = JSON.parse(data);
 
         datas.forEach(async data => {
-            // check if data already exists in database
-            const check = await checkIfExistInDb(table, data.name);
-            if (check) {
-                return;
-            } else {
-                // if data does not exist in database insert it
+            // check if data or column already exist in database
+            const exist = await checkIfExistInDb(table, data.name);
+            if (!exist) {
+                // insert data in database
                 if (table === "Ingredient") {
                     await insertIngredient(data);
                 } else if (table === "Role") {
                     await insertRole(data);
+                } else if (table === "Account") {
+                    await insertDiabetesTypes(data);
                 } else {
-                    console.log("Table not found");
+                    console.log("Error: table name is not valid");
                 }
             }
         });
@@ -87,3 +100,4 @@ async function readAndInsert(table, file) {
 // call function for ingredients and roles
 readAndInsert("Ingredient", "./data/ingredients.json");
 readAndInsert("Role", "./data/roles.json");
+readAndInsert("Account", "./data/diabetes_type.json");
