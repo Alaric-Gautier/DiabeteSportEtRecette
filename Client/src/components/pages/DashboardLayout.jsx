@@ -25,7 +25,7 @@ const DashboardLayout = () => {
             case "my-sport-exercises":
                 return "url(../../../images/dashboard/backgrounds/mySportExercises.jpg)";
             default:
-                return "url(../../../images/dashboard/backgrounds/myAccount.jpg)";
+                break;
         }
     };
 

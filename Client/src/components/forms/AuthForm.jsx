@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useRef, useState } from 'react';
-import { useParams, NavLink, Navigate } from 'react-router-dom';
+import { useParams, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
 // import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
@@ -23,6 +23,8 @@ const AuthForm = () => {
     });
     const { register, login } = useContext(AuthContext)
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setFormError(null);
@@ -31,6 +33,8 @@ const AuthForm = () => {
         switch (formType) {
             case 'login':
                 await login(formData)
+                navigate("/dashboard")
+                window.scrollTo(0, 0)
                 break
             case 'register':
                 await register(formData);

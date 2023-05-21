@@ -2,7 +2,7 @@ import factorizedFetch from "./factorizedFetch";
 
 //* ----- RECIPE FETCH ----- *\\
 // recent
-export const getRecentRecipes = async () =>{
+export const getRecentRecipes = async () => {
     await factorizedFetch("GET", "recipe/recent")
 }
 
@@ -22,8 +22,8 @@ export const createRecipe = async (body) => {
 }
 
 // update recipe
-export const updateRecipe = async (recipeId, body) =>{
-    await factorizedFetch("PUT",`recipe/update/${recipeId}`, body, true)
+export const updateRecipe = async (recipeId, body) => {
+    await factorizedFetch("PUT", `recipe/update/${recipeId}`, body, true)
 }
 
 // delete recipe

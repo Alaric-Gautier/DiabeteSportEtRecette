@@ -23,7 +23,7 @@ export const createSportExercise = async (body) => {
 
 // update sportExercise
 export const updateSportExercise = async (sportId, body) => {
-    await factorizedFetch("PUT",`sport-exercise/update/${sportId}`, body, true)
+    await factorizedFetch("PUT", `sport-exercise/update/${sportId}`, body, true)
 }
 
 // delete sportExercise
