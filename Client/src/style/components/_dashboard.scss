@@ -71,6 +71,7 @@
             top: 15rem;
             left: 0;
             padding: 0 1.5rem;
+            width: 100%;
 
             .nav-page {
                 padding: 1rem 0 1rem 0.5rem;
@@ -101,6 +102,155 @@
         justify-content: center;
         height: 100vh;
 
+        .userForm-container {
+            display: flex;
+            width: 100%;
+            padding-top: 1rem;
+
+            .user-form {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+
+                .user-form-title {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 3rem;
+                    color: $blueChart;
+                    font-weight: bold;
+
+                    h1 {
+                        font-size: 2rem;
+                    }
+
+                    p {
+                        font-size: 1.5rem;
+                    }
+                }
+
+                .user-form-fields {
+                    display: grid;
+                    grid-template-columns: 1.5fr 2fr;
+                    gap: 1rem;
+                    column-gap: 1.5rem;
+                    width: 35%;
+                    margin-bottom: 1rem;
+                    margin-top: 1rem;
+
+                    label {
+                        display: flex;
+                        font-size: 1.2rem;
+                        color: $blueChart;
+                        font-weight: bold;
+                        align-items: center;
+                        justify-content: flex-end;
+                    }
+
+                    input {
+                        border: 1px solid $purpleChart;
+                        border-radius: 0.5rem;
+                        padding: 0.5rem;
+                        font-size: 1.2rem;
+                        color: $purpleChart;
+                        font-weight: bold;
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid $yellowChart;
+                        }
+                    }
+                }
+
+                .user-form-submit {
+                    display: flex;
+                    justify-content: center;
+                    width: 35%;
+
+                    button {
+                        border: 1px solid $blueChart;
+                        border-radius: 0.5rem;
+                        padding: 0.5rem;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        color: $yellowChart;
+                        background-color: $blueChart;
+                        cursor: pointer;
+                        transition: all 0.5s ease-in-out;
+
+                        &:hover {
+                            background-color: $yellowChart;
+                            color: $blueChart;
+                        }
+                    }
+                }
+            }
+
+            &.mobile {
+                padding-top: 5rem;
+                width: 100%;
+                transform: translate(0);
+                transition: transform 0.4s ease-in-out;
+
+                .user-form {
+                    align-items: center;
+                    gap: 1rem;
+
+                    .user-form-title {
+                        display: flex;
+                        gap: 2rem;
+
+                        h1 {
+                            font-size: 2rem;
+                        }
+
+                        p {
+                            font-size: 1.5rem;
+                        }
+                    }
+
+                    .user-form-fields {
+                        width: 70%;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+
+                        label {
+                            font-size: 1rem;
+                            justify-content: flex-start;
+                        }
+
+                        input {
+                            font-size: 1rem;
+                            font-weight: lighter;
+                            width: auto;
+                        }
+                    }
+
+                    .user-form-submit {
+                        width: 70%;
+
+                        button {
+                            font-size: 1rem;
+                            padding: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.mobile {
+            width: 100%;
+        }
+
+        &.opened {
+            .userForm-container {
+                display: block;
+                transform: translate(150%);
+            }
+        }
     }
 
     .burger-menu {
@@ -111,8 +261,8 @@
         width: 2.25rem;
         height: 1.7rem;
         cursor: pointer;
-        top: 1rem;
-        left: -16.5rem;
+        bottom: 40rem;
+        left: 1.5rem;
         z-index: 2;
 
         .line {
@@ -151,5 +301,9 @@
             }
         }
 
+    }
+
+    &.mobile {
+        display: block;
     }
 }

@@ -18,11 +18,12 @@ const AuthForm = () => {
         email: "",
         birthDate: "",
         is_diabetic: false,
-        diabetes_type: null,
+        // mettre un tableau de string pour les types de diabete
+        diabetes_type: null, // Type 1, Type 2, Gestationnel
         password: "",
         confirmPassword: ""
     });
-    const { register, login } = useContext(AuthContext)
+    const { register, login } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -31,12 +32,12 @@ const AuthForm = () => {
         // try {
         switch (formType) {
             case 'login':
-                const loggedIn = await login(formData)
+                const loggedIn = await login(formData);
                 if (loggedIn) {
-                    navigate("/dashboard/my-account")
-                    window.scrollTo(0, 0)
+                    navigate("/dashboard/my-account");
+                    window.scrollTo(0, 0);
                 }
-                break;
+                break
             case 'register':
                 await register(formData);
                 break;

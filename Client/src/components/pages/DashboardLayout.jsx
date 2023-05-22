@@ -25,7 +25,7 @@ const DashboardLayout = () => {
             case "my-sport-exercises":
                 return "url(../../../images/dashboard/backgrounds/mySportExercises.jpg)";
             default:
-                return "url(../../../images/dashboard/backgrounds/myAccount.jpg)";
+                break;
         }
     };
 
@@ -39,7 +39,7 @@ const DashboardLayout = () => {
 
     return (
 
-        <div className="dashboard-container">
+        <div className={`dashboard-container ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
 
             <div className={`dashboard-nav ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
                 <DashboardNav

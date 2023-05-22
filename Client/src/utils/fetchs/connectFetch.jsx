@@ -14,7 +14,7 @@ export const confirmUser = async (confirmationCode) => {
 
 // getNewConfirmationCode
 export const getNewConfirmationCode = async (body) => {
-    const {email} = body
+    const { email } = body
     console.log(email);
-    await factorizedFetch("POST", "getNewConfirmationCode",{email})
+    await factorizedFetch("POST", "getNewConfirmationCode", { email })
 }

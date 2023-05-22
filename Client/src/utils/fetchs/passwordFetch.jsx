@@ -4,7 +4,7 @@ import factorizedFetch from "./factorizedFetch";
 // forgotPassword
 export const sendMailForgotPassword = async (email) => {
     console.log(email);
-    await factorizedFetch("POST", "forgotPassword", {email})
+    await factorizedFetch("POST", "forgotPassword", { email })
 }
 
 // resetPassword
