@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
+import { updateProfil, deleteAccount, changePassword } from '../../utils/fetchs/userFetch';
+import { useMediaQuery } from 'react-responsive';
 
-const UserForm = () => {
-
-    const { type } = useParams();
-    const [formType, setFormType] = useState(type);
+const UserForm = ({ opended }) => {
+    const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+    const { info } = useParams();
+    const [formInfo, setFormInfo] = useState(info);
     const [formData, setFormData] = useState({
-        firstName:"",
-        lastName:"",
-        email:"",
-        birthDate:"",
-        is_diabetic:false,
-        diabetes_type:null,
-        oldPassword:"",
-        newPassword:"",
-        confirmPassword:""
+        firstName: "",
+        lastName: "",
+        email: "",
+        birthDate: "",
+        is_diabetic: false,
+        diabetes_type: null,
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
     });
     const [formError, setFormError] = useState(null);
 
@@ -24,9 +26,16 @@ const UserForm = () => {
         setFormError(null);
 
         try {
-            switch (formType) {
-                case 'change-password':
-                    await forgotPassword(formData);
+            switch (formInfo) {
+                case 'my-account':
+                    await updateProfil(formData);
+                    break;
+                case 'security':
+                    await changePassword(formData);
+                    break;
+                case 'delete-account':
+                    // Add rediection to home page
+                    await deleteAccount(formData);
                     break;
                 default:
                     break;
@@ -39,33 +48,99 @@ const UserForm = () => {
     useEffect(() => {
         setFormError(null);
         setFormData({
-            firstName:"",
-            lastName:"",
-            email:"",
-            birthDate:"",
-            is_diabetic:false,
-            diabetes_type:null,
-            password:"",
-            confirmPassword:""
-        }); 
-        setFormType(type)
-    }, [type])
+            firstName: "",
+            lastName: "",
+            email: "",
+            birthDate: "",
+            is_diabetic: false,
+            diabetes_type: null,
+            oldPassword: "",
+            newPassword: "",
+            confirmPassword: ""
+        });
+        setFormInfo(info)
+    }, [info])
 
     return (
-        <div className="authForm-container">
-            <form onSubmit={handleSubmit} className="auth-form">
+        <div className={`userForm-container ${isMobile ? "mobile" : ""} `}>
+
+            <form onSubmit={handleSubmit} className="user-form">
+
                 {formError && <div className="error-message">{formError}</div>}
 
-                {formType === "change-password" && (
-                    <>
-                        <CreateInput inputName={"oldPassword"} label="Mot de passe actuel" inputType="password" formData={formData} setFormData={setFormData}/>
-                        <CreateInput inputName={"newPassword"} label="Nouveau mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
-                        <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData}/>
+                {formInfo === "my-account" && (
 
-                        <button type="submit">Changer le mot de passe</button>
-                    </>
+                    <Fragment>
+
+                        <div className="user-form-title">
+                            <h1>Mon compte</h1>
+                            <p>Modifier mes informations</p>
+                        </div>
+
+                        <div className="user-form-fields">
+                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} />
+                            <CreateCheckbox inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} />
+                            {formData.is_diabetic && (
+                                <CreateInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} />
+                            )}
+                        </div>
+
+                        <div className="user-form-submit">
+                            <button type="submit">Mettre à jour</button>
+                        </div>
+
+                    </Fragment>
+
                 )}
+
+                {formInfo === "security" && (
+
+                    <Fragment>
+
+                        <div className="user-form-title">
+                            <h1>Sécurité</h1>
+                            <p>Modifier mon mot de passe</p>
+                        </div>
+
+                        <div className="user-form-fields">
+                            <CreateInput inputName={"oldPassword"} label="Mot de passe actuel" inputType="password" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"newPassword"} label="Nouveau mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                        </div>
+
+                        <div className="user-form-submit">
+                            <button type="submit">Changer le mot de passe</button>
+                        </div>
+
+                    </Fragment>
+
+                )}
+
+                {formInfo === "delete-account" && (
+
+                    <Fragment>
+
+                        <div className="user-form-title">
+                            <h1>Supprimer mon compte</h1>
+                        </div>
+
+                        <div className="user-form-fields">
+                            <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                        </div>
+
+                        <div className="user-form-submit">
+                            <button type="submit">Supprimer mon compte</button>
+                        </div>
+
+                    </Fragment>
+
+                )}
+
             </form>
+
         </div>
     );
 

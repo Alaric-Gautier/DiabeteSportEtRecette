@@ -18,7 +18,8 @@ const AuthForm = () => {
         email: "",
         birthDate: "",
         is_diabetic: false,
-        diabetes_type: null,
+        // mettre un tableau de string pour les types de diabete
+        diabetes_type: null, // Type 1, Type 2, Gestationnel
         password: "",
         confirmPassword: ""
     });

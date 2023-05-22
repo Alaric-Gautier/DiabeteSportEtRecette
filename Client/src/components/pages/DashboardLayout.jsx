@@ -39,7 +39,7 @@ const DashboardLayout = () => {
 
     return (
 
-        <div className="dashboard-container">
+        <div className={`dashboard-container ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
 
             <div className={`dashboard-nav ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
                 <DashboardNav
