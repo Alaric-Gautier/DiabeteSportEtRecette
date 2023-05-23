@@ -4,7 +4,7 @@ import { CreateCheckbox, CreateInput } from './formComponents';
 import { updateProfil, deleteAccount, changePassword } from '../../utils/fetchs/userFetch';
 import { useMediaQuery } from 'react-responsive';
 
-const UserForm = ({ opended }) => {
+const UserForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const { info } = useParams();
     const [formInfo, setFormInfo] = useState(info);
