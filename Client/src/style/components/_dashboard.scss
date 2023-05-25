@@ -279,11 +279,13 @@
             .content-status-nav {
                 display: flex;
                 justify-content: flex-start;
-                margin-left: 2rem;
+                margin: 0 1rem 0 1rem;
+                flex-direction: column;
 
                 .nav-item {
                     display: flex;
                     gap: 3rem;
+                    align-items: center;
 
                     .nav-link {
                         display: flex;
@@ -306,7 +308,13 @@
                 }
             }
 
-            &.mobile {
+
+        }
+
+        &.mobile {
+            width: 100%;
+
+            .content-container {
                 align-items: center;
                 padding-top: 4rem;
                 width: 100%;
@@ -319,21 +327,26 @@
                         gap: 1rem;
 
                         .nav-link {
-                            font-size: 1.2rem;
+                            font-size: 1.3rem;
+
+                            &.active {
+                                color: $blueChart;
+                                transform: none;
+                            }
                         }
                     }
                 }
 
                 .content-status-nav {
                     display: flex;
-                    // padding: 1rem;
-                    margin: 0;
+                    justify-content: center;
+                    align-items: center;
 
                     .nav-item {
                         gap: 1rem;
 
                         .nav-link {
-                            font-size: 1rem;
+                            font-size: 1.1rem;
 
                             &.active {
                                 color: $blueChart;
@@ -350,18 +363,13 @@
             }
         }
 
-        &.mobile {
-            width: 100%;
-        }
-
         &.opened {
             .userForm-container {
-                display: block;
                 transform: translate(150%);
             }
 
             .content-container {
-                display: block;
+                gap: 2rem;
                 transform: translate(150%);
             }
         }

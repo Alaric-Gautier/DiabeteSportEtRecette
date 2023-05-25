@@ -8,6 +8,9 @@ COPY package.json ./
 # Installer les dépendances
 RUN npm install
 
+# Insertion des données dans la base de données
+RUN npm run script
+
 # Copier les fichiers nécessaires dans le conteneur
 COPY . .
 

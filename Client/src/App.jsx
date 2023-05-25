@@ -41,7 +41,6 @@ const App = () => {
                             <Route path="content" element={<Content />} >
                                 <Route path=":type" element={<ContentType />} />
                                 <Route path=":type/:status" element={<ContentStatus />} />
-
                             </Route>
                             {/* <Route path="content/:type" element={<ContentType />} /> */}
 

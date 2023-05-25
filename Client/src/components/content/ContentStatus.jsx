@@ -1,57 +1,110 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { NavLink, Outlet, useNavigate, useOutlet, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import RecipeContent from "./RecipeContent";
+import SportExerciseContent from "./SportExerciseContent";
 
 const ContentStatus = () => {
-    const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
-    const { type } = useParams();
+    const { type, status } = useParams();
+    console.log(type, status);
     const [contentType, setContentType] = useState(type);
+    const navigate = useNavigate();
+
+    const [contentStatus, setContentStatus] = useState(status);
+
+    const [content, setContent] = useState(<RecipeContent />);
 
     useEffect(() => {
-        setContentType(type);
-    }, [type]);
+        switch (contentType) {
+            case "recipes":
+                navigate("/dashboard/content/recipes/published");
+                break;
+            case "sport-exercises":
+                navigate("/dashboard/content/sport-exercises/published");
+                break;
+            default:
+                navigate("/dashboard/content/recipes/published");
+                break;
+        }
+    }, [contentType]);
+
+    // useEffect(() => {
+    //     setContentType(type);
+    //     setContentStatus(status);
+    // }, [type, status]);
+
+    useEffect(() => {
+        switch (contentType + "/" + contentStatus) {
+            case "recipes/published":
+                setContent(<RecipeContent />);
+                break;
+            case "recipes/waiting":
+                setContent(<RecipeContent />);
+                break;
+            case "sport-exercises/published":
+                setContent(<SportExerciseContent />);
+                break;
+            case "sport-exercises/waiting":
+                setContent(<SportExerciseContent />);
+                break;
+            default:
+                setContent(<RecipeContent />);
+                break;
+        }
+    }, [contentType, contentStatus]);
+
+
 
     return (
 
-        <div className="nav-item">
+        <Fragment>
 
-            {contentType === "recipes" && (
+            <div className="nav-item">
 
-                <Fragment>
+                {contentType === "recipes" && (
 
-                    <NavLink to="/dashboard/content/recipes/published" className="nav-link">
-                        <img src="/images/dashboard/icons/verified.svg" alt="My recipes" className="link-icon" width="30" />
-                        <span className="link-text">Recettes publiées</span>
-                    </NavLink>
+                    <Fragment>
 
-                    <NavLink to="/dashboard/content/recipes/waiting" className="nav-link">
-                        <img src="/images/dashboard/icons/unpublished.svg" alt="My sport exercises" className="link-icon" width="30" />
-                        <span className="link-text">Recettes en attente de modération</span>
-                    </NavLink>
+                        <NavLink to="/dashboard/content/recipes/published" className="nav-link">
+                            <img src="/images/dashboard/icons/verified.svg" alt="My recipes" className="link-icon" width="30" />
+                            <span className="link-text">Publiées</span>
+                        </NavLink>
 
-                </Fragment>
+                        <NavLink to="/dashboard/content/recipes/waiting" className="nav-link">
+                            <img src="/images/dashboard/icons/unpublished.svg" alt="My sport exercises" className="link-icon" width="30" />
+                            <span className="link-text">En attente de modération</span>
+                        </NavLink>
 
-            )}
+                    </Fragment>
 
-            {contentType === "sport-exercises" && (
+                )}
 
-                <Fragment>
+                {contentType === "sport-exercises" && (
 
-                    <NavLink to="/dashboard/content/sport-exercises/published" className="nav-link">
-                        <img src="/images/dashboard/icons/recipe.svg" alt="My recipes" className="link-icon" width="30" />
-                        <span className="link-text">Exercices de sport publiés</span>
-                    </NavLink>
+                    <Fragment>
 
-                    <NavLink to="/dashboard/content/sport-exercises/waiting" className="nav-link">
-                        <img src="/images/dashboard/icons/sport.svg" alt="My sport exercises" className="link-icon" width="30" />
-                        <span className="link-text">Exercices de sport en attente de modération</span>
-                    </NavLink>
+                        <NavLink to="/dashboard/content/sport-exercises/published" className="nav-link">
+                            <img src="/images/dashboard/icons/verified.svg" alt="My recipes" className="link-icon" width="30" />
+                            <span className="link-text">Publiés</span>
+                        </NavLink>
 
-                </Fragment>
+                        <NavLink to="/dashboard/content/sport-exercises/waiting" className="nav-link">
+                            <img src="/images/dashboard/icons/unpublished.svg" alt="My sport exercises" className="link-icon" width="30" />
+                            <span className="link-text">En attente de modération</span>
+                        </NavLink>
 
-            )}
+                    </Fragment>
 
-        </div>
+                )}
+
+            </div>
+
+            <div className="display-content">
+
+                {content}
+
+            </div>
+
+        </Fragment>
 
     );
 }

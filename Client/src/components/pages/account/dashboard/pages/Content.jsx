@@ -14,7 +14,7 @@ const Content = () => {
     }, [outlet]);
 
     return (
-        <div className={`content-container ${isMobile ? "mobile" : ""} `}>
+        <div className="content-container">
 
             <div className="content-type-nav">
 

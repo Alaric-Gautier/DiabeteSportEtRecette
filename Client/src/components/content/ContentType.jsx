@@ -34,9 +34,7 @@ const ContentType = () => {
                     <Fragment>
 
                         <section className="user-sport-exercises">
-
                             <ContentStatus />
-
                         </section>
 
                     </Fragment>
