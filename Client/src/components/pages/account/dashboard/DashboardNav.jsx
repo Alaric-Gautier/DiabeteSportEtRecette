@@ -23,16 +23,9 @@ const DashboardNav = ({ removeOpenedClass }) => {
                 </div>
 
                 <div className="nav-item">
-                    <NavLink to="/dashboard/my-recipes" className="nav-link" onClick={removeOpenedClass}>
-                        <img src="/images/dashboard/icons/recipe.svg" alt="My recipes" className="link-icon" width="30" />
-                        <span className="link-text">Mes recettes</span>
-                    </NavLink>
-                </div>
-
-                <div className="nav-item">
-                    <NavLink to="/dashboard/my-sport-exercises" className="nav-link" onClick={removeOpenedClass}>
-                        <img src="/images/dashboard/icons/sport.svg" alt="My sport exercises" className="link-icon" width="30" />
-                        <span className="link-text">Mes exercices de sport</span>
+                    <NavLink to="/dashboard/content" className="nav-link" onClick={removeOpenedClass}>
+                        <img src="/images/dashboard/icons/content.svg" alt="Content" className="link-icon" width="30" />
+                        <span className="link-text">Mes Contenus</span>
                     </NavLink>
                 </div>
 

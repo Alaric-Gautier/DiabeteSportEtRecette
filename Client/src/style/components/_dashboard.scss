@@ -19,7 +19,7 @@
 
             .nav-link {
                 text-decoration: none;
-                font-size: 1.1rem;
+                font-size: 1.3rem;
                 font-weight: bold;
                 color: $purpleChart;
                 cursor: pointer;
@@ -137,8 +137,6 @@
                     gap: 1rem;
                     column-gap: 1.5rem;
                     width: 35%;
-                    margin-bottom: 1rem;
-                    margin-top: 1rem;
 
                     label {
                         display: flex;
@@ -239,15 +237,139 @@
                     }
                 }
             }
+
+        }
+
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+
+            .content-type-nav {
+                display: flex;
+                justify-content: center;
+                padding-top: 1.5rem;
+
+                .nav-item {
+                    display: flex;
+                    gap: 5rem;
+
+                    .nav-link {
+                        display: flex;
+                        font-size: 1.8rem;
+                        color: $purpleChart;
+                        font-weight: bold;
+                        text-decoration: none;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        &:hover {
+                            color: $blueChart;
+                        }
+
+                        &.active {
+                            color: $blueChart;
+                            transform: scale(1.2);
+                        }
+                    }
+                }
+            }
+
+            .content-status-nav {
+                display: flex;
+                justify-content: flex-start;
+                margin: 0 1rem 0 1rem;
+                flex-direction: column;
+
+                .nav-item {
+                    display: flex;
+                    gap: 3rem;
+                    align-items: center;
+
+                    .nav-link {
+                        display: flex;
+                        font-size: 1rem;
+                        color: $purpleChart;
+                        font-weight: bold;
+                        text-decoration: none;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        &:hover {
+                            color: $blueChart;
+                        }
+
+                        &.active {
+                            color: $blueChart;
+                            transform: scale(1.2);
+                        }
+                    }
+                }
+            }
+
+
         }
 
         &.mobile {
             width: 100%;
+
+            .content-container {
+                align-items: center;
+                padding-top: 4rem;
+                width: 100%;
+                transform: translate(0);
+                transition: transform 0.4s ease-in-out;
+
+                .content-type-nav {
+
+                    .nav-item {
+                        gap: 1rem;
+
+                        .nav-link {
+                            font-size: 1.3rem;
+
+                            &.active {
+                                color: $blueChart;
+                                transform: none;
+                            }
+                        }
+                    }
+                }
+
+                .content-status-nav {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .nav-item {
+                        gap: 1rem;
+
+                        .nav-link {
+                            font-size: 1.1rem;
+
+                            &.active {
+                                color: $blueChart;
+                                transform: none;
+                            }
+
+                            .link-icon {
+                                width: 1.5rem;
+                                height: 1.5rem;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &.opened {
             .userForm-container {
-                display: block;
+                transform: translate(150%);
+            }
+
+            .content-container {
+                gap: 2rem;
                 transform: translate(150%);
             }
         }
