@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
 // import FormError from '../error/error';
@@ -18,11 +18,15 @@ const AuthForm = () => {
         email: "",
         birthDate: "",
         is_diabetic: false,
-        // mettre un tableau de string pour les types de diabete
-        diabetes_type: null, // Type 1, Type 2, Gestationnel
+        diabetes_type: "",
         password: "",
         confirmPassword: ""
     });
+    const is_diabeticValue = [
+        "Type 1",
+        "Type 2",
+        "Gestationnel",
+    ]
     const { register, login } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {

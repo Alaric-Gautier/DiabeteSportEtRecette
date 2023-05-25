@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState } from 'react';
-import { useParams, NavLink } from 'react-router-dom';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
 import { updateProfil, deleteAccount, changePassword } from '../../utils/fetchs/userFetch';
 import { useMediaQuery } from 'react-responsive';
@@ -34,7 +34,7 @@ const UserForm = () => {
                     await changePassword(formData);
                     break;
                 case 'delete-account':
-                    // Add rediection to home page
+                    //TODO Add redirection to home page
                     await deleteAccount(formData);
                     break;
                 default:
