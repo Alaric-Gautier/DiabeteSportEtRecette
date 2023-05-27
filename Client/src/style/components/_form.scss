@@ -55,6 +55,34 @@
                     border: 1px solid $yellowChart;
                 }
             }
+
+            select {
+                border: 1px solid $purpleChart;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+                font-size: 1.2rem;
+                color: $blueChart;
+                font-weight: bold;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid $yellowChart;
+                }
+            }
+
+            .switch-input {
+                width: 5%;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid $purpleChart;
+                }
+
+                &:checked {
+                    border: 2px solid $blueChart;
+                    background-color: $yellowChart;
+                }
+            }
         }
 
         .form-submit {
@@ -119,6 +147,13 @@
 
                 input {
                     font-size: 1rem;
+                    font-weight: lighter;
+                }
+
+                select {
+                    font-size: 1rem;
+                    font-weight: lighter;
+
                 }
             }
         }
