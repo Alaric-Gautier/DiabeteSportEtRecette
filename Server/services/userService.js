@@ -29,9 +29,9 @@ const userService = {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // check if birthDate format is valid
-        birthDate = moment(birthDate, "YYYY-MM-DD").format("DD/MM/YYYY");
+        formattedBirthDate = moment(birthDate, "YYYY-MM-DD").format("DD/MM/YYYY");
 
-        if (!moment(birthDate, "DD/MM/YYYY", true).isValid()) {
+        if (!moment(formattedBirthDate, "DD/MM/YYYY", true).isValid()) {
             createError("ValidationError", "Le format de la date de naissance est invalide, veuillez respecter le format DD/MM/YYYY");
         }
 
