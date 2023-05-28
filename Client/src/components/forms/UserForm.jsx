@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CreateCheckbox, CreateInput } from './formComponents';
+import { CreateInput, SwitchInput, MultipleChoiceInput } from './formComponents';
 import { updateProfil, deleteAccount, changePassword, getUser } from '../../utils/fetchs/userFetch';
 import { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../utils/context';
@@ -72,6 +72,14 @@ const UserForm = () => {
     useEffect(()=>{
         console.log("user dans UserForm ===", user);
     },[user])
+    const diabetes_types = [
+        "Type 1",
+        "Type 2",
+        "Gestationnel",
+    ];
+
+    console.log(diabetes_types);
+
     return (
         <div className={`userForm-container ${isMobile ? "mobile" : ""} `}>
 
@@ -89,13 +97,13 @@ const UserForm = () => {
                         </div>
 
                         <div className="user-form-fields">
-                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} value={user.firstName}/>
-                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} value={user.lastName}/>
-                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} value={user.email}/>
-                            <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} value={formateDatetoISO("1989-07-13")}/>
-                            <CreateCheckbox inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} value={user.is_diabetic}/>
+                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} />
+                            <SwitchInput inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} />
                             {formData.is_diabetic && (
-                                <CreateInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} value={value.diabetes_type}/>
+                                <MultipleChoiceInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} diabete_type={diabetes_types} />
                             )}
                         </div>
 
