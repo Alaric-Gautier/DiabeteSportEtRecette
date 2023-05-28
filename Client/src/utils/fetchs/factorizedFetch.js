@@ -19,7 +19,7 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
     // Défini les options du fetch, incluant le cookie d'authentification
     const options = {
       method: method,
-      credentials: needAuth ? "same-origin" : "omit",
+      credentials: needAuth ? "include" : "omit",
       headers: headers,
       body: body ? JSON.stringify(body) : null
     };

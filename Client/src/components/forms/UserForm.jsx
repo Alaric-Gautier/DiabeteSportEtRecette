@@ -1,12 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
-import { updateProfil, deleteAccount, changePassword } from '../../utils/fetchs/userFetch';
+import { updateProfil, deleteAccount, changePassword, getUser } from '../../utils/fetchs/userFetch';
 import { useMediaQuery } from 'react-responsive';
+import { UserContext } from '../../utils/context';
 
 const UserForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const { info } = useParams();
+    const {user} = useContext(UserContext)
     const [formInfo, setFormInfo] = useState(info);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -45,6 +47,12 @@ const UserForm = () => {
         }
     };
 
+    const formateDatetoISO = (date) => {
+        const newDate = new Date(date)
+        console.log(newDate);
+        // return dateUTC.toISOString().substring(0,10);
+    }
+    
     useEffect(() => {
         setFormError(null);
         setFormData({
@@ -61,6 +69,9 @@ const UserForm = () => {
         setFormInfo(info)
     }, [info])
 
+    useEffect(()=>{
+        console.log("user dans UserForm ===", user);
+    },[user])
     return (
         <div className={`userForm-container ${isMobile ? "mobile" : ""} `}>
 
@@ -78,13 +89,13 @@ const UserForm = () => {
                         </div>
 
                         <div className="user-form-fields">
-                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} />
-                            <CreateCheckbox inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} value={user.firstName}/>
+                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} value={user.lastName}/>
+                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} value={user.email}/>
+                            <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} value={formateDatetoISO("1989-07-13")}/>
+                            <CreateCheckbox inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} value={user.is_diabetic}/>
                             {formData.is_diabetic && (
-                                <CreateInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} />
+                                <CreateInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} value={value.diabetes_type}/>
                             )}
                         </div>
 

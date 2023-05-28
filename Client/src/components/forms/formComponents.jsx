@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-export const CreateInput = ({inputName, label,formData, setFormData, inputType="text"}) => {
+export const CreateInput = ({inputName, label,formData, setFormData, inputType="text", value=formData[inputName]}) => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -12,7 +12,7 @@ export const CreateInput = ({inputName, label,formData, setFormData, inputType="
                 type={inputType} 
                 id={inputName} 
                 name={inputName} 
-                value={formData[inputName]} 
+                value={value} 
                 onChange={handleInputChange} 
             />
         </Fragment>

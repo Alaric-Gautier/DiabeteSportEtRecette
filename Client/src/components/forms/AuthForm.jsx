@@ -1,7 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { CreateCheckbox, CreateInput } from './formComponents';
-// import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
 import { useMediaQuery } from 'react-responsive';
 import { sendMailForgotPassword } from '../../utils/fetchs/passwordFetch';
