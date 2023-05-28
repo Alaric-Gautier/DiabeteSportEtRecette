@@ -8,7 +8,7 @@ import { UserContext } from '../../utils/context';
 const UserForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const { info } = useParams();
-    const {user} = useContext(UserContext)
+    const {user} = useContext(UserContext);
     const [formInfo, setFormInfo] = useState(info);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -70,7 +70,7 @@ const UserForm = () => {
     }, [info])
 
     useEffect(()=>{
-        console.log("user dans UserForm ===", user);
+        setFormData(user)
     },[user])
     const diabetes_types = [
         "Type 1",
@@ -97,13 +97,13 @@ const UserForm = () => {
                         </div>
 
                         <div className="user-form-fields">
-                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} />
+                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData}/>
+                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData}/>
+                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData}/>
                             <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} />
-                            <SwitchInput inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} />
+                            <SwitchInput inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData}/>
                             {formData.is_diabetic && (
-                                <MultipleChoiceInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} diabete_type={diabetes_types} />
+                                <MultipleChoiceInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} diabete_type={diabetes_types}/>
                             )}
                         </div>
 
