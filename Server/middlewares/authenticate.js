@@ -5,6 +5,7 @@ const { createError } = require("../utils/tools");
 // Verify the access token
 const verifyAccessToken = async (req, res, next) => {
     const accessToken = req.cookies.accessToken;
+    console.log("accessToken", accessToken);
     try {
         const isBlacklisted = await isTokenBlacklisted(accessToken);
 

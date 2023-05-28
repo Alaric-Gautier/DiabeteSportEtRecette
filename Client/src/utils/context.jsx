@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import factorizedFetch from "./fetchs/factorizedFetch";
+import { getUser } from "./fetchs/userFetch";
 
 
 export const AuthContext = createContext();
@@ -21,8 +22,8 @@ export const AuthProvider = (props) => {
     }
 
     const logout = async (setIsAuth) => {
-        setIsAuth(false)
-        // await factorizedFetch("GET", "logout", {}, true)
+        // setIsAuth(false)
+        await factorizedFetch("GET", "logout", null, true)
     }
 
     return (
@@ -41,9 +42,14 @@ export const AuthProvider = (props) => {
 export const UserContext = createContext();
 export const UserProvider = (props) => {
     const [user, setUser] = useState({})
-
+    useEffect(()=>{
+        getUser().then(res =>setUser(res))
+    },[])
+    
     return (
-        <UserContext.Provider value={{}}>
+        <UserContext.Provider value={{
+            user
+        }}>
             {props.children}
         </UserContext.Provider>
     )
