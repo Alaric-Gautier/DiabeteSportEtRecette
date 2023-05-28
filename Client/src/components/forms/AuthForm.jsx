@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
-import { CreateCheckbox, CreateInput } from './formComponents';
+import { CreateInput, SwitchInput, MultipleChoiceInput } from './formComponents';
 // import FormError from '../error/error';
 import { AuthContext } from '../../utils/context';
 import { useMediaQuery } from 'react-responsive';
@@ -22,11 +22,7 @@ const AuthForm = () => {
         password: "",
         confirmPassword: ""
     });
-    const is_diabeticValue = [
-        "Type 1",
-        "Type 2",
-        "Gestationnel",
-    ]
+
     const { register, login } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
@@ -74,6 +70,12 @@ const AuthForm = () => {
         });
         setFormType(type)
     }, [type])
+
+    const diabetes_types = [
+        "Type 1",
+        "Type 2",
+        "Gestationnel",
+    ];
 
     return (
         <div className={`authForm-container ${isMobile ? "mobile" : ""} `}>
@@ -128,8 +130,8 @@ const AuthForm = () => {
                             <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} />
                             <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} />
                             <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} />
-                            <CreateCheckbox inputName={"is_diabetic"} label="Êtes-vous diabétique ?" formData={formData} setFormData={setFormData} />
-                            {formData.is_diabetic && <CreateInput inputName={"diabetes_type"} label="Type de diabète" inputType="email" formData={formData} setFormData={setFormData} />}
+                            <SwitchInput inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} />
+                            {formData.is_diabetic && <MultipleChoiceInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} diabete_type={diabetes_types} />}
                             <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
                             <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
                         </div>

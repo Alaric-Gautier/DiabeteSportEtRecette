@@ -160,6 +160,40 @@
                             border: 1px solid $yellowChart;
                         }
                     }
+
+                    .switch-input {
+                        width: 5%;
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid $purpleChart;
+                        }
+
+                        &:checked {
+                            border: 2px solid $blueChart;
+                            background-color: $yellowChart;
+                        }
+                    }
+
+                    select {
+                        border: 1px solid $purpleChart;
+                        border-radius: 0.5rem;
+                        padding: 0.5rem;
+                        font-size: 1.2rem;
+                        color: $purpleChart;
+                        font-weight: bold;
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid $yellowChart;
+                        }
+
+                        option {
+                            font-size: 1.2rem;
+                            color: $purpleChart;
+                            font-weight: bold;
+                        }
+                    }
                 }
 
                 .user-form-submit {
@@ -224,6 +258,32 @@
                             font-size: 1rem;
                             font-weight: lighter;
                             width: auto;
+                        }
+
+                        .switch-input {
+                            width: 5%;
+
+                            &:focus {
+                                outline: none;
+                                border: 1px solid $purpleChart;
+                            }
+
+                            &:checked {
+                                border: 2px solid $blueChart;
+                                background-color: $yellowChart;
+                            }
+                        }
+
+                        select {
+                            font-size: 1rem;
+                            font-weight: lighter;
+                            width: auto;
+
+                            option {
+                                font-size: 1rem;
+                                font-weight: lighter;
+                                width: auto;
+                            }
                         }
                     }
 
