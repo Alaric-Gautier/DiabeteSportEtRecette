@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-export const CreateInput = ({inputName, label,formData, setFormData, inputType="text", defaultValue=""}) => {
+export const CreateInput = ({ inputName, label, formData, setFormData, inputType = "text", defaultValue = "" }) => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -8,18 +8,18 @@ export const CreateInput = ({inputName, label,formData, setFormData, inputType="
     return (
         <Fragment>
             <label htmlFor={inputName}>{label}</label>
-            <input 
-                type={inputType} 
-                id={inputName} 
-                name={inputName} 
+            <input
+                type={inputType}
+                id={inputName}
+                name={inputName}
                 value={formData[inputName]}
-                onChange={handleInputChange} 
+                onChange={handleInputChange}
             />
         </Fragment>
     )
 }
 
-export const MultipleChoiceInput = ({ inputName, label, formData, setFormData, diabete_type = []}) => {
+export const MultipleChoiceInput = ({ inputName, label, formData, setFormData, diabete_type = [] }) => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -42,7 +42,7 @@ export const MultipleChoiceInput = ({ inputName, label, formData, setFormData, d
     )
 }
 
-export const SwitchInput = ({ inputName, label, formData, setFormData}) => {
+export const SwitchInput = ({ inputName, label, formData, setFormData }) => {
     const handleInputClick = (event) => {
         const { name, checked } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: checked }));

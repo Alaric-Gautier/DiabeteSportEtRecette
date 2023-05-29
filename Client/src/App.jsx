@@ -13,6 +13,7 @@ import Content from "./components/pages/account/dashboard/pages/Content";
 import ContentType from "./components/content/ContentType";
 import RecipeContent from "./components/content/RecipeContent";
 import ContentStatus from "./components/content/ContentStatus";
+import ContentForm from "./components/forms/ContentForm";
 
 const App = () => {
     const { isAuth } = useContext(AuthContext);
@@ -41,8 +42,9 @@ const App = () => {
                             <Route path="content" element={<Content />} >
                                 <Route path=":type" element={<ContentType />} />
                                 <Route path=":type/:status" element={<ContentStatus />} />
+                                {/* <Route path=":type/:action" element={<ContentForm />} /> */}
                             </Route>
-                            {/* <Route path="content/:type" element={<ContentType />} /> */}
+                            <Route path="content/:type/:action" element={<ContentForm />} />
 
                             {/* <Route path="my-recipes" element={<MyRecipe />} />
                             <Route path="my-sport-exercises" element={<MySportExercise />} /> */}

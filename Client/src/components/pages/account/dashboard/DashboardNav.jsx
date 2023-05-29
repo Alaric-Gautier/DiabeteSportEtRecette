@@ -29,6 +29,13 @@ const DashboardNav = ({ removeOpenedClass }) => {
                     </NavLink>
                 </div>
 
+                {/* <div className="nav-item">
+                    <NavLink to="/dashboard/content/action/" className="nav-link" onClick={removeOpenedClass}>
+                        <img src="/images/dashboard/icons/notifications.svg" alt="Notifications" className="link-icon" width="30" />
+                        <span className="link-text">Créer</span>
+                    </NavLink>
+                </div> */}
+
             </div>
 
             <div className="nav-delete">

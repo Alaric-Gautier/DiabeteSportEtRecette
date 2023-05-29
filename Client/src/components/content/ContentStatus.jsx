@@ -5,12 +5,9 @@ import SportExerciseContent from "./SportExerciseContent";
 
 const ContentStatus = () => {
     const { type, status } = useParams();
-    console.log(type, status);
     const [contentType, setContentType] = useState(type);
     const navigate = useNavigate();
-
     const [contentStatus, setContentStatus] = useState(status);
-
     const [content, setContent] = useState(<RecipeContent />);
 
     useEffect(() => {
@@ -51,8 +48,6 @@ const ContentStatus = () => {
                 break;
         }
     }, [contentType, contentStatus]);
-
-
 
     return (
 
