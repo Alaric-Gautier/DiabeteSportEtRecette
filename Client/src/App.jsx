@@ -1,22 +1,19 @@
 import React, { Fragment, useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "./components/pages/MainLayout";
 import Home from "./components/pages/Home";
 import Recipe from "./components/pages/Recipe";
 import DashboardLayout from "./components/pages/DashboardLayout";
 import AuthForm from "./components/forms/AuthForm";
 import ConfirmUser from "./components/pages/login/ConfirmUser";
-import { AuthContext } from "./utils/context";
 import ResetPassword from "./components/pages/login/ResetPassword";
 import UserForm from "./components/forms/UserForm";
 import Content from "./components/pages/account/dashboard/pages/Content";
 import ContentType from "./components/content/ContentType";
-import RecipeContent from "./components/content/RecipeContent";
 import ContentStatus from "./components/content/ContentStatus";
+import CheckAuthComponent from "./components/pages/CheckAuthComponent"
 
 const App = () => {
-    const { isAuth } = useContext(AuthContext);
-
     return (
         <BrowserRouter>
 
@@ -34,9 +31,7 @@ const App = () => {
                         <Route path="/reset-password/:resetCode" element={<ResetPassword />} />
 
                         {/* Protected routes */}
-                        {/* //TODO Add a protection and redirection */}
-                        {/* <Route path="dashboard/" element={isAuth ? <DashboardLayout /> : <Navigate to="/auth/login" />}> */}
-                        <Route path="dashboard/" element={<DashboardLayout />}>
+                        <Route path="dashboard/" element={<CheckAuthComponent/>}>
                             <Route path=":info" element={<UserForm />} />
                             <Route path="content" element={<Content />} >
                                 <Route path=":type" element={<ContentType />} />
@@ -57,6 +52,7 @@ const App = () => {
 
                     {/* //TODO: Add 404 page in the main layout ? */}
                     <Route path="*" element={<h1>404</h1>} />
+                    
                 </Routes>
 
             </Fragment>

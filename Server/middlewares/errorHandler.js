@@ -15,7 +15,7 @@ const errorHandler = (err, req, res, next) => {
             res.status(409).json({ message: err.message || "La requête ne peut pas être traitée car la ressource existe déjà." });
             break;
         case "Unauthorized":
-            res.status(401).json({ message: err.message || "Vous n'avez pas l'autorisation d'accéder à cette ressource" });
+            res.status(401).json({ message: err.message || "Vous n'avez pas l'autorisation d'accéder à cette ressource", isAuth:data.isAuth });
             break;
         case "ValidationError":
             res.status(422).json({ message: err.message || "La saisie n'est pas valide.", data });

@@ -5,7 +5,6 @@ import SportExerciseContent from "./SportExerciseContent";
 
 const ContentStatus = () => {
     const { type, status } = useParams();
-    console.log(type, status);
     const [contentType, setContentType] = useState(type);
     const navigate = useNavigate();
 

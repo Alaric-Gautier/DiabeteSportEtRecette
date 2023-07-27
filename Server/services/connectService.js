@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { createAccessToken, createRefreshToken, addToBlacklist } = require("../utils/token");
+const { createAccessToken, createRefreshToken, addToBlacklist, isTokenBlacklisted } = require("../utils/token");
 const { validateEmail, isEmpty } = require("../utils/validators");
 const { createError, sendConfirmationLink, isUserExists } = require("../utils/tools");
 const ConfirmationPair = require("../models/ConfirmationPair");
@@ -47,7 +47,6 @@ const connectService = {
     },
     confirmUser: async confirmationKey => {
         const confirmationPair = await ConfirmationPair.findOne({ confirmationKey });
-        console.log("confirmationPair");
         if (!confirmationPair) {
             createError("NotFound", "Le lien de confirmation n'est pas valide ou il a expiré");
         }
@@ -64,12 +63,12 @@ const connectService = {
         isUserExists(user);
 
         try {
-            await ConfirmationPair.deleteOne({ confirmationKey });
-
             await prisma.account.update({
                 where: { email },
                 data: { is_confirmed: true },
             });
+
+            await ConfirmationPair.deleteOne({ confirmationKey });
         } catch (error) {
             console.error(error);
             createError("Error");
@@ -95,7 +94,6 @@ const connectService = {
         }
 
         const linkSend = await sendConfirmationLink(email);
-        console.log("LinkSend ??? ", linkSend);
         return true;
     },
     logout: async (accessToken, refreshToken) => {
@@ -118,6 +116,25 @@ const connectService = {
             createError("logoutError");
         }
     },
+    checkRefreshToken: async (refreshToken) => {
+        let isAuth;
+        try {
+            const isBlacklisted = await isTokenBlacklisted(refreshToken);
+            
+            if (!refreshToken || isBlacklisted) isAuth = false;
+            
+            jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err) => {
+                if (err) {
+                    isAuth = false
+                } else {
+                    isAuth = true;
+                }
+            });
+            return isAuth;
+        } catch (err) {
+            createError("Error")
+        }
+    }
 };
 
 module.exports = connectService;

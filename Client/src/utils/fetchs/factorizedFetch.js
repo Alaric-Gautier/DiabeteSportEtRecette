@@ -28,7 +28,8 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
    const response = await fetch(url, options);
         const responseData = await response.json();
         if (!response.ok) {
-          return toastUtils("error", responseData.message || "Un erreur s'est produit !")
+          toastUtils("error", responseData.message || "Une erreur s'est produite !")
+          return responseData
         } else {
           toastUtils("success", responseData.message)
           return {responseData, status:response.status};

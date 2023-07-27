@@ -15,6 +15,11 @@ export const confirmUser = async (confirmationCode) => {
 // getNewConfirmationCode
 export const getNewConfirmationCode = async (body) => {
     const { email } = body
-    console.log(email);
     await factorizedFetch("POST", "getNewConfirmationCode", { email })
+}
+
+// check the token validity for persistent authentication
+export const checkAuth = async () => {
+    const result = await factorizedFetch("GET","checkAuth",null,true)
+    return result.responseData
 }

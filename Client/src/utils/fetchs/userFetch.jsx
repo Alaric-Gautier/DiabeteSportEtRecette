@@ -6,7 +6,6 @@ export const getUser = async () => {
     return new Promise(async (resolve, reject) => {
         try {
             const user = await factorizedFetch("GET", "user", null, true)
-            console.log("dans le fetch = ",user.responseData);
             resolve(user.responseData)
         } catch (error) {
             reject(error)

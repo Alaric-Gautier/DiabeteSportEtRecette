@@ -1,11 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import factorizedFetch from "./fetchs/factorizedFetch";
 import { getUser } from "./fetchs/userFetch";
+import { checkAuth } from "./fetchs/connectFetch";
 
 
 export const AuthContext = createContext();
 export const AuthProvider = (props) => {
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem("isAuth"))?.isAuth)
 
     const register = async (body) => {
         await factorizedFetch("POST", "user/register", body)
@@ -21,9 +22,15 @@ export const AuthProvider = (props) => {
         }
     }
 
-    const logout = async (setIsAuth) => {
-        // setIsAuth(false)
+    const logout = async () => {
+        setIsAuth(false)
+        localStorage.setItem("isAuth",JSON.stringify({isAuth:false}))
         await factorizedFetch("GET", "logout", null, true)
+    }
+
+    const checkIfUserIsAuthenticated = async () => {
+        const authentication = await checkAuth()
+        localStorage.setItem("isAuth", JSON.stringify(authentication))
     }
 
     return (
@@ -33,6 +40,7 @@ export const AuthProvider = (props) => {
             logout,
             isAuth,
             setIsAuth,
+            checkIfUserIsAuthenticated
         }}>
             {props.children}
         </AuthContext.Provider>
@@ -42,13 +50,17 @@ export const AuthProvider = (props) => {
 export const UserContext = createContext();
 export const UserProvider = (props) => {
     const [user, setUser] = useState({})
-    useEffect(()=>{
-        getUser().then(res =>setUser(res))
-    },[])
+    const {isAuth} = useContext(AuthContext)
+    
+    const getUserData = async () => {
+        const userData = await getUser();
+        setUser(userData);
+    }
     
     return (
         <UserContext.Provider value={{
-            user
+            user,
+            getUserData,
         }}>
             {props.children}
         </UserContext.Provider>

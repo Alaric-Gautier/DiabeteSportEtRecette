@@ -4,6 +4,7 @@ import { CreateInput, SwitchInput, MultipleChoiceInput } from './formComponents'
 import { AuthContext } from '../../utils/context';
 import { useMediaQuery } from 'react-responsive';
 import { sendMailForgotPassword } from '../../utils/fetchs/passwordFetch';
+import { toastUtils } from '../../utils/toaster';
 
 const AuthForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
@@ -28,7 +29,7 @@ const AuthForm = () => {
         event.preventDefault();
         setFormError(null);
 
-        // try {
+        try {
         switch (formType) {
             case 'login':
                 const loggedIn = await login(formData);
@@ -49,10 +50,10 @@ const AuthForm = () => {
             default:
                 break;
         }
-        // } catch (error) {
-        //     toastUtils("error", error.message)
-        //     setFormError(error);
-        // }
+        } catch (error) {
+            toastUtils("error", error.message)
+            setFormError(error);
+        }
     };
 
     useEffect(() => {

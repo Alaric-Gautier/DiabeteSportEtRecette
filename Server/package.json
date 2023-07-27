@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "npx nodemon -L server.js",
+    "dev": "nodemon -L server.js",
     "script": "node .config/importDatasToDb.js"
   },
   "author": "Yannick&Alaric",

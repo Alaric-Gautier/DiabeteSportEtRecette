@@ -23,7 +23,7 @@ const connectController = {
         const confirmationKey = req.params.confirmationKey;
         try {
             await connectService.confirmUser(confirmationKey);
-            res.status(200).json({ message: "Votre compte a bien été confirmé" });
+            res.status(200).redirect("http://localhost:5173/auth/login");
         } catch (err) {
             console.error(err);
             next(err);
@@ -31,17 +31,9 @@ const connectController = {
     },
     sendNewLink: async (req, res, next) => {
         const { email } = req.body;
-        console.log("===========");
-        console.log("===========");
-        console.log("===========");
-        console.log("email en back ?", email);
-        console.log("===========");
-        console.log("===========");
-        console.log("===========");
         try {
             // If the user's account is already confirmed, no mail will be send
             const sendNewLink = await connectService.sendNewLink(email);
-            console.log("SendNewLink ===", sendNewLink);
             if (sendNewLink) {
                 return res.status(201).json({ message: "un mail de confirmation vous a été envoyé à l'adresse indiquée" });
             } else {
@@ -73,6 +65,15 @@ const connectController = {
             next(err);
         }
     },
+    checkAuth: async (req, res, next) => {
+        const refreshToken = req.cookies.refreshToken;
+        try {
+            const check = await connectService.checkRefreshToken(refreshToken);
+            res.json({isAuth:check})
+        } catch (err) {
+            next(err)
+        }
+    }
 };
 
 module.exports = connectController;

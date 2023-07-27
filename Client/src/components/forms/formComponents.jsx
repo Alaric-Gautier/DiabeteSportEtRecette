@@ -1,10 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 export const CreateInput = ({inputName, label,formData, setFormData, inputType="text", defaultValue=""}) => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
+
+    useEffect(()=>{
+        console.log("formData dans userForm", formData);
+    },[formData])
     return (
         <Fragment>
             <label htmlFor={inputName}>{label}</label>

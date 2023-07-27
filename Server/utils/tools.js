@@ -12,7 +12,9 @@ const createError = (name, message = "", data = null) => {
 const sendMail = (to, subject, text) => {
     try {
         const transporter = nodemailer.createTransport({
-            service: process.env.SERVICE,
+            host: process.env.HOST,
+            port: process.env.SMTP_PORT,
+            secure:true,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
@@ -25,7 +27,11 @@ const sendMail = (to, subject, text) => {
             text,
         };
 
-        const info = transporter.sendMail(mailOptions, err => console.error(err));
+        const info = transporter.sendMail(mailOptions, err => {
+            if (err) {
+                createError("ErrorSMTP")
+            }
+        });
         return info;
     } catch (err) {
         console.error(err);
@@ -40,6 +46,10 @@ const sendConfirmationLink = async email => {
     const expirationDate = new Date(Date.now() + 600 * 1000);
 
     const confirmationPair = await ConfirmationPair.findOne({ email });
+    
+    if (!confirmationCode) {
+        createError("mailError", "Une erreur est survenue lors de la création du code de confirmation");
+    }
 
     if (confirmationPair) {
         return createError("Error", "Un lien de confirmation valide vous a déjà été envoyé");
@@ -52,12 +62,7 @@ const sendConfirmationLink = async email => {
         createError("Error");
     }
 
-    const confirmationLink = `${process.env.URL}/confirmUser/${confirmationKey}`;
-    // const confirmationLink = `http://localhost:8000/confirmUser/${confirmationCode}`;
-
-    if (!confirmationCode) {
-        createError("mailError", "Une erreur est survenue lors de la création du code de confirmation");
-    }
+    const confirmationLink = `${process.env.BASE_SERVER_URL}/confirmUser/${confirmationKey}`;
 
     // Sending the mail
     const subject = "Confirmation de votre compte";

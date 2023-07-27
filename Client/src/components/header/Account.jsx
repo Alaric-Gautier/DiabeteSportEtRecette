@@ -1,11 +1,11 @@
-import React, { useState, useContext, Fragment } from "react";
+import React, { useState, useContext, Fragment, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { NavLink, redirect } from "react-router-dom";
 import { AuthContext } from "../../utils/context";
 
 const Account = ({ opened, removeOpenedClass }) => {
     const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
-    const { logout, isAuth, setIsAuth } = useContext(AuthContext)
+    const { logout, isAuth } = useContext(AuthContext)
 
     return (
         <div className={`account-container ${isMobile ? "mobile" : ""} ${opened ? "opened" : ""} `}>
@@ -30,7 +30,7 @@ const Account = ({ opened, removeOpenedClass }) => {
                     </div>
 
                     <div className="account-item">
-                        <NavLink to="/" className="account-link" onClick={() => logout(setIsAuth)}>
+                        <NavLink to="/" className="account-link" onClick={() => logout()}>
                             <span className="account-link-text">Se déconnecter</span>
                         </NavLink>
                     </div>

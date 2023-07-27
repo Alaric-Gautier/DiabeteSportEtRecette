@@ -5,11 +5,10 @@ const { createError } = require("../utils/tools");
 // Verify the access token
 const verifyAccessToken = async (req, res, next) => {
     const accessToken = req.cookies.accessToken;
-    console.log("accessToken", accessToken);
     try {
         const isBlacklisted = await isTokenBlacklisted(accessToken);
 
-        if (!accessToken || isBlacklisted) createError("Unauthorized");
+        if (!accessToken || isBlacklisted) createError("Unauthorized", "", {isAuth:false});
 
         jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) {
@@ -29,7 +28,7 @@ const verifyRefreshToken = async (req, res, next) => {
     try {
         const isBlacklisted = await isTokenBlacklisted(refreshToken);
 
-        if (!refreshToken || isBlacklisted) createError("Unauthorized");
+        if (!refreshToken || isBlacklisted) createError("Unauthorized", "", {isAuth:false});
 
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
             if (err) return res.redirect(301, "/login"); // TODO Je ne suis pas sûr du fonctionnement de la redirection... A vérifier...

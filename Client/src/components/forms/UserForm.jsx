@@ -4,6 +4,7 @@ import { CreateInput, SwitchInput, MultipleChoiceInput } from './formComponents'
 import { updateProfil, deleteAccount, changePassword, getUser } from '../../utils/fetchs/userFetch';
 import { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../utils/context';
+import { checkAuth } from '../../utils/fetchs/connectFetch';
 
 const UserForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
@@ -46,12 +47,6 @@ const UserForm = () => {
             setFormError(error.message);
         }
     };
-
-    const formateDatetoISO = (date) => {
-        const newDate = new Date(date)
-        console.log(newDate);
-        // return dateUTC.toISOString().substring(0,10);
-    }
     
     useEffect(() => {
         setFormError(null);
@@ -72,13 +67,16 @@ const UserForm = () => {
     useEffect(()=>{
         setFormData(user)
     },[user])
+
+    useEffect(() => {
+        checkAuth();
+    }, [])
+
     const diabetes_types = [
         "Type 1",
         "Type 2",
         "Gestationnel",
     ];
-
-    console.log(diabetes_types);
 
     return (
         <div className={`userForm-container ${isMobile ? "mobile" : ""} `}>

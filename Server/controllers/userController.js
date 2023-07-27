@@ -49,7 +49,6 @@ const userController = {
         const userId = req.user.id;
         try {
             const user = await userService.getUserById(userId);
-            console.log(user);
             res.status(200).json(user);
         } catch (err) {
             next(err);
