@@ -66,7 +66,7 @@ const sendConfirmationLink = async email => {
 
     // Sending the mail
     const subject = "Confirmation de votre compte";
-    const text = `Bienvenue sur Diabete Sport & Recettes.\n Cliquez sur le lien suivant pour confirmer votre compte : ${confirmationLink}. \nCe lien est valable 10min.`;
+    const text = `Bienvenue sur Diabete Sport & Recettes.\n Cliquez sur le lien suivant pour confirmer votre compte : ${confirmationLink} . \nCe lien est valable 10min.`;
 
     sendMail(email, subject, text);
     return true;
