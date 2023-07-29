@@ -16,12 +16,11 @@ require("./.config/mongoConnect");
 
 // import the routes
 const user = require("./routes/userRoute");
-const connect = require("./routes/connectRoute");
 const recipe = require("./routes/recipeRoute");
 const sport = require("./routes/sportRoute");
 const review = require("./routes/reviewRoute");
-const forgotPassword = require("./routes/passwordRoute");
 const moderation = require("./routes/moderationRoute");
+const public = require("./routes/publicRoute")
 
 // Configure the app
 app.use(logger("dev"));
@@ -38,8 +37,7 @@ app.use(
 
 // Configure the route
 
-app.use("/", connect);
-app.use("/", forgotPassword);
+app.use("/", public);
 app.use("/moderation", moderation);
 app.use("/sport-exercise", sport);
 app.use("/review", review);

@@ -8,5 +8,10 @@ export const sendMailForgotPassword = async (email) => {
 
 // resetPassword
 export const resetPassword = async (resetCode, body) => {
-    await factorizedFetch("POST", `resetPassword/${resetCode}`, body)
+    const result = await factorizedFetch("POST", `resetPassword/${resetCode}`, body)
+    if (result?.status === 200) {
+        return true
+    } else {
+        return false
+    }
 }

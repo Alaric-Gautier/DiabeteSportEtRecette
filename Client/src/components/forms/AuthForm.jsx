@@ -3,13 +3,13 @@ import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { CreateInput, SwitchInput, MultipleChoiceInput } from './formComponents';
 import { AuthContext } from '../../utils/context';
 import { useMediaQuery } from 'react-responsive';
-import { sendMailForgotPassword } from '../../utils/fetchs/passwordFetch';
+import { resetPassword, sendMailForgotPassword } from '../../utils/fetchs/passwordFetch';
 import { toastUtils } from '../../utils/toaster';
 
 const AuthForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const navigate = useNavigate();
-    const { type } = useParams();
+    const { type, resetCode } = useParams();
     const [formError, setFormError] = useState(null);
     const [formType, setFormType] = useState(type);
     const [formData, setFormData] = useState({
@@ -45,7 +45,11 @@ const AuthForm = () => {
                 await sendMailForgotPassword(formData.forgotPassword);
                 break;
             case 'reset-password':
-                await forgotPassword(formData);
+                const resetIsOk = await resetPassword(resetCode, formData);
+                if (resetIsOk) {
+                    navigate("/auth/login")
+                    window.scrollTo(0, 0)
+                }
                 break;
             default:
                 break;
@@ -86,11 +90,7 @@ const AuthForm = () => {
 
             <form onSubmit={handleSubmit} className="auth-form">
 
-                <div className="authForm-logo">
-                    <img src="/images/logos/logo-vertical-color.svg" alt="logo" />
-                </div>
-                {/* {formError && <div className="error-message">{formError.message}</div>} */}
-
+                {/* Affiche le formulaire de connexion */}
                 {formType === "login" && (
 
                     <Fragment>
@@ -117,6 +117,7 @@ const AuthForm = () => {
                     </Fragment>
                 )}
 
+                {/* Affiche le formulaire d'inscription */}
                 {formType === "register" && (
 
                     <Fragment>
@@ -147,6 +148,7 @@ const AuthForm = () => {
                     </Fragment>
                 )}
 
+                {/* Affiche le formulaire d'oublie de mot de passe */}
                 {formType === "forgot-password" && (
 
                     <Fragment>
@@ -170,6 +172,7 @@ const AuthForm = () => {
                     </Fragment>
                 )}
 
+                {/* Affiche le formulaire de réinitialisation du mot de passe */}
                 {formType === "reset-password" && (
 
                     <Fragment>
@@ -189,7 +192,6 @@ const AuthForm = () => {
 
                     </Fragment>
                 )}
-
             </form>
 
         </div >

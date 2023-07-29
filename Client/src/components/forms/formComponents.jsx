@@ -6,9 +6,6 @@ export const CreateInput = ({inputName, label,formData, setFormData, inputType="
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
 
-    useEffect(()=>{
-        console.log("formData dans userForm", formData);
-    },[formData])
     return (
         <Fragment>
             <label htmlFor={inputName}>{label}</label>

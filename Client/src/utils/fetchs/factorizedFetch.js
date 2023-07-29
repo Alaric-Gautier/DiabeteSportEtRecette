@@ -9,6 +9,7 @@ import { toastUtils } from "../toaster";
  * @param {Object} headers 
  * @returns
  */
+
 const factorizedFetch = async (method, endpoint, body = null, needAuth = false, headers={}) => {
     // construit l'url à partir de l'url de base + endpoint à spécifier (param inclus)
     const url = `${import.meta.env.VITE_API}/${endpoint}`

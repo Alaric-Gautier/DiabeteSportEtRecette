@@ -14,14 +14,14 @@ const forgotPassword = async email => {
     const reset_password_expires = new Date(Date.now() + 3600 * 1000);
 
     // Link with the token for the user to reset their password
-    const resetLink = `${process.env.URL}/reset-password/${reset_password_token}`;
+    const resetLink = `${process.env.BASE_CLIENT_URL}/auth/reset-password/${reset_password_token}`;
 
     // Variable for the mail to send
     const subject = "Réinitialisation du mot de passe";
     const text =
         `Bonjour, \n\nVous recevez cet e-mail car vous (ou quelqu'un d'autre) avez demandé la réinitialisation du mot de passe de votre compte.\n` +
         `Cliquez sur le lien suivant ou collez-le dans votre navigateur pour terminer le processus :\n\n` +
-        `${resetLink}` +
+        `${resetLink}\n\n` +
         `Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer ce message et votre mot de passe ne sera pas modifié.\n`;
     try {
         await prisma.account.update({

@@ -26,7 +26,7 @@ const App = () => {
                         <Route path="recipe" element={<Recipe />} />
 
                         {/* Auth Route */}
-                        <Route path="/auth/:type" element={<AuthForm />} />
+                        <Route path="/auth/:type/:resetCode?" element={<AuthForm />} />
                         <Route path="/confirmUser/:confirmationKey" element={<ConfirmUser />} />
                         <Route path="/reset-password/:resetCode" element={<ResetPassword />} />
 
@@ -37,8 +37,6 @@ const App = () => {
                                 <Route path=":type" element={<ContentType />} />
                                 <Route path=":type/:status" element={<ContentStatus />} />
                             </Route>
-                            {/* <Route path="content/:type" element={<ContentType />} /> */}
-
                             {/* <Route path="my-recipes" element={<MyRecipe />} />
                             <Route path="my-sport-exercises" element={<MySportExercise />} /> */}
                         </Route>

@@ -3,8 +3,7 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const { validateEmail, validatePassword, isEmpty, passwordMatch } = require("../utils/validators");
-const { createError, sendMail, sendConfirmationLink, isUserExists } = require("../utils/tools");
-const { createConfirmationCode } = require("../utils/token");
+const { createError, sendConfirmationLink, isUserExists } = require("../utils/tools");
 
 const userService = {
     createUser: async ({ firstName, lastName, email, birthDate, is_diabetic, diabetes_type, password, confirmPassword }) => {
