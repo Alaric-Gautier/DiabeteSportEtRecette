@@ -1,15 +1,17 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CreateInput, SwitchInput, MultipleChoiceInput } from './formComponents';
 import { updateProfil, deleteAccount, changePassword, getUser } from '../../utils/fetchs/userFetch';
 import { useMediaQuery } from 'react-responsive';
-import { UserContext } from '../../utils/context';
+import { AuthContext, UserContext } from '../../utils/context';
 import { checkAuth } from '../../utils/fetchs/connectFetch';
 
 const UserForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const { info } = useParams();
     const {user} = useContext(UserContext);
+    const {setIsAuth} = useContext(AuthContext)
+    const navigate = useNavigate();
     const [formInfo, setFormInfo] = useState(info);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -37,13 +39,16 @@ const UserForm = () => {
                     await changePassword(formData);
                     break;
                 case 'delete-account':
-                    //TODO Add redirection to home page
-                    await deleteAccount(formData);
+                    await deleteAccount();
+                    setIsAuth(false);
+                    localStorage.setItem("isAuth", JSON.stringify({isAuth:false}))
+                    navigate("/")
                     break;
                 default:
                     break;
             }
         } catch (error) {
+            console.log("Mon erreur est ici ? ", error);
             setFormError(error.message);
         }
     };

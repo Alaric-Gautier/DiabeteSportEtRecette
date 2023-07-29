@@ -27,6 +27,7 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
     
     // Exécute le fetch et retourne les data ou une erreur
    const response = await fetch(url, options);
+    console.log("response du fetch = ", response);
         const responseData = await response.json();
         if (!response.ok) {
           toastUtils("error", responseData.message || "Une erreur s'est produite !")

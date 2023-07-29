@@ -25,5 +25,6 @@ export const updateProfil = async (body) => {
 
 // deleteAccount
 export const deleteAccount = async () => {
+    console.log("je delete mon compte");
     await factorizedFetch("DELETE", "user/deleteAccount", null, true)
 }

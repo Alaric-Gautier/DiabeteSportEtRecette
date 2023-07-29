@@ -1,9 +1,13 @@
 import React, { Fragment, useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import Home from "./components/pages/public/Home";
+import Health from "./components/pages/public/Health";
+import About from "./components/pages/public/About";
+import Recipe from "./components/pages/public/Recipe";
+import Sport from "./components/pages/public/Sport";
+
 import MainLayout from "./components/pages/MainLayout";
-import Home from "./components/pages/Home";
-import Recipe from "./components/pages/Recipe";
-import DashboardLayout from "./components/pages/DashboardLayout";
 import AuthForm from "./components/forms/AuthForm";
 import ConfirmUser from "./components/pages/login/ConfirmUser";
 import ResetPassword from "./components/pages/login/ResetPassword";
@@ -12,6 +16,7 @@ import Content from "./components/pages/account/dashboard/pages/Content";
 import ContentType from "./components/content/ContentType";
 import ContentStatus from "./components/content/ContentStatus";
 import CheckAuthComponent from "./components/pages/CheckAuthComponent"
+
 
 const App = () => {
     return (
@@ -24,6 +29,9 @@ const App = () => {
                         {/* Public routes */}
                         <Route path="/" element={<Home />} />
                         <Route path="recipe" element={<Recipe />} />
+                        <Route path="sport-exercise" element={<Sport />} />
+                        <Route path="health" element={<Health />} />
+                        <Route path="about" element={<About />} />
 
                         {/* Auth Route */}
                         <Route path="/auth/:type/:resetCode?" element={<AuthForm />} />
@@ -41,6 +49,7 @@ const App = () => {
                             <Route path="my-sport-exercises" element={<MySportExercise />} /> */}
                         </Route>
 
+                    <Route path="*" element={<img src="/images/other/404error.jpg" style={{width:"100%"}}/>} />
                     </Route>
 
                     {/* <Route path="/" element={<MainAdminLayout />}> */}
@@ -49,7 +58,6 @@ const App = () => {
                     {/* </Route> */}
 
                     {/* //TODO: Add 404 page in the main layout ? */}
-                    <Route path="*" element={<h1>404</h1>} />
                     
                 </Routes>
 

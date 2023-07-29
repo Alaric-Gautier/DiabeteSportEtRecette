@@ -165,15 +165,18 @@ const userService = {
         }
     },
     updateProfile: async (id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type) => {
-        try {
-            if (email) {
-                const existingEmail = await prisma.account.findUnique({ where: { email } });
+        const user = await prisma.account.findUnique({ where: { id } });
+
+            console.log("mail existant = ", user.email);
+            if (email && email !== user.email) {
+                const existingEmail = await prisma.account.findUnique({where:{email}})
 
                 if (existingEmail) {
                     createError("ResourceConflictError", "Un compte existe déjà avec cette adresse email");
                 }
             }
 
+        try {
             const updatedUser = await prisma.account.update({
                 where: {
                     id,

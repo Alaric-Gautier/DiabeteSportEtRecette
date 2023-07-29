@@ -72,9 +72,9 @@ const sendConfirmationLink = async email => {
     return true;
 };
 
-const isUserExists = (user, callback = null) => {
+const isUserExists = (user, callback = null, message = null) => {
     if (!user) {
-        createError("NotFound", "Aucun utilisateur n'a été trouvé");
+        createError("NotFound", message || "Aucun utilisateur n'a été trouvé");
     } else {
         if (callback) {
             callback();

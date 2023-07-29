@@ -38,10 +38,9 @@ const userController = {
         const { firstName, lastName, email, birthDate, is_diabetic, diabetes_type } = req.body;
         try {
             // Update user
-
             const updatedUser = await userService.updateProfile(id, firstName, lastName, email, birthDate, is_diabetic, diabetes_type);
             res.status(200).json({ message: "Information correctement mises à jour", data: updatedUser });
-        } catch (error) {
+        } catch (err) {
             next(err);
         }
     },
@@ -64,7 +63,7 @@ const userController = {
             // Delete the cookies
             res.clearCookie("accessToken");
             res.clearCookie("refreshToken");
-            return res.sendStatus(204);
+            return res.status(200).json({message:"compte correctement supprimé"});
         } catch (err) {
             console.error(err);
             createError("error", "Impossible de supprimer le compte. Une erreur interne s'est produite.");
