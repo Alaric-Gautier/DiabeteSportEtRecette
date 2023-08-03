@@ -10,13 +10,13 @@ const userService = {
         // check if all required fields are filled with isEmpty function
         isEmpty(firstName, lastName, email, birthDate, is_diabetic, password, confirmPassword);
 
+        // check if email is valid
+        validateEmail(email);
+
         // if email is already use, throw an error
         if (await prisma.account.findUnique({ where: { email: email } })) {
             createError("ResourceConflictError", "Impossible de créer un compte car cet email est déjà utilisé");
         }
-
-        // check if email is valid
-        validateEmail(email);
 
         // confirm the password
         passwordMatch(password, confirmPassword);
@@ -78,15 +78,23 @@ const userService = {
                 where: {
                     id: parseInt(userId),
                 },
-                include: {
-                    roles: true,
-                    sport_exercises: true,
-                    recipes: true,
-                    reviews: true,
+                select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                    birthDate: true,
+                    is_diabetic: true,
+                    diabetes_type: true,
+                    createdAt: true,
+                    updatedAt: true,
+                    is_confirmed: true,
+                    roles:true,
+                    sport_exercises:true,
+                    recipes:true,
+                    reviews:true
                 },
             });
-
-            isUserExists(user);
             return user;
         } catch (error) {
             console.error(error);

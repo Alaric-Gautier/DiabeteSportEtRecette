@@ -119,32 +119,35 @@ const AuthForm = () => {
 
                 {/* Affiche le formulaire d'inscription */}
                 {formType === "register" && (
-
                     <Fragment>
-
                         <div className="form-title">
                             <h1>Inscription</h1>
                         </div>
-
                         <div className="form-fields">
-                            <CreateInput inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} />
-                            <SwitchInput inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} />
-                            {formData.is_diabetic && <MultipleChoiceInput inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} diabete_type={diabetes_types} />}
-                            <CreateInput inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
-                            <CreateInput inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                            <CreateInput 
+                                inputName={"lastName"} label="Nom" formData={formData} setFormData={setFormData} />
+                            <CreateInput 
+                                inputName={"firstName"} label="Prénom" formData={formData} setFormData={setFormData} />
+                            <CreateInput 
+                                inputName={"email"} label="Email" inputType="email" formData={formData} setFormData={setFormData} />
+                            <CreateInput 
+                                inputName={"birthDate"} label="Date de naissance" inputType="date" formData={formData} setFormData={setFormData} />
+                            <SwitchInput 
+                                inputName={"is_diabetic"} label="Diabétique" formData={formData} setFormData={setFormData} />
+                            {formData.is_diabetic && 
+                                <MultipleChoiceInput 
+                                inputName={"diabetes_type"} label="Type de diabète" formData={formData} setFormData={setFormData} diabete_type={diabetes_types} />}
+                            <CreateInput 
+                                inputName={"password"} label="Mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
+                            <CreateInput 
+                                inputName={"confirmPassword"} label="Confirmer le mot de passe" inputType="password" formData={formData} setFormData={setFormData} />
                         </div>
-
                         <div className="form-submit">
                             <button type="submit">S'inscrire</button>
                         </div>
-
                         <div className="form-footer">
                             <p>Vous avez déjà un compte ?</p> <NavLink to="/auth/login">Connectez-vous ici.</NavLink>
                         </div>
-
                     </Fragment>
                 )}
 

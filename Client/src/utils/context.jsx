@@ -13,7 +13,7 @@ export const AuthProvider = (props) => {
     }
 
     const login = async ({ email, password }) => {
-        const result = await factorizedFetch("POST", "login", { email, password }, true)
+        const result = await factorizedFetch("POST", "login", { email, password }, false)
         if (result?.status === 200) {
             setIsAuth(true)
             return true
@@ -50,7 +50,6 @@ export const AuthProvider = (props) => {
 export const UserContext = createContext();
 export const UserProvider = (props) => {
     const [user, setUser] = useState({})
-    const {isAuth} = useContext(AuthContext)
     
     const getUserData = async () => {
         const userData = await getUser();

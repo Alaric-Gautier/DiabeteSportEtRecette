@@ -306,6 +306,120 @@
             gap: 2rem;
             width: 100%;
 
+            
+            .content-form {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+
+                .content-form-title {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 3rem;
+                    color: $blueChart;
+                    font-weight: bold;
+
+                    h1 {
+                        font-size: 2rem;
+                    }
+
+                    p {
+                        font-size: 1.5rem;
+                    }
+                }
+
+                .content-form-fields {
+                    display: grid;
+                    grid-template-columns: 1.5fr 2fr;
+                    gap: 1rem;
+                    column-gap: 1.5rem;
+                    width: 35%;
+
+                    label {
+                        display: flex;
+                        font-size: 1.2rem;
+                        color: $blueChart;
+                        font-weight: bold;
+                        align-items: center;
+                        justify-content: flex-end;
+                    }
+
+                    input {
+                        border: 1px solid $purpleChart;
+                        border-radius: 0.5rem;
+                        padding: 0.5rem;
+                        font-size: 1.2rem;
+                        color: $purpleChart;
+                        font-weight: bold;
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid $yellowChart;
+                        }
+                    }
+
+                    .switch-input {
+                        width: 5%;
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid $purpleChart;
+                        }
+
+                        &:checked {
+                            border: 2px solid $blueChart;
+                            background-color: $yellowChart;
+                        }
+                    }
+
+                    select {
+                        border: 1px solid $purpleChart;
+                        border-radius: 0.5rem;
+                        padding: 0.5rem;
+                        font-size: 1.2rem;
+                        color: $purpleChart;
+                        font-weight: bold;
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid $yellowChart;
+                        }
+
+                        option {
+                            font-size: 1.2rem;
+                            color: $purpleChart;
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+                .content-form-submit {
+                    display: flex;
+                    justify-content: center;
+                    width: 35%;
+
+                    button {
+                        border: 1px solid $blueChart;
+                        border-radius: 0.5rem;
+                        padding: 0.5rem;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        color: $yellowChart;
+                        background-color: $blueChart;
+                        cursor: pointer;
+                        transition: all 0.5s ease-in-out;
+
+                        &:hover {
+                            background-color: $yellowChart;
+                            color: $blueChart;
+                        }
+                    }
+                }
+            }
+
             .content-type-nav {
                 display: flex;
                 justify-content: center;

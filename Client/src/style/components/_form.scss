@@ -24,13 +24,13 @@
             width: 10rem;
         }
 
-        .form-title {
+        .auth-form-title {
             font-size: 2.5rem;
             color: $blueChart;
             font-weight: bold;
         }
 
-        .form-fields {
+        .auth-form-fields {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
@@ -85,7 +85,7 @@
             }
         }
 
-        .form-submit {
+        .auth-form-submit {
             display: flex;
 
             button {
@@ -106,7 +106,7 @@
             }
         }
 
-        .form-footer {
+        .auth-form-footer {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
@@ -132,7 +132,6 @@
         }
     }
 
-
     &.mobile {
 
         .form-banner {
@@ -142,7 +141,7 @@
         .auth-form {
             margin-bottom: 1rem;
 
-            .form-fields {
+            .auth-form-fields {
                 width: 70%;
 
                 input {

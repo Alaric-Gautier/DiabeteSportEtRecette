@@ -16,31 +16,13 @@ const ContentType = () => {
         <div className={`contentType-container ${isMobile ? "mobile" : ""} `}>
 
             <div className="userType-content">
-
-                {contentType === "recipes" && (
-
                     <Fragment>
 
-                        <section className="user-recipes">
+                        <section className={`user-${contentType}`}>
                             <ContentStatus />
                         </section>
 
                     </Fragment>
-
-                )}
-
-                {contentType === "sport-exercises" && (
-
-                    <Fragment>
-
-                        <section className="user-sport-exercises">
-                            <ContentStatus />
-                        </section>
-
-                    </Fragment>
-
-                )}
-
             </div>
         </div>
     );

@@ -16,6 +16,9 @@ import Content from "./components/pages/account/dashboard/pages/Content";
 import ContentType from "./components/content/ContentType";
 import ContentStatus from "./components/content/ContentStatus";
 import CheckAuthComponent from "./components/pages/CheckAuthComponent"
+import AuthFormV2 from "./components/forms/AuthFormV2";
+import UserFormV2 from "./components/forms/UserFormV2";
+import ContentStatusV2 from "./components/content/ContentStatusV2";
 
 
 const App = () => {
@@ -34,16 +37,16 @@ const App = () => {
                         <Route path="about" element={<About />} />
 
                         {/* Auth Route */}
-                        <Route path="/auth/:type/:resetCode?" element={<AuthForm />} />
+                        <Route path="/auth/:type/:resetCode?" element={<AuthFormV2 />} />
                         <Route path="/confirmUser/:confirmationKey" element={<ConfirmUser />} />
                         <Route path="/reset-password/:resetCode" element={<ResetPassword />} />
 
                         {/* Protected routes */}
                         <Route path="dashboard/" element={<CheckAuthComponent/>}>
-                            <Route path=":info" element={<UserForm />} />
+                            <Route path=":info" element={<UserFormV2 />} />
                             <Route path="content" element={<Content />} >
                                 <Route path=":type" element={<ContentType />} />
-                                <Route path=":type/:status" element={<ContentStatus />} />
+                                <Route path=":type/:status" element={<ContentStatusV2 />} />
                             </Route>
                             {/* <Route path="my-recipes" element={<MyRecipe />} />
                             <Route path="my-sport-exercises" element={<MySportExercise />} /> */}

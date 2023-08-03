@@ -1,11 +1,64 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 
-export const CreateInput = ({inputName, label,formData, setFormData, inputType="text", defaultValue=""}) => {
+import React from 'react';
+import { NavLink } from "react-router-dom";
+
+export const CreateForm = ({formType, inputOptions, fields, formData, setFormData, handleSubmit, hideInputs=[] }) => {
+    const {title, subtitle, submitButtonText, footerText, footerLink} = inputOptions;
+    const selectInput = (field, key) => {
+    switch (field.inputType) {
+        case "checkbox" :
+            return <SwitchInput key={key} field={field} formData={formData} setFormData={setFormData}/>
+        case "multiple":
+           return <MultipleChoiceInput key={key} field={field} formData={formData} setFormData={setFormData}/>
+        default:
+            return <CreateInput key={key} field={field} formData={formData} setFormData={setFormData}/>
+    }
+  }
+
+  return (
+    <Fragment>
+      <div className={`${formType}-form-title`}>
+        <h1>{title}</h1>
+        {subtitle && <p>{subtitle}</p>}
+      </div>
+
+      <div className={`${formType}-form-fields`}>
+
+        {fields.map((field, index) => (
+                !hideInputs.includes(field.inputName) && selectInput(field, index)
+            )
+        )}
+
+      </div>
+
+      <div className={`${formType}-form-submit`}>
+        <button type="submit" onClick={handleSubmit}>
+          {submitButtonText}
+        </button>
+      </div>
+
+      <div className={`${formType}-form-footer`}>
+        <p>{footerText && footerText}</p>
+        {!footerLink 
+            ? null 
+            : Array.isArray(footerLink) 
+                ? footerLink.map((link, index) => <NavLink key={index} to={link.to}>{link.label}</NavLink>)
+                : <NavLink to={footerLink.to}>{footerLink.label}</NavLink>}
+      </div>
+    </Fragment>
+  );
+};
+
+
+
+export const CreateInput = ({field,formData, setFormData, defaultValue=""}) => {
+    const {inputName, label, inputType, maxLength=null} = field;
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
-
+    
     return (
         <Fragment>
             <label htmlFor={inputName}>{label}</label>
@@ -15,12 +68,14 @@ export const CreateInput = ({inputName, label,formData, setFormData, inputType="
                 name={inputName} 
                 value={formData[inputName]}
                 onChange={handleInputChange} 
+                maxLength={maxLength}
             />
         </Fragment>
     )
 }
 
-export const MultipleChoiceInput = ({ inputName, label, formData, setFormData, diabete_type = []}) => {
+export const MultipleChoiceInput = ({ field, formData, setFormData}) => {
+    const {inputName, label, data=[]} = field;
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -34,8 +89,7 @@ export const MultipleChoiceInput = ({ inputName, label, formData, setFormData, d
                 value={formData[inputName]}
                 onChange={handleInputChange}
             >
-                {diabete_type.map((choice, index) => (
-                    // TODO Vérifier le selected pour afficher les informations de l'utilisateur
+                {data.map((choice, index) => (
                     <option key={index} selected={formData[inputName] === choice ? true : false} value={choice}>{choice}</option>
                 ))}
             </select>
@@ -43,7 +97,8 @@ export const MultipleChoiceInput = ({ inputName, label, formData, setFormData, d
     )
 }
 
-export const SwitchInput = ({ inputName, label, formData, setFormData}) => {
+export const SwitchInput = ({ field, formData, setFormData}) => {
+    const {inputName, label} = field;
     const handleInputClick = (event) => {
         const { name, checked } = event.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: checked }));

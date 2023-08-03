@@ -5,6 +5,7 @@ import { updateProfil, deleteAccount, changePassword, getUser } from '../../util
 import { useMediaQuery } from 'react-responsive';
 import { AuthContext, UserContext } from '../../utils/context';
 import { checkAuth } from '../../utils/fetchs/connectFetch';
+import { diabetes_types } from '../../utils/datas/datas';
 
 const UserForm = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
@@ -54,18 +55,6 @@ const UserForm = () => {
     };
     
     useEffect(() => {
-        setFormError(null);
-        setFormData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            birthDate: "",
-            is_diabetic: false,
-            diabetes_type: null,
-            oldPassword: "",
-            newPassword: "",
-            confirmPassword: ""
-        });
         setFormInfo(info)
     }, [info])
 
@@ -77,11 +66,6 @@ const UserForm = () => {
         checkAuth();
     }, [])
 
-    const diabetes_types = [
-        "Type 1",
-        "Type 2",
-        "Gestationnel",
-    ];
 
     return (
         <div className={`userForm-container ${isMobile ? "mobile" : ""} `}>

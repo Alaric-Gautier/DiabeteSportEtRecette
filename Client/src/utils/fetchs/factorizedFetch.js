@@ -20,14 +20,13 @@ const factorizedFetch = async (method, endpoint, body = null, needAuth = false, 
     // Défini les options du fetch, incluant le cookie d'authentification
     const options = {
       method: method,
-      credentials: needAuth ? "include" : "omit",
+      credentials:"include",
       headers: headers,
       body: body ? JSON.stringify(body) : null
     };
-    
+
     // Exécute le fetch et retourne les data ou une erreur
    const response = await fetch(url, options);
-    console.log("response du fetch = ", response);
         const responseData = await response.json();
         if (!response.ok) {
           toastUtils("error", responseData.message || "Une erreur s'est produite !")
